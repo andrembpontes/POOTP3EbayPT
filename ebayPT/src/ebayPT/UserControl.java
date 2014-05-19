@@ -29,7 +29,7 @@ public class UserControl implements IUserControl {
 	}
 
 	public void logout() {
-		this.loggedUser = null;
+		this.loggedUser = GUEST_USER;
 	}
 
 }

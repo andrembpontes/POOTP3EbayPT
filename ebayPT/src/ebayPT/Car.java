@@ -5,7 +5,7 @@ public class Car extends Product implements ICar {
 	private String make, model;
 	private int year;
 	
-	Car(EProductCategory category, String code, String description,
+	public Car(EProductCategory category, String code, String description,
 			EProductState state, String make, String model, int year) {
 		super(category, code, description, state);
 		

@@ -9,6 +9,6 @@ public interface IAuction {
 	
 	boolean isOpen();
 	
-	void close();
-	void bid(IUser user, int amount);
+	void close() throws NoBidsException;
+	boolean bid(IUser user, int amount);
 }

@@ -4,14 +4,15 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-public abstract class Auction implements IAuction {
+public class Auction implements IAuction {
 
 	private IUser seller;
 	private IProduct product;
 	private List<IBid> bids;
 	private boolean open;
+	private int base;
 	
-	public Auction(IUser seller, IProduct product){
+	public Auction(IUser seller, IProduct product, int base){
 		this.seller = seller;
 		this.product = product;
 		
@@ -49,8 +50,13 @@ public abstract class Auction implements IAuction {
 	}
 
 	@Override
-	public boolean bid(IUser user, int amount) {
-		return this.bids.add(new Bid(user, amount));
+	public boolean bid(IUser user, int amount) throws LowBidAmountException {
+		if(this.base > amount)
+			throw new LowBidAmountException();
+		
+		this.bids.add(new Bid(user, amount));
+		
+		return false;
 	}
 
 }

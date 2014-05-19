@@ -32,4 +32,9 @@ public class User implements IUser {
 		return user.getUsername().equals(this.username);
 	}
 
+	@Override
+	public IUserType getUserType() {
+		return this.type;
+	}
+
 }

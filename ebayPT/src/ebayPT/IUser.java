@@ -8,5 +8,7 @@ public interface IUser {
 	
 	String getUsername();
 	
+	IUserType getUserType();
+	
 	boolean equals(IUser user);
 }

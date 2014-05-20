@@ -76,7 +76,7 @@ public class Auction implements IAuction {
 		if(this.seller.equals(user))
 			throw new BiddingOwnAuctionException();
 		
-		this.bids.add(new Bid(user, amount));
+		this.bids.add(new Bid(user, amount, this.bids.size()));
 		
 		return false;
 	}

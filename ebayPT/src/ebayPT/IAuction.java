@@ -45,9 +45,10 @@ public interface IAuction {
 	 * @return True if bid become closed by consequence of bid
 	 * @throws LowBidAmountException: Bid amount is lower than base amount
 	 * @throws BiddingClosedAuctionException: Bidding a closed auction
+	 * @throws BiddingOwnAuctionException: Bidder is auction seller
 	 */
 	boolean bid(IUser user, int amount) throws LowBidAmountException,
-	BiddingClosedAuctionException;
+		BiddingClosedAuctionException, BiddingOwnAuctionException;
 	
 	/**
 	 * Returns winner bid, null if auction is running

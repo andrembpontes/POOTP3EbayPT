@@ -4,6 +4,12 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.TreeSet;
 
+/**
+ * Aims to represent an auction storing the seller, the product and all bids.
+ * 
+ * @author //TODO Specify authors
+ * 
+ */
 public class Auction implements IAuction {
 
 	private IUser seller;		//Seller user
@@ -58,9 +64,17 @@ public class Auction implements IAuction {
 	}
 
 	@Override
-	public boolean bid(IUser user, int amount) throws LowBidAmountException {
+	public boolean bid(IUser user, int amount) throws LowBidAmountException,
+			BiddingClosedAuctionException, BiddingOwnAuctionException {
+		
+		if(!this.open)
+			throw new BiddingClosedAuctionException();
+		
 		if(this.base > amount)
 			throw new LowBidAmountException();
+		
+		if(this.seller.equals(user))
+			throw new BiddingOwnAuctionException();
 		
 		this.bids.add(new Bid(user, amount));
 		

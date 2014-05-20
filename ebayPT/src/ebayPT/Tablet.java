@@ -6,8 +6,8 @@ public class Tablet extends Product implements ITablet {
 	private int size, weight;
 	
 	public Tablet(EProductCategory category, String code, String description,
-			EProductState state, String brand, int size, int weight) {
-		super(category, code, description, state);
+			String brand, int size, int weight) {
+		super(category, code, description);
 		
 		this.brand = brand;
 		this.size = size;

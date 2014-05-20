@@ -6,11 +6,12 @@ public abstract class Product implements IProduct {
 	private String code, description;
 	private EProductState state;
 
-	Product (EProductCategory category, String code, String description, EProductState state){
+	Product (EProductCategory category, String code, String description){
 		this.category = category;
 		this.code = code;
 		this.description = description;
-		this.state = state;
+		
+		this.state = IProduct.START_STATE;
 	}
 	
 	@Override

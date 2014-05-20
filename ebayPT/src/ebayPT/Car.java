@@ -2,12 +2,14 @@ package ebayPT;
 
 public class Car extends Product implements ICar {
 
-	private String make, model;
-	private int year;
+	private String 	make,	//Car make
+					model; 	//Car model
 	
-	public Car(EProductCategory category, String code, String description,
-			EProductState state, String make, String model, int year) {
-		super(category, code, description, state);
+	private int year;		//Car year
+	
+	public Car(String code, String description, String make, String model, int year) {
+		
+		super(EProductCategory.CAR, code, description);
 		
 		this.make = make;
 		this.model = model;

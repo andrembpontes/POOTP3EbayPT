@@ -1,5 +1,11 @@
 package ebayPT;
 
+/**
+ * Represents a tablet type product
+ * 
+ * @author n42540: Rodrigo Simoes; n42845: Andre Pontes
+ *
+ */
 public class Tablet extends Product implements ITablet {
 
 	private String brand;		//Brand

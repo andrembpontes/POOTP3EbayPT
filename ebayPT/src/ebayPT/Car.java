@@ -1,5 +1,11 @@
 package ebayPT;
 
+/**
+ * Represents a product of car type
+ * 
+ * @author n42540: Rodrigo Simoes; n42845: Andre Pontes
+ *
+ */
 public class Car extends Product implements ICar {
 
 	private String 	make,	//Car make

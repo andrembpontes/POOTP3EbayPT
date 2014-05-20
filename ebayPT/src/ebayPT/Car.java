@@ -8,13 +8,16 @@ public class Car extends Product implements ICar {
 	private int year;		//Car year
 	
 	/**
+	 * Creates a new Car product with givens data
+	 * 
 	 * @param code: Car code
 	 * @param description: Description
 	 * @param make: Car make
 	 * @param model: Car model
 	 * @param year: Car year
 	 */
-	public Car(String code, String description, String make, String model, int year) {
+	public Car(String code, String description, String make, String model,
+			int year) {
 		
 		super(EProductCategory.CAR, code, description);
 		

@@ -2,12 +2,23 @@ package ebayPT;
 
 public class Tablet extends Product implements ITablet {
 
-	private String brand;
-	private int size, weight;
+	private String brand;		//Brand
+	private int size,			//Size
+				weight;			//Weight
 	
-	public Tablet(EProductCategory category, String code, String description,
-			String brand, int size, int weight) {
-		super(category, code, description);
+	/**
+	 * Creates a new Tablet product with givens data
+	 * 
+	 * @param code: Tablet code
+	 * @param description: Description
+	 * @param brand: Tablet brand
+	 * @param size: Tablet size
+	 * @param weight: Tablet weight
+	 */
+	public Tablet(String code, String description, String brand, int size,
+			int weight) {
+		
+		super(EProductCategory.TABLET, code, description);
 		
 		this.brand = brand;
 		this.size = size;

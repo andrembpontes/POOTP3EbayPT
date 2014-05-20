@@ -1,5 +1,12 @@
 package ebayPT;
 
+/**
+ * A bid in an auction, in other words, a pair IUser (bidder) / bid amount.
+ * Each auction bid contains respective chronological position
+ * 
+ * @author n42540: Rodrigo Simoes; n42845: Andre Pontes
+ *
+ */
 public interface IBid {
 	/**
 	 * Returns bidder user

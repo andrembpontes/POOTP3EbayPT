@@ -2,6 +2,13 @@ package ebayPT;
 
 import java.util.Iterator;
 
+/**
+ * Aims to represent an auction storing seller user, respective auction product
+ * and all current bids.
+ * 
+ * @author n42540: Rodrigo Simoes; n42845: Andre Pontes
+ *
+ */
 public interface IAuction {
 	/**
 	 * Returns seller user
@@ -19,6 +26,8 @@ public interface IAuction {
 	
 	/**
 	 * Creates and returns an iterator for all bids
+	 * Bids list is sort first by descending bid amount and then by ascending
+	 * chronological order
 	 * 
 	 * @return Iterator for all bids
 	 */
@@ -40,6 +49,8 @@ public interface IAuction {
 	void close() throws NoBidsException;
 	
 	/**
+	 * Bid on auction
+	 * 
 	 * @param user: Bidder user
 	 * @param amount: Bid amount
 	 * @return True if bid become closed by consequence of bid

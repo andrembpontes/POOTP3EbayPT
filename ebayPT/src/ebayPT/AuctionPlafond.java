@@ -5,7 +5,7 @@ package ebayPT;
  * Standard Auction but close automatically when receive a bid amount higher
  * than specified plafond
  * 
- * @author //TODO specify authors
+ * @author n42540: Rodrigo Simoes; n42845: Andre Pontes
  *
  */
 public class AuctionPlafond extends Auction {

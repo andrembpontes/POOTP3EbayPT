@@ -7,7 +7,7 @@ import java.util.TreeSet;
 /**
  * Aims to represent an auction storing the seller, the product and all bids.
  * 
- * @author //TODO Specify authors
+ * @author n42540: Rodrigo Simoes; n42845: Andre Pontes
  * 
  */
 public class Auction implements IAuction {

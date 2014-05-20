@@ -3,7 +3,7 @@ package ebayPT;
 /**
  * Represents an auction bid, in other words, a pair IUser (bidder) / bid amount
  * 
- * @author //TODO specify authors
+ * @author n42540: Rodrigo Simoes; n42845: Andre Pontes
  *
  */
 public class Bid implements IBid, Comparable<IBid>{

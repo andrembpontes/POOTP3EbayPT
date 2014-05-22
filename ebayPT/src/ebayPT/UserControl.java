@@ -24,12 +24,20 @@ public class UserControl implements IUserControl {
 		}
 	}
 
-	public void login(IUser user) {
-		this.loggedUser = user;
+	public void login(IUser user) throws UserLoggedInException {
+		if(this.loggedUser != GUEST_USER) {
+			throw new UserLoggedInException();
+		} else {
+			this.loggedUser = user;
+		}
 	}
 
-	public void logout() {
-		this.loggedUser = GUEST_USER;
+	public void logout() throws NoUserLoggedInException {
+		if(this.loggedUser == GUEST_USER) {
+			throw new NoUserLoggedInException();
+		} else {
+			this.loggedUser = GUEST_USER;
+		}
 	}
 
 }

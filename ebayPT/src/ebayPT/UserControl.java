@@ -2,23 +2,24 @@ package ebayPT;
 
 public class UserControl implements IUserControl {
 
+	public static final IUserType GUEST_USER_TYPE = EUserType.GUEST;
 	public static final IUser GUEST_USER = null;
-	public static final IUser DEFAULT_USER = GUEST_USER;
 	
 	private IUser loggedUser;
 	
 	public UserControl() {
-		this.loggedUser = DEFAULT_USER;
+		this.loggedUser = GUEST_USER;
 	}
 	
 	public UserControl(IUser initialUser) {
 		this.loggedUser = initialUser;
 	}
 	
-	public boolean isAllowed(EAction action) {
-		EUserType allowedType = action.getAllowedUserType();
+	public boolean isAllowed(IAction action) {
+		IUserType allowedType = action.getAllowedUserType();
+		
 		if(loggedUser == GUEST_USER) {
-			return EUserType.GUEST.hasAccessLevel(allowedType);
+			return GUEST_USER_TYPE.hasAccessLevel(allowedType);
 		} else {
 			return this.loggedUser.getUserType().hasAccessLevel(allowedType);
 		}
@@ -39,5 +40,20 @@ public class UserControl implements IUserControl {
 			this.loggedUser = GUEST_USER;
 		}
 	}
+	
+	@Override
+	public IUser getLoggedUser() throws NoUserLoggedInException {
+		if(this.loggedUser == GUEST_USER)
+			throw new NoUserLoggedInException();
+		
+		return this.loggedUser;
+	}
+
+	@Override
+	public void executeAction(IAction action) throws UserDeniedException {
+		if(this.isAllowed(action))
+			throw new UserDeniedException(action.getAllowedUserType());
+	}
+	
 
 }

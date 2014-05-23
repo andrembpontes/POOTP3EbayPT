@@ -36,5 +36,10 @@ public class User implements IUser {
 	public IUserType getUserType() {
 		return this.type;
 	}
+	
+	@Override
+	public int hashCode(){
+		return this.username.hashCode();
+	}
 
 }

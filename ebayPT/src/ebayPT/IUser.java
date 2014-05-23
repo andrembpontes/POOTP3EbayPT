@@ -46,8 +46,7 @@ public interface IUser {
 	 * @throws NotProductOwnerException: Trying to add a product of other user
 	 * @throws ProductAlreadyExists: Trying to add a product that already exists
 	 */
-	void addProduct(IProduct product)
-			throws NotProductOwnerException, ProductAlreadyExists;
+	void addProduct(IProduct product) throws ProductAlreadyExists;
 	
 	/**
 	 * Sum all sales and return total of sales amount

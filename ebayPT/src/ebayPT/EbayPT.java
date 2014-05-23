@@ -3,6 +3,7 @@ package ebayPT;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
@@ -11,31 +12,29 @@ public class EbayPT implements IEbayPT {
 
 	private IUserControl userControl;
 	
-	private Map <String, IUser> usersMap;
+	private Map <String, IUser> users;
 
-	private Map<IUser, TreeSet<IProduct>>	productsByUser;
+	private Set<IUser> usersBySales;
 	
-	private Map<EProductCategory, TreeSet<IAuction>> auctionsByProductCategoryMap;
+	private Map<EProductCategory, Set<IAuction>> auctionsByProductCategory;
 
-	private Map<Integer, TreeSet<ITablet>> tabletAuctionsBySize; 
+	private Map<Integer, Set<ITablet>> tabletAuctionsBySize; 
 	
 	public EbayPT() {
 		this.userControl = new UserControl();
-		this.usersMap = new HashMap<String, IUser>();
+		this.users = new TreeMap<String, IUser>();
+			
+		this.auctionsByProductCategory = new HashMap<EProductCategory,
+				Set<IAuction>>();
 		
-		//TODO change String with IUser?
-		this.productsByUser = new HashMap<IUser, TreeSet<IProduct>>();
+		this.tabletAuctionsBySize = new HashMap<Integer, Set<ITablet>>();
 		
-		this.auctionsByProductCategoryMap = new HashMap<EProductCategory,
-				TreeSet<IAuction>>();
-		
-		this.tabletAuctionsBySize = new HashMap<Integer, TreeSet<ITablet>>();
-		
+		this.usersBySales = new TreeSet<IUser>(new ComparatorUserBySales());
 	}
 	
 	@Override
 	public void login(String username) throws UserLoggedInException {
-		this.userControl.login(this.usersMap.get(username));
+		this.userControl.login(this.users.get(username));
 	}
 
 	@Override
@@ -47,14 +46,15 @@ public class EbayPT implements IEbayPT {
 	public Iterator<IProduct> getProducts() throws UserDeniedException {
 		this.userControl.executeAction(EAction.LIST_PRODUCTS);
 		
-		this.productsByUser.get(this.userControl.getLoggedUser()).iterator();
+		this.userControl.getLoggedUser().getProducts();
 	}
 
 	@Override
-	public Iterator<IAuction> getAuctions(String category) {
+	public Iterator<IAuction> getAuctions(String category)
+			throws UserDeniedException {
 		this.userControl.executeAction(EAction.LIST_AUCTIONS);
 		
-		this.auctionsByProductCategoryMap.get(category).iterator();
+		return this.auctionsByProductCategory.get(category).iterator();
 	}
 
 	@Override
@@ -67,41 +67,81 @@ public class EbayPT implements IEbayPT {
 	}
 
 	@Override
-	public Iterator<IBid>
-			getBiddings(String sellerUsername, String productCode) {
-		// TODO Auto-generated method stub
-		return null;
+	public Iterator<IBid> getBiddings(String sellerUsername, String productCode)
+			throws UserDeniedException {
+		
+		//TODO Verify user access level needed
+		this.userControl.executeAction(EAction.LIST_BIDS);
+		
+		return this.users.get(sellerUsername).getAuction(productCode).getBids();
 	}
 
 	@Override
 	public Iterator<IUser> getUsers() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.users.values().iterator();
 	}
 
 	@Override
 	public Iterator<IUser> getUsersBySales() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.usersBySales.iterator();
 	}
 
 	@Override
 	public void addUser(String email, String name, String username,
-			String userType) {
-		// TODO Auto-generated method stub
-
+			String userType) throws InvalidUserTypeException{
+		this.userControl.executeAction(EAction.ADD_USER);
+		
+		IUser newUser = new User(EUserType.valueOf(userType), username, email,
+				name);
+		
+		this.users.put(username, newUser);
+		this.usersBySales.add(newUser);
 	}
 
+	//TODO comment this
+	private void addAuction(IAuction auction, IProduct product)
+			throws InvalidProductException, UserDeniedException{
+		
+		this.userControl.executeAction(EAction.CREATE_AUCTION);
+		
+		try {
+			if(!this.auctionsByProductCategory.
+					containsKey(product.getCategory())){
+				
+				Set<IAuction> newSet = new TreeSet<IAuction>();
+				newSet.add(auction);
+				this.auctionsByProductCategory.
+					put(product.getCategory(), newSet);
+			}
+			
+			this.auctionsByProductCategory.get(product.getCategory()).
+				add(auction);
+		}
+		catch (NullPointerException e2) {
+			throw new InvalidProductException();
+		}
+	}
+	
 	@Override
-	public void createAuctionStandard(String productCode, int basePrice) {
-		// TODO Auto-generated method stub
+	public void createAuctionStandard(String productCode, int basePrice) 
+			throws UserDeniedException, InvalidProductException {
+		
+		IUser loggedUser = this.userControl.getLoggedUser();
+		IProduct product = loggedUser.getProduct(productCode);
+		
+		this.addAuction(new Auction(loggedUser, product, basePrice), product);
 
 	}
 
 	@Override
 	public void createAuctionPlafond(String productCode, int basePrice,
-			int plafond) {
-		// TODO Auto-generated method stub
+			int plafond) throws InvalidProductException, UserDeniedException {
+		
+		IUser loggedUser = this.userControl.getLoggedUser();
+		IProduct product = loggedUser.getProduct(productCode);
+		
+		this.addAuction(new AuctionPlafond(loggedUser, product, basePrice,
+				plafond), product);
 
 	}
 

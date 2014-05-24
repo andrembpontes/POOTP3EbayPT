@@ -10,6 +10,9 @@ import java.util.Iterator;
  */
 public interface IEbayPT {
 	
+	
+	//TODO com as enumerações é mesmo necessario especificalas aqui?
+	
 	/**
 	 * Constant representing Tablet product category.
 	 */

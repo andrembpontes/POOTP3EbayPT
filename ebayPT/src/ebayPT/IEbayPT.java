@@ -37,21 +37,24 @@ public interface IEbayPT {
 	 * Logs in user represented by <code>username</code>
 	 * 
 	 * @param username: username of user to login
+	 * @throws UserLoggedInException 
 	 */
-	void login(String username);
+	void login(String username) throws UserLoggedInException;
 	
 	/**
 	 * Logs out current user.
+	 * @throws NoUserLoggedInException 
 	 */
-	void logout();
+	void logout() throws NoUserLoggedInException;
 	
 	/**
 	 * Gets an iterator to all products of the user currently logged in.
 	 * The products are sorted by alphabetical order.
 	 * 
 	 * @return iterator to all products of currently logged user
+	 * @throws UserDeniedException 
 	 */
-	Iterator<IProduct> getProducts();
+	Iterator<IProduct> getProducts() throws UserDeniedException;
 	
 	/**
 	 * Gets an iterator to all auctions in the database of a given category of
@@ -61,8 +64,9 @@ public interface IEbayPT {
 	 * 
 	 * @param category: one of IEbayPT.TABLET or IEBayPT.CAR
 	 * @return iterator to all auctions of a given category
+	 * @throws UserDeniedException 
 	 */
-	Iterator<IAuction> getAuctions(String category);
+	Iterator<IAuction> getAuctions(String category) throws UserDeniedException;
 	
 	/**
 	 * Gets an iterator to all auctions in the database of Tablet products,
@@ -72,8 +76,9 @@ public interface IEbayPT {
 	 * 
 	 * @param size: maximum size of tablet display to include in result
 	 * @return iterator to all auctions of Tablet products up to a maximum Tablet size
+	 * @throws UserDeniedException 
 	 */
-	Iterator<IAuction> getAuctionsTabletBySize(int size);
+	Iterator<IAuction> getAuctionsTabletBySize(int size) throws UserDeniedException;
 	
 	/**
 	 * Gets an iterator to all bids on a given auction. The bids are sorted by
@@ -83,8 +88,9 @@ public interface IEbayPT {
 	 * @param sellerUsername: username of the seller of the product being auctioned
 	 * @param productCode: product code of the product being auctioned
 	 * @return iterator to all bids on a given auction
+	 * @throws UserDeniedException 
 	 */
-	Iterator<IBid> getBiddings(String sellerUsername, String productCode);
+	Iterator<IBid> getBiddings(String sellerUsername, String productCode) throws UserDeniedException;
 	
 	/**
 	 * Gets an iterator to all the users in the database. Administrator accounts
@@ -111,16 +117,20 @@ public interface IEbayPT {
 	 * @param name: real name of user
 	 * @param username: unique name used to identify user in the database
 	 * @param userType: one of IEbayPT.REGISTERED or IEbayPT.ADMIN
+	 * @throws InvalidUserTypeException 
+	 * @throws UserDeniedException 
 	 */
-	void addUser(String email, String name, String username, String userType);
+	void addUser(String email, String name, String username, String userType) throws InvalidUserTypeException, UserDeniedException;
 	
 	/**
 	 * Create a standard auction.
 	 * 
 	 * @param productCode: code of the product to auction
 	 * @param basePrice: base price of the auction
+	 * @throws InvalidProductException 
+	 * @throws UserDeniedException 
 	 */
-	void createAuctionStandard(String productCode, int basePrice);
+	void createAuctionStandard(String productCode, int basePrice) throws UserDeniedException, InvalidProductException;
 	
 	/**
 	 * Create a plafond auction.
@@ -128,8 +138,10 @@ public interface IEbayPT {
 	 * @param productCode: code of the product to auction
 	 * @param basePrice: base price of the auction
 	 * @param plafond: plafond value
+	 * @throws UserDeniedException 
+	 * @throws InvalidProductException 
 	 */
-	void createAuctionPlafond(String productCode, int basePrice, int plafond);
+	void createAuctionPlafond(String productCode, int basePrice, int plafond) throws InvalidProductException, UserDeniedException;
 	
 	/**
 	 * Bid on the given auction. This method returns true if the auction is
@@ -140,8 +152,12 @@ public interface IEbayPT {
 	 * @param productCode: product code
 	 * @param amount: bid amount
 	 * @return true if bid matches plafond, false in any other case
+	 * @throws BiddingOwnAuctionException 
+	 * @throws BiddingClosedAuctionException 
+	 * @throws LowBidAmountException 
+	 * @throws UserDeniedException 
 	 */
-	boolean bid(String sellerUsername, String productCode, int amount);
+	boolean bid(String sellerUsername, String productCode, int amount) throws UserDeniedException, LowBidAmountException, BiddingClosedAuctionException, BiddingOwnAuctionException;
 	
 	/**
 	 * Closes the auction of the current logged user identified by
@@ -149,8 +165,10 @@ public interface IEbayPT {
 	 * 
 	 * @param productCode: code of the product whose auction is to be closed
 	 * @return winning bid
+	 * @throws NoBidsException 
+	 * @throws UserDeniedException 
 	 */
-	IBid closeAuction(String productCode);
+	IBid closeAuction(String productCode) throws NoBidsException, UserDeniedException;
 	
 	/**
 	 * Adds a Car product to the database.
@@ -161,9 +179,11 @@ public interface IEbayPT {
 	 * @param make: make of the car
 	 * @param model: model of the car
 	 * @param year: year of the car
+	 * @throws ProductAlreadyExists 
+	 * @throws UserDeniedException 
 	 */
 	void createCar(String code, String description, String make,
-			String model, int year);
+			String model, int year) throws UserDeniedException, ProductAlreadyExists;
 	
 	/**
 	 * Adds a Tablet product to the database.
@@ -174,7 +194,9 @@ public interface IEbayPT {
 	 * @param brand: brand of the tablet
 	 * @param size: size of the tablet
 	 * @param weight: weight of the tablet
+	 * @throws ProductAlreadyExists 
+	 * @throws UserDeniedException 
 	 */
 	void createTablet(String code, String description, String brand,
-			int size, int weight);
+			int size, int weight) throws UserDeniedException, ProductAlreadyExists;
 }

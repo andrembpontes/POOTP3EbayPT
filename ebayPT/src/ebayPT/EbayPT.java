@@ -18,7 +18,7 @@ public class EbayPT implements IEbayPT {
 	
 	private Map<EProductCategory, Set<IAuction>> auctionsByProductCategory;
 
-	private Map<Integer, Set<ITablet>> tabletAuctionsBySize; 
+	private Map<Integer, Set<IAuction>> tabletAuctionsBySize; 
 	
 	public EbayPT() {
 		this.userControl = new UserControl();
@@ -27,7 +27,7 @@ public class EbayPT implements IEbayPT {
 		this.auctionsByProductCategory = new HashMap<EProductCategory,
 				Set<IAuction>>();
 		
-		this.tabletAuctionsBySize = new HashMap<Integer, Set<ITablet>>();
+		this.tabletAuctionsBySize = new HashMap<Integer, Set<IAuction>>();
 		
 		this.usersBySales = new TreeSet<IUser>(new ComparatorUserBySales());
 	}
@@ -46,7 +46,12 @@ public class EbayPT implements IEbayPT {
 	public Iterator<IProduct> getProducts() throws UserDeniedException {
 		this.userControl.executeAction(EAction.LIST_PRODUCTS);
 		
-		this.userControl.getLoggedUser().getProducts();
+		try {
+			return this.userControl.getLoggedUser().getProducts();
+		}
+		catch (NoUserLoggedInException e) {
+			return null; //At this point this exception is not acceptable
+		}
 	}
 
 	@Override
@@ -63,7 +68,7 @@ public class EbayPT implements IEbayPT {
 		
 		this.userControl.executeAction(EAction.LIST_AUCTIONS);
 		
-		this.tabletAuctionsBySize.get(size).iterator();
+		return this.tabletAuctionsBySize.get(size).iterator();
 	}
 
 	@Override
@@ -88,7 +93,9 @@ public class EbayPT implements IEbayPT {
 
 	@Override
 	public void addUser(String email, String name, String username,
-			String userType) throws InvalidUserTypeException{
+			String userType)
+					throws InvalidUserTypeException, UserDeniedException{
+		
 		this.userControl.executeAction(EAction.ADD_USER);
 		
 		IUser newUser = new User(EUserType.valueOf(userType), username, email,
@@ -105,17 +112,34 @@ public class EbayPT implements IEbayPT {
 		this.userControl.executeAction(EAction.CREATE_AUCTION);
 		
 		try {
-			if(!this.auctionsByProductCategory.
-					containsKey(product.getCategory())){
-				
+			EProductCategory category = product.getCategory();
+			
+			//Add to auctions by product category
+			if(!this.auctionsByProductCategory.containsKey(category)){
 				Set<IAuction> newSet = new TreeSet<IAuction>();
 				newSet.add(auction);
-				this.auctionsByProductCategory.
-					put(product.getCategory(), newSet);
+				this.auctionsByProductCategory.put(category, newSet);
+			}
+			else{
+				this.auctionsByProductCategory.get(category).add(auction);
 			}
 			
-			this.auctionsByProductCategory.get(product.getCategory()).
-				add(auction);
+			//Add to tablet auctions by size
+			
+			if(category.equals(EProductCategory.TABLET)){
+				ITablet tablet = (ITablet) product;
+				
+				if(!this.tabletAuctionsBySize.containsKey(tablet.getSize())){
+					Set<IAuction> newSet = new TreeSet<IAuction>();
+					newSet.add(auction);
+					this.tabletAuctionsBySize.
+						put(tablet.getSize(), newSet);
+				}
+				else{
+					this.tabletAuctionsBySize.
+						get(tablet.getSize()).add(auction);
+				}
+			}
 		}
 		catch (NullPointerException e2) {
 			throw new InvalidProductException();
@@ -126,49 +150,103 @@ public class EbayPT implements IEbayPT {
 	public void createAuctionStandard(String productCode, int basePrice) 
 			throws UserDeniedException, InvalidProductException {
 		
-		IUser loggedUser = this.userControl.getLoggedUser();
-		IProduct product = loggedUser.getProduct(productCode);
-		
-		this.addAuction(new Auction(loggedUser, product, basePrice), product);
-
+		try {
+			IUser loggedUser = this.userControl.getLoggedUser();
+			IProduct product = loggedUser.getProduct(productCode);			
+			this.addAuction(new Auction(loggedUser, product, basePrice), product);
+		}
+		catch (NoUserLoggedInException e) {
+			//If there's no user logged in throws UserDeniedException
+			
+			this.userControl.executeAction(EAction.CREATE_AUCTION);
+		}
 	}
 
 	@Override
 	public void createAuctionPlafond(String productCode, int basePrice,
 			int plafond) throws InvalidProductException, UserDeniedException {
 		
-		IUser loggedUser = this.userControl.getLoggedUser();
-		IProduct product = loggedUser.getProduct(productCode);
+		try {
+			IUser loggedUser = this.userControl.getLoggedUser();
+			IProduct product = loggedUser.getProduct(productCode);
+			
+			this.addAuction(new AuctionPlafond(loggedUser, product, basePrice,
+					plafond), product);
+		}
+		catch (NoUserLoggedInException e) {
+			//If there's no user logged in throws UserDeniedException
+			
+			this.userControl.executeAction(EAction.CREATE_AUCTION);
+		}
+
+	}
+
+	@Override
+	public boolean bid(String sellerUsername, String productCode, int amount)
+			throws UserDeniedException, LowBidAmountException,
+			BiddingClosedAuctionException, BiddingOwnAuctionException {
 		
-		this.addAuction(new AuctionPlafond(loggedUser, product, basePrice,
-				plafond), product);
-
+		this.userControl.executeAction(EAction.BID);
+		
+		try {
+			return this.users.get(sellerUsername).getAuction(productCode).
+				bid(this.userControl.getLoggedUser(), amount);
+		}
+		catch (NoUserLoggedInException e) {
+			//At this point NoUserLoggedInException in not acceptable
+			return false;
+		}
+		
 	}
 
 	@Override
-	public boolean bid(String sellerUsername, String productCode, int amount) {
-		// TODO Auto-generated method stub
-		return false;
+	public IBid closeAuction(String productCode)
+			throws NoBidsException, UserDeniedException {
+		
+		this.userControl.executeAction(EAction.CLOSE_AUCTION);
+		
+		try {
+			return this.userControl.getLoggedUser().getAuction(productCode).close();
+		}
+		catch (NoUserLoggedInException e) {
+			//At this point NoUserLoggedInException in not acceptable
+			return null;
+		}
 	}
-
-	@Override
-	public IBid closeAuction(String productCode) {
-		// TODO Auto-generated method stub
-		return null;
+	
+	//TODO comment
+	private void createProduct(IProduct product)
+			throws UserDeniedException, ProductAlreadyExists {
+		
+		this.userControl.executeAction(EAction.ADD_PRODUCT);
+		
+		try {
+			this.userControl.getLoggedUser().addProduct(product);
+		}
+		catch (NoUserLoggedInException e) {
+			//At this point NoUserLoggedInException is not acceptable
+		}
 	}
 
 	@Override
 	public void createCar(String code, String description, String make,
-			String model, int year) {
-		// TODO Auto-generated method stub
-
+			String model, int year) throws UserDeniedException,
+			ProductAlreadyExists {
+		
+		ICar newCar = new Car(code, description, make, model, year);
+		
+		this.createProduct(newCar);
+		
 	}
 
 	@Override
 	public void createTablet(String code, String description, String brand,
-			int size, int weight) {
-		// TODO Auto-generated method stub
-
+			int size, int weight) throws UserDeniedException,
+			ProductAlreadyExists {
+		
+		ITablet newTablet = new Tablet(code, description, brand, size, weight);
+		
+		this.createProduct(newTablet);
 	}
 
 }

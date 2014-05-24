@@ -56,11 +56,13 @@ public class Auction implements IAuction {
 	}
 
 	@Override
-	public void close() throws NoBidsException{
+	public IBid close() throws NoBidsException{
 		if(this.bids.size() == 0)
 			throw new NoBidsException();
 		
 		this.open = false;
+		
+		return this.bids.iterator().next();
 	}
 
 	@Override

@@ -42,11 +42,12 @@ public interface IAuction {
 	boolean isOpen();
 	
 	/**
-	 * Close current auction
+	 * Close current auction and returns winner bid
 	 * 
+	 * @return Winner bid
 	 * @throws NoBidsException: Trying to close an auction that have no bids
 	 */
-	void close() throws NoBidsException;
+	IBid close() throws NoBidsException;
 	
 	/**
 	 * Bid on auction

@@ -182,9 +182,11 @@ public interface IEbayPT {
 	 * @return winning bid
 	 * @throws NoBidsException: Trying to close an auction without bids 
 	 * @throws UserDeniedException: Actual user cannot execute this task 
+	 * @throws InvalidAuctionException: Givens auction doesn't exists
 	 */
 	IBid closeAuction(String productCode)
-			throws NoBidsException, UserDeniedException;
+			throws NoBidsException, UserDeniedException,
+			InvalidAuctionException;
 	
 	/**
 	 * Adds a Car product to the database.

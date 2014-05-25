@@ -215,7 +215,8 @@ public class EbayPT implements IEbayPT {
 
 	@Override
 	public IBid closeAuction(String productCode)
-			throws NoBidsException, UserDeniedException {
+			throws NoBidsException, UserDeniedException,
+			InvalidAuctionException {
 		
 		this.userControl.executeAction(EAction.CLOSE_AUCTION);
 		
@@ -225,6 +226,9 @@ public class EbayPT implements IEbayPT {
 		catch (NoUserLoggedInException e) {
 			//At this point NoUserLoggedInException in not acceptable
 			return null;
+		}
+		catch (NullPointerException e){
+			throw new InvalidAuctionException();
 		}
 	}
 	

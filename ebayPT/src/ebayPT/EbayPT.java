@@ -81,12 +81,36 @@ public class EbayPT implements IEbayPT {
 
 	@Override
 	public Iterator<IBid> getBiddings(String sellerUsername, String productCode)
-			throws UserDeniedException {
+			throws UserDeniedException, InvalidAuctionException,
+			NotSellerException{
 		
 		//TODO Verify user access level needed
 		this.userControl.executeAction(EAction.LIST_BIDS);
 		
-		return this.users.get(sellerUsername).getAuction(productCode).getBids();
+		try{
+			
+			IUser seller = this.users.get(sellerUsername);
+			IAuction auction = seller.getAuction(productCode);
+			
+			IUser loggedUser;
+			
+			try{
+				loggedUser = this.userControl.getLoggedUser();
+			}
+			catch(NoUserLoggedInException e){
+				//At this point this exception in not acceptable
+				loggedUser = null;
+			}
+			
+			if(auction.isOpen()
+					&& !loggedUser.equals(seller))
+				throw new NotSellerException();
+			
+			return auction.getBids();
+		}
+		catch(NullPointerException e){
+			throw new InvalidAuctionException();
+		}
 	}
 
 	@Override
@@ -121,10 +145,14 @@ public class EbayPT implements IEbayPT {
 
 	//TODO comment this
 	private void addAuction(IAuction auction, IProduct product)
-			throws InvalidProductException, UserDeniedException{
+			throws InvalidProductException, UserDeniedException,
+			ProductNotAvaliableException{
 		
 		this.userControl.executeAction(EAction.CREATE_AUCTION);
 		
+		if(!product.isAvaliable())
+			throw new ProductNotAvaliableException();
+			
 		try {
 			EProductCategory category = product.getCategory();
 			
@@ -162,7 +190,8 @@ public class EbayPT implements IEbayPT {
 	
 	@Override
 	public void createAuctionStandard(String productCode, int basePrice) 
-			throws UserDeniedException, InvalidProductException {
+			throws UserDeniedException, InvalidProductException,
+			ProductNotAvaliableException {
 		
 		try {
 			IUser loggedUser = this.userControl.getLoggedUser();
@@ -178,7 +207,8 @@ public class EbayPT implements IEbayPT {
 
 	@Override
 	public void createAuctionPlafond(String productCode, int basePrice,
-			int plafond) throws InvalidProductException, UserDeniedException {
+			int plafond) throws InvalidProductException, UserDeniedException,
+			ProductNotAvaliableException {
 		
 		try {
 			IUser loggedUser = this.userControl.getLoggedUser();

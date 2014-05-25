@@ -1,7 +1,6 @@
 package ebayPT;
 
 public abstract class Product implements IProduct {
-
 	private EProductCategory category;
 	private String code, description;
 	private EProductState state;
@@ -37,6 +36,11 @@ public abstract class Product implements IProduct {
 	@Override
 	public int compareTo(IProduct product){
 		return this.getCode().compareTo(product.getCode());
+	}
+	
+	@Override
+	public boolean isAvaliable(){
+		return this.state.equals(IProduct.AVAILABLE_STATE);
 	}
 
 }

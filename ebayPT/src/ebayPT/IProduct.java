@@ -13,6 +13,11 @@ public interface IProduct extends Comparable<IProduct>{
 	static final EProductState START_STATE = EProductState.SALE; 
 	
 	/**
+	 * Available state to create a new auction with
+	 */
+	static final EProductState AVAILABLE_STATE = EProductState.SALE;
+	
+	/**
 	 * Gets the category of this product.
 	 * @return category of this product
 	 */
@@ -35,4 +40,12 @@ public interface IProduct extends Comparable<IProduct>{
 	 * @return state of this product
 	 */
 	EProductState getState();
+
+	/**
+	 * Verify if product is available to create a new auction with.
+	 * Return True if yes
+	 * 
+	 * @return True if product is available to create new auction, else False
+	 */
+	boolean isAvaliable();
 }

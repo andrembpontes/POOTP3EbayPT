@@ -97,8 +97,13 @@ public interface IEbayPT {
 	 * @param productCode: product code of the product being auctioned
 	 * @return iterator to all bids on a given auction
 	 * @throws UserDeniedException: Actual user cannot execute this task 
+	 * @throws NotSellerException: Auction is open and logged user isn't seller 
+	 * @throws InvalidAuctionException: Doesn't exists auction corresponding to
+	 * givens data
 	 */
-	Iterator<IBid> getBiddings(String sellerUsername, String productCode) throws UserDeniedException;
+	Iterator<IBid> getBiddings(String sellerUsername, String productCode)
+			throws UserDeniedException, InvalidAuctionException,
+			NotSellerException;
 	
 	/**
 	 * Gets an iterator to all the users in the database. Administrator accounts
@@ -139,10 +144,13 @@ public interface IEbayPT {
 	 * @param productCode: code of the product to auction
 	 * @param basePrice: base price of the auction
 	 * @throws InvalidProductException: Actual user doesn't has givens product 
-	 * @throws UserDeniedException: Actual user cannot execute this task 
+	 * @throws UserDeniedException: Actual user cannot execute this task
+	 * @throws ProductNotAvaliableException: Product is already sold or in a
+	 * running auction 
 	 */
 	void createAuctionStandard(String productCode, int basePrice)
-			throws UserDeniedException, InvalidProductException;
+			throws UserDeniedException, InvalidProductException,
+			ProductNotAvaliableException;
 	
 	/**
 	 * Create a plafond auction with givens data with actual logged user as
@@ -153,9 +161,12 @@ public interface IEbayPT {
 	 * @param plafond: plafond value
 	 * @throws UserDeniedException: Actual user cannot execute this task 
 	 * @throws InvalidProductException: Actual user doesn't has givens product
+	 * @throws ProductNotAvaliableException: Product is already sold or in a
+	 * running auction 
 	 */
 	void createAuctionPlafond(String productCode, int basePrice, int plafond)
-			throws InvalidProductException, UserDeniedException;
+			throws InvalidProductException, UserDeniedException,
+			ProductNotAvaliableException;
 	
 	/**
 	 * Bid on the given auction. This method returns true if the auction is

@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class User implements IUser {
+public class User implements IUser{
 	private String username, email, name;
 	
 	private IUserType type;
@@ -57,10 +57,10 @@ public class User implements IUser {
 	}
 
 	@Override
-	public void addProduct(IProduct product) throws ProductAlreadyExists {
+	public void addProduct(IProduct product) throws ProductAlreadyExistsException {
 		
 		if(this.products.containsValue(product))
-			throw new ProductAlreadyExists();
+			throw new ProductAlreadyExistsException();
 		
 		this.products.put(product.getCode(), product);
 		
@@ -114,6 +114,17 @@ public class User implements IUser {
 	@Override
 	public int getAuctionsCount() {
 		return this.auctionsByProductCode.values().size();
+	}
+
+	@Override
+	public int compareTo(IUser user) {
+		int typeDiff = this.getUserType().toString().
+				compareTo(user.getUserType().toString());
+		
+		if(typeDiff == 0)
+			return this.getUsername().compareTo(user.getUsername());
+		
+		return typeDiff;
 	}
 
 }

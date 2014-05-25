@@ -230,7 +230,7 @@ public class EbayPT implements IEbayPT {
 	
 	//TODO comment
 	private void createProduct(IProduct product)
-			throws UserDeniedException, ProductAlreadyExists {
+			throws UserDeniedException, ProductAlreadyExistsException {
 		
 		this.userControl.executeAction(EAction.ADD_PRODUCT);
 		
@@ -245,7 +245,7 @@ public class EbayPT implements IEbayPT {
 	@Override
 	public void createCar(String code, String description, String make,
 			String model, int year) throws UserDeniedException,
-			ProductAlreadyExists {
+			ProductAlreadyExistsException {
 		
 		ICar newCar = new Car(code, description, make, model, year);
 		
@@ -256,7 +256,7 @@ public class EbayPT implements IEbayPT {
 	@Override
 	public void createTablet(String code, String description, String brand,
 			int size, int weight) throws UserDeniedException,
-			ProductAlreadyExists {
+			ProductAlreadyExistsException {
 		
 		ITablet newTablet = new Tablet(code, description, brand, size, weight);
 		

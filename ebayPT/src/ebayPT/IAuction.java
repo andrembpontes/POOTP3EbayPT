@@ -68,4 +68,12 @@ public interface IAuction {
 	 * @return Winner bid, Null if there is no winner yet
 	 */
 	IBid getWinnerBid();
+	
+	/**
+	 * Returns bid with highest amount
+	 * 
+	 * @return Bid with highest amount
+	 * @throws NoBidsException: There's no bids on auction
+	 */
+	IBid getHighestBid() throws NoBidsException;
 }

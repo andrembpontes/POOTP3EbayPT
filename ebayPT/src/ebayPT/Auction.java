@@ -62,7 +62,7 @@ public class Auction implements IAuction {
 		
 		this.open = false;
 		
-		return this.bids.iterator().next();
+		return this.getHighestBid();
 	}
 
 	@Override
@@ -87,6 +87,14 @@ public class Auction implements IAuction {
 	public IBid getWinnerBid() {
 		if(this.open)
 			return null;
+		
+		return this.bids.iterator().next();
+	}
+
+	@Override
+	public IBid getHighestBid() throws NoBidsException {
+		if(this.bids.size() == 0)
+			throw new NoBidsException();
 		
 		return this.bids.iterator().next();
 	}

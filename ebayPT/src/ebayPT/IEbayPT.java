@@ -181,10 +181,12 @@ public interface IEbayPT {
 	 * @throws BiddingClosedAuctionException: Trying to bid a closed auction 
 	 * @throws LowBidAmountException: Bid amount is lower than auction's base 
 	 * @throws UserDeniedException: Actual user cannot execute this task 
+	 * @throws InvalidAuctionException: Doesn't exist auction with givens data
 	 */
 	boolean bid(String sellerUsername, String productCode, int amount)
 			throws UserDeniedException, LowBidAmountException,
-			BiddingClosedAuctionException, BiddingOwnAuctionException;
+			BiddingClosedAuctionException, BiddingOwnAuctionException,
+			InvalidAuctionException;
 	
 	/**
 	 * Closes the auction of the current logged user identified by

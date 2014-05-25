@@ -228,7 +228,8 @@ public class EbayPT implements IEbayPT {
 	@Override
 	public boolean bid(String sellerUsername, String productCode, int amount)
 			throws UserDeniedException, LowBidAmountException,
-			BiddingClosedAuctionException, BiddingOwnAuctionException {
+			BiddingClosedAuctionException, BiddingOwnAuctionException,
+			InvalidAuctionException {
 		
 		this.userControl.executeAction(EAction.BID);
 		
@@ -239,6 +240,9 @@ public class EbayPT implements IEbayPT {
 		catch (NoUserLoggedInException e) {
 			//At this point NoUserLoggedInException in not acceptable
 			return false;
+		}
+		catch (NullPointerException e){
+			throw new InvalidAuctionException();
 		}
 		
 	}

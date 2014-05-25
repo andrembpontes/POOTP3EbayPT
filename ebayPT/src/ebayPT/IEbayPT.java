@@ -73,7 +73,8 @@ public interface IEbayPT {
 	 * @return iterator to all auctions of a given category
 	 * @throws UserDeniedException: Actual user cannot execute this task 
 	 */
-	Iterator<IAuction> getAuctions(EProductCategory tablet) throws UserDeniedException;
+	Iterator<IAuction> getAuctions(EProductCategory category)
+			throws UserDeniedException;
 	
 	/**
 	 * Gets an iterator to all auctions in the database of Tablet products,

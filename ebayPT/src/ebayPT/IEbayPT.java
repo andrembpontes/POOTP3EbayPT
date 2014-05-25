@@ -99,8 +99,9 @@ public interface IEbayPT {
 	 * sorted by username alphabetical order.
 	 * 
 	 * @return iterator to all the users in the database
+	 * @throws UserDeniedException: Actual user cannot execute this task 
 	 */
-	Iterator<IUser> getUsers();
+	Iterator<IUser> getUsers() throws UserDeniedException;
 	
 	/**
 	 * Gets an iterator to all the regular users in the database, sorted by
@@ -108,8 +109,9 @@ public interface IEbayPT {
 	 * closed). Alphabetical order of usernames are used in the case of ties.
 	 * 
 	 * @return iterator to regular users sorted by total amount of sales
+	 * @throws UserDeniedException: Actual user cannot execute this task 
 	 */
-	Iterator<IUser> getUsersBySales();
+	Iterator<IUser> getUsersBySales() throws UserDeniedException;
 	
 	/**
 	 * Adds a new user to the database.

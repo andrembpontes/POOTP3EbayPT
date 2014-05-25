@@ -82,12 +82,16 @@ public class EbayPT implements IEbayPT {
 	}
 
 	@Override
-	public Iterator<IUser> getUsers() {
+	public Iterator<IUser> getUsers() throws UserDeniedException {
+		this.userControl.executeAction(EAction.LIST_USERS);
+		
 		return this.users.values().iterator();
 	}
 
 	@Override
-	public Iterator<IUser> getUsersBySales() {
+	public Iterator<IUser> getUsersBySales() throws UserDeniedException {
+		this.userControl.executeAction(EAction.LIST_USERS);
+		
 		return this.usersBySales.iterator();
 	}
 
@@ -102,7 +106,9 @@ public class EbayPT implements IEbayPT {
 				name);
 		
 		this.users.put(username, newUser);
-		this.usersBySales.add(newUser);
+		
+		if(newUser.getUserType().equals(EUserType.REGISTERED))
+			this.usersBySales.add(newUser);
 	}
 
 	//TODO comment this

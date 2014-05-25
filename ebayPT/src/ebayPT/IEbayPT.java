@@ -195,13 +195,13 @@ public interface IEbayPT {
 	 * @param make: make of the car
 	 * @param model: model of the car
 	 * @param year: year of the car
-	 * @throws ProductAlreadyExists: Already exists another product with same
+	 * @throws ProductAlreadyExistsException: Already exists another product with same
 	 * code for actual logged user 
 	 * @throws UserDeniedException: Actual user cannot execute this task 
 	 */
 	void createCar(String code, String description, String make,
 			String model, int year)
-					throws UserDeniedException, ProductAlreadyExists;
+					throws UserDeniedException, ProductAlreadyExistsException;
 	
 	/**
 	 * Adds a Tablet product to the database.
@@ -212,10 +212,10 @@ public interface IEbayPT {
 	 * @param brand: brand of the tablet
 	 * @param size: size of the tablet
 	 * @param weight: weight of the tablet
-	 * @throws ProductAlreadyExists: Already exists another produc with same
+	 * @throws ProductAlreadyExistsException: Already exists another produc with same
 	 * code for actual logged user 
 	 * @throws UserDeniedException: Actual user cannot execute this task 
 	 */
 	void createTablet(String code, String description, String brand,
-			int size, int weight) throws UserDeniedException, ProductAlreadyExists;
+			int size, int weight) throws UserDeniedException, ProductAlreadyExistsException;
 }

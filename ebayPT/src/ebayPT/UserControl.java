@@ -19,7 +19,13 @@ public class UserControl implements IUserControl {
 		IUserType allowedType = action.getAllowedUserType();
 		
 		if(loggedUser == GUEST_USER) {
-			return GUEST_USER_TYPE.hasAccessLevel(allowedType);
+			try{
+				return loggedUser.getUserType().hasAccessLevel(allowedType);
+			}
+			catch(NullPointerException e){
+				return GUEST_USER_TYPE.hasAccessLevel(allowedType);
+			}
+			
 		} else {
 			return this.loggedUser.getUserType().hasAccessLevel(allowedType);
 		}
@@ -27,9 +33,14 @@ public class UserControl implements IUserControl {
 
 	public void login(IUser user) throws UserAlreadyLoggedInException,
 		AnotherUserAlreadyLoggedInException {
-		
-		if(this.loggedUser.equals(user))
-			throw new UserAlreadyLoggedInException();
+
+		try{
+			if(this.loggedUser.equals(user))
+				throw new UserAlreadyLoggedInException();
+		}
+		catch(NullPointerException e){
+			//Do nothing
+		}
 
 		if(this.loggedUser != GUEST_USER)
 			throw new AnotherUserAlreadyLoggedInException();
@@ -58,7 +69,7 @@ public class UserControl implements IUserControl {
 
 	@Override
 	public void executeAction(IAction action) throws UserDeniedException {
-		if(this.isAllowed(action))
+		if(!this.isAllowed(action))
 			throw new UserDeniedException(action.getAllowedUserType());
 	}
 	

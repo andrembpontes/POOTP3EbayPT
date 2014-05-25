@@ -134,13 +134,18 @@ public class EbayPT implements IEbayPT {
 		
 		this.userControl.executeAction(EAction.ADD_USER);
 		
-		IUser newUser = new User(EUserType.valueOf(userType), username, email,
-				name);
-		
-		this.users.put(username, newUser);
-		
-		if(newUser.getUserType().equals(EUserType.REGISTERED))
-			this.usersBySales.add(newUser);
+		try {
+			IUser newUser = new User(EUserType.valueOf(userType), username, email,
+					name);
+			
+			this.users.put(username, newUser);
+			
+			if(newUser.getUserType().equals(EUserType.USER))
+				this.usersBySales.add(newUser);
+		}
+		catch (IllegalArgumentException e) {
+			throw new InvalidUserTypeException();
+		}
 	}
 
 	//TODO comment this

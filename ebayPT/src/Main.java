@@ -56,24 +56,37 @@ public class Main {
 					default: throw new InvalidCommandException();
 				}
 				
-				scan.nextLine(); //Go to next line
+				//TODO delete scan.nextLine(); //Go to next line
+				System.out.println(); //Print blank line
+			}
+			catch(IllegalArgumentException e){
+				invalidCommand(scan);
 			}
 			catch(InvalidCommandException e){
 				invalidCommand(scan);
 			}
-			catch (UserDeniedException e2) {
-				UserDenied(e2);
+			catch (UserDeniedException e) {
+				UserDenied(e);
 			}
 		}
 	}
 
 	private static void execTablets(Scanner scan, IEbayPT ebayPT)
-			throws InvalidCommandException, UserDeniedException {
+			throws UserDeniedException {
 		
 		switch (ECommand.Tablets.valueOf(scan.next())) {
 			case ALL: execTabletsAll(scan, ebayPT); break;
-			default: throw new InvalidCommandException();
+			case DIMENSION: execTabletsDimension(scan, ebayPT);
 		}
+	}
+
+	private static void execTabletsDimension(Scanner scan, IEbayPT ebayPT)
+			throws UserDeniedException {
+		
+		//Iterator<IAuction> tablets =
+		//		ebayPT.getAuctionsTabletBySize(scan.nextInt());
+		//
+		//TODO implement
 	}
 
 	private static void execTabletsAll(Scanner scan, IEbayPT ebayPT)
@@ -133,8 +146,8 @@ public class Main {
 		
 		String userType = scan.next();
 		String username = scan.next();
-		String name = scan.next();
-		String email = scan.next();		
+		String name = scan.nextLine();
+		String email = scan.nextLine();		
 		
 		try {
 			ebayPT.addUser(email, name, username, userType);
@@ -176,7 +189,10 @@ public class Main {
 
 	private static void execLogin(Scanner scan, IEbayPT ebayPT) {
 		try {
-			ebayPT.login(scan.next());
+			String username = scan.next();
+			ebayPT.login(username);
+			
+			EMessage.WELLCOME.print(username);
 		}
 		catch (AnotherUserAlreadyLoggedInException e) {
 			EMessage.ANOTHER_USER_ALREADY_LOGGED.print();

@@ -26,8 +26,12 @@ public interface IUserControl {
 	 * 
 	 * @param user user to log in
 	 * @throws UserLoggedInException if there is another user currently logged in
+	 * @throws AnotherUserAlreadyLoggedInException: Another user is already
+	 * logged in 
+	 * @throws UserAlreadyLoggedInException: Givens user is already logged in
 	 */
-	void login(IUser user) throws UserLoggedInException;
+	void login(IUser user) throws UserAlreadyLoggedInException,
+		AnotherUserAlreadyLoggedInException;
 	
 	/**
 	 * Returns and logout current user

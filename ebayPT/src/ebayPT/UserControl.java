@@ -25,12 +25,16 @@ public class UserControl implements IUserControl {
 		}
 	}
 
-	public void login(IUser user) throws UserLoggedInException {
-		if(this.loggedUser != GUEST_USER) {
-			throw new UserLoggedInException();
-		} else {
-			this.loggedUser = user;
-		}
+	public void login(IUser user) throws UserAlreadyLoggedInException,
+		AnotherUserAlreadyLoggedInException {
+		
+		if(this.loggedUser.equals(user))
+			throw new UserAlreadyLoggedInException();
+
+		if(this.loggedUser != GUEST_USER)
+			throw new AnotherUserAlreadyLoggedInException();
+
+		this.loggedUser = user;
 	}
 
 	public IUser logout() throws NoUserLoggedInException {

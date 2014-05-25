@@ -1,6 +1,6 @@
 package ebayPT;
 
-public class UserLoggedInException extends Exception {
+public class UserAlreadyLoggedInException extends Exception {
 	
 	private static final long serialVersionUID = 1L;
 

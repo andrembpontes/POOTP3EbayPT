@@ -34,7 +34,9 @@ public class EbayPT implements IEbayPT {
 	
 	@Override
 	public void login(String username)
-			throws UserLoggedInException, InvalidUserException {
+			throws AnotherUserAlreadyLoggedInException,
+			UserAlreadyLoggedInException, InvalidUserException {
+		
 		try{
 			this.userControl.login(this.users.get(username));
 		}

@@ -21,6 +21,8 @@ public class User implements IUser {
 		this.name = name;
 		
 		this.products = new TreeMap<String, IProduct>();
+		
+		//TODO for better implementation split auctions by states (closed/open)
 		this.auctionsByProductCode = new HashMap<String, IAuction>();
 	}
 	

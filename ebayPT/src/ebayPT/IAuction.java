@@ -76,4 +76,11 @@ public interface IAuction {
 	 * @throws NoBidsException: There's no bids on auction
 	 */
 	IBid getHighestBid() throws NoBidsException;
+	
+	/**
+	 * Return base amount value
+	 * 
+	 * @return base amount value
+	 */
+	int getBaseAmount();
 }

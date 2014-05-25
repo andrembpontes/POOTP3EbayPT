@@ -10,7 +10,7 @@ import java.util.TreeSet;
  * @author n42540: Rodrigo Simoes; n42845: Andre Pontes
  * 
  */
-public class Auction implements IAuction {
+public class Auction implements IAuction, Comparable<IAuction> {
 
 	private IUser seller;		//Seller user
 	private IProduct product;	//Product's auction
@@ -97,6 +97,22 @@ public class Auction implements IAuction {
 			throw new NoBidsException();
 		
 		return this.bids.iterator().next();
+	}
+
+	@Override
+	public int compareTo(IAuction auction) {
+		int baseDiff = auction.getBaseAmount() - this.getBaseAmount();
+		
+		if(baseDiff == 0)
+			return this.getProduct().getCode().
+					compareTo(auction.getProduct().getCode());
+		
+		return baseDiff;
+	}
+
+	@Override
+	public int getBaseAmount() {
+		return this.base;
 	}
 
 }

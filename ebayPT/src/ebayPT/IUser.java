@@ -7,7 +7,7 @@ import java.util.Iterator;
  *
  * @author n42540: Rodrigo Simões; n42845: André Pontes
  */
-public interface IUser {
+public interface IUser extends Comparable<IUser>{
 	/**
 	 * Gets the email of this user.
 	 * @return user email
@@ -44,9 +44,9 @@ public interface IUser {
 	 * 
 	 * @param product: Product to add
 	 * @throws NotProductOwnerException: Trying to add a product of other user
-	 * @throws ProductAlreadyExists: Trying to add a product that already exists
+	 * @throws ProductAlreadyExistsException: Trying to add a product that already exists
 	 */
-	void addProduct(IProduct product) throws ProductAlreadyExists;
+	void addProduct(IProduct product) throws ProductAlreadyExistsException;
 	
 	/**
 	 * Sum all sales and return total of sales amount

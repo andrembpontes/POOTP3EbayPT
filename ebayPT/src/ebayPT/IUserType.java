@@ -6,7 +6,7 @@ package ebayPT;
  * @author n42540: Rodrigo Simoes; n42845: Andre Pontes
  */
 
-public interface IUserType {
+public interface IUserType{
 	
 	/**
 	 * To allow for complex access restrictions, this method is used to check

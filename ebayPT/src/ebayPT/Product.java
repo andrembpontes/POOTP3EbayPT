@@ -33,5 +33,10 @@ public abstract class Product implements IProduct {
 	public EProductState getState() {
 		return this.state;
 	}
+	
+	@Override
+	public int compareTo(IProduct product){
+		return this.getCode().compareTo(product.getCode());
+	}
 
 }

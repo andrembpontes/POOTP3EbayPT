@@ -7,7 +7,7 @@ package ebayPT;
  * @author n42540: Rodrigo Simoes; n42845: Andre Pontes
  *
  */
-public interface IBid {
+public interface IBid extends Comparable<IBid>{
 	/**
 	 * Returns bidder user
 	 * 

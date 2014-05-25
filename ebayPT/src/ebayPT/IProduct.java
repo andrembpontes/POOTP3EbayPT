@@ -6,7 +6,7 @@ package ebayPT;
  * @author n42540: Rodrigo Simões; n42845: André Pontes
  */
 
-public interface IProduct {
+public interface IProduct extends Comparable<IProduct>{
 	/**
 	 * Initial state of a product.
 	 */

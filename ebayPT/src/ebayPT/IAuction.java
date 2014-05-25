@@ -9,7 +9,7 @@ import java.util.Iterator;
  * @author n42540: Rodrigo Simoes; n42845: Andre Pontes
  *
  */
-public interface IAuction {
+public interface IAuction extends Comparable<IAuction>{
 	/**
 	 * Returns seller user
 	 * 

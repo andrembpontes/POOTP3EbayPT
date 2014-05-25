@@ -12,12 +12,12 @@ public enum EAction implements IAction{
 	LIST_AUCTIONS(EUserType.GUEST),			//List all auctions
 	ADD_USER(EUserType.GUEST),				//Add a new user
 	LIST_USERS(EUserType.ADMIN),			//List all users
-	ADD_PRODUCT(EUserType.REGISTERED),		//Create a new product
-	CREATE_AUCTION(EUserType.REGISTERED),	//Open a new auction
-	BID(EUserType.REGISTERED),				//Bid on an open auction
-	CLOSE_AUCTION(EUserType.REGISTERED),	//Close auctions
-	LIST_PRODUCTS(EUserType.REGISTERED),	//List own products
-	LIST_BIDS(EUserType.REGISTERED);		//List auction bids
+	ADD_PRODUCT(EUserType.USER),		//Create a new product
+	CREATE_AUCTION(EUserType.USER),	//Open a new auction
+	BID(EUserType.USER),				//Bid on an open auction
+	CLOSE_AUCTION(EUserType.USER),	//Close auctions
+	LIST_PRODUCTS(EUserType.USER),	//List own products
+	LIST_BIDS(EUserType.USER);		//List auction bids
 		
 	private EUserType allowedUsers;		//Minimun user access level required
 	

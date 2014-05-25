@@ -26,7 +26,7 @@ public interface IEbayPT {
 	/**
 	 * Constant representing regular user type.
 	 */
-	static final String REGISTERED = EUserType.REGISTERED.toString();
+	static final String REGISTERED = EUserType.USER.toString();
 	
 	/**
 	 * Constant representing admin user type.

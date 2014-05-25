@@ -43,10 +43,11 @@ public interface IEbayPT {
 	void login(String username) throws UserLoggedInException;
 	
 	/**
-	 * Logs out current user.
+	 * Returns and Logs out current user.
+	 * @return Logged out user
 	 * @throws NoUserLoggedInException: Trying to logout with no user logged in
 	 */
-	void logout() throws NoUserLoggedInException;
+	IUser logout() throws NoUserLoggedInException;
 	
 	/**
 	 * Gets an iterator to all products of the user currently logged in.

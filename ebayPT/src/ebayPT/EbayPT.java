@@ -38,8 +38,8 @@ public class EbayPT implements IEbayPT {
 	}
 
 	@Override
-	public void logout() throws NoUserLoggedInException {
-		this.userControl.logout();
+	public IUser logout() throws NoUserLoggedInException {
+		return this.userControl.logout();
 	}
 
 	@Override

@@ -30,11 +30,12 @@ public interface IUserControl {
 	void login(IUser user) throws UserLoggedInException;
 	
 	/**
-	 * Logout current user
+	 * Returns and logout current user
 	 * 
+	 * @return Logged out user
 	 * @throws NoUserLoggedInException if there is no user currently logged in
 	 */
-	void logout() throws NoUserLoggedInException;
+	IUser logout() throws NoUserLoggedInException;
 	
 	/**
 	 * Returns actual logged user

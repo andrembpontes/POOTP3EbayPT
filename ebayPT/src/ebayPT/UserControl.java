@@ -33,11 +33,14 @@ public class UserControl implements IUserControl {
 		}
 	}
 
-	public void logout() throws NoUserLoggedInException {
+	public IUser logout() throws NoUserLoggedInException {
 		if(this.loggedUser == GUEST_USER) {
 			throw new NoUserLoggedInException();
 		} else {
+			IUser userLoggedout = this.loggedUser;
 			this.loggedUser = GUEST_USER;
+			
+			return userLoggedout;
 		}
 	}
 	

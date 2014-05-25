@@ -67,7 +67,8 @@ public interface IUser {
 	 * 
 	 * @param auction: auction to add
 	 * @throws NotAuctionSellerException: User is not auction seller
-	 * @throws AuctionAlreadyExists: Trying to add an auction that already exists
+	 * @throws AuctionAlreadyExists: Trying to add an auction that already
+	 * exists
 	 */
 	void addAuction(IAuction auction)
 			throws NotAuctionSellerException, AuctionAlreadyExists;
@@ -87,4 +88,11 @@ public interface IUser {
 	 * @return Product, null if not found
 	 */
 	IProduct getProduct(String productCode);
+
+	/**
+	 * Return total number of auctions
+	 * 
+	 * @return Total number of auctions
+	 */
+	int getAuctionsCount();
 }

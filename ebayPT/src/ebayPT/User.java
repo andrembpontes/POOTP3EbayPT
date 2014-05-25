@@ -111,4 +111,9 @@ public class User implements IUser {
 		return this.products.get(productCode);
 	}
 
+	@Override
+	public int getAuctionsCount() {
+		return this.auctionsByProductCode.values().size();
+	}
+
 }

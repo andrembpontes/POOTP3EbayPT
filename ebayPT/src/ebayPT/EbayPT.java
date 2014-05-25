@@ -33,8 +33,14 @@ public class EbayPT implements IEbayPT {
 	}
 	
 	@Override
-	public void login(String username) throws UserLoggedInException {
-		this.userControl.login(this.users.get(username));
+	public void login(String username)
+			throws UserLoggedInException, InvalidUserException {
+		try{
+			this.userControl.login(this.users.get(username));
+		}
+		catch(NullPointerException e){
+			throw new InvalidUserException();
+		}
 	}
 
 	@Override

@@ -39,8 +39,10 @@ public interface IEbayPT {
 	 * @param username: username of user to login
 	 * @throws UserLoggedInException: Trying to log in when there's a user
 	 * already logged in
+	 * @throws InvalidUserException: Givens username doesn't exists 
 	 */
-	void login(String username) throws UserLoggedInException;
+	void login(String username)
+			throws UserLoggedInException, InvalidUserException;
 	
 	/**
 	 * Returns and Logs out current user.

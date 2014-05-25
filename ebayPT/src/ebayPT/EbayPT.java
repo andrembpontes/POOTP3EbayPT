@@ -55,7 +55,7 @@ public class EbayPT implements IEbayPT {
 	}
 
 	@Override
-	public Iterator<IAuction> getAuctions(String category)
+	public Iterator<IAuction> getAuctions(EProductCategory category)
 			throws UserDeniedException {
 		this.userControl.executeAction(EAction.LIST_AUCTIONS);
 		

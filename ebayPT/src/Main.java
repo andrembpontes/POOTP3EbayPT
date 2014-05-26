@@ -27,7 +27,6 @@ import ebayPT.UserDeniedException;
 
 import java.util.Iterator;
 
-
 public class Main {
 
 	public static final int NO_BIDS_HIGHEST_BID_VALUE = 0;
@@ -57,7 +56,7 @@ public class Main {
 				}
 				
 				//TODO delete scan.nextLine(); //Go to next line
-				System.out.println(); //Print blank line
+				
 			}
 			catch(IllegalArgumentException e){
 				invalidCommand(scan);
@@ -68,6 +67,8 @@ public class Main {
 			catch (UserDeniedException e) {
 				UserDenied(e);
 			}
+			
+			System.out.println(); //Print blank line
 		}
 	}
 
@@ -83,9 +84,44 @@ public class Main {
 	private static void execTabletsDimension(Scanner scan, IEbayPT ebayPT)
 			throws UserDeniedException {
 		
-		//Iterator<IAuction> tablets =
-		//		ebayPT.getAuctionsTabletBySize(scan.nextInt());
-		//
+		int size = scan.nextInt();
+		
+		Iterator<IAuction> tablets =
+				ebayPT.getAuctionsTabletBySize(size);
+		
+		if(tablets.hasNext()){
+
+			EMessage.TABLETS_DIMENSION_TITLE.print();
+
+			System.out.println(Integer.toString(size));
+			
+			//TODO change things like this to do_while
+			while(tablets.hasNext()){
+				IAuction auctionI = tablets.next();
+				ITablet tabletI	= (ITablet) auctionI.getProduct();
+
+				String seller = auctionI.getSeller().getUsername();
+				
+				int higestBid;
+				
+				try {
+					higestBid = auctionI.getHighestBid().getAmount();
+				}
+				catch (NoBidsException e) {
+					higestBid = 0;
+				}
+				
+				System.out.println(seller + " " + tabletI.getCode() + " "
+						+ tabletI.getBrand() + " " + tabletI.getSize() + " "
+						+ tabletI.getWeight() + " " + auctionI.getBaseAmount()
+						+ " " + higestBid);
+			}
+		}
+		else{
+			EMessage.NOTHING_TO_LIST.print();
+		}
+		
+		
 		//TODO implement
 	}
 

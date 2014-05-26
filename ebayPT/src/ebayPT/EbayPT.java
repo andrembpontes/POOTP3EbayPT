@@ -1,7 +1,9 @@
 package ebayPT;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
@@ -80,7 +82,16 @@ public class EbayPT implements IEbayPT {
 		
 		this.userControl.executeAction(EAction.LIST_AUCTIONS);
 		
-		return this.tabletAuctionsBySize.get(size).iterator();
+		Collection<Collection<IAuction>> lessThanSizeAuctions =
+				new LinkedList<Collection<IAuction>>();
+		
+		for(int sizeI : this.tabletAuctionsBySize.keySet()){
+			if(sizeI <= size)
+				lessThanSizeAuctions.add(
+						this.tabletAuctionsBySize.get(sizeI));
+		}
+		
+		return new DoubleIterator<IAuction>(lessThanSizeAuctions);
 	}
 
 	@Override

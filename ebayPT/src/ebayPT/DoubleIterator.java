@@ -1,24 +1,36 @@
 package ebayPT;
 
+import java.util.Collection;
 import java.util.Iterator;
-import java.util.List;
+import java.util.NoSuchElementException;
 
-
+//TODO comment this
 public class DoubleIterator<E> implements Iterator<E> {
 
-	private Iterator<List<E>> iteratorsList;
+	private Iterator<Collection<E>> iteratorsList;
 	private Iterator<E> actualIterator;
 	
-	public DoubleIterator(List<List<E>> lists) {
+	public DoubleIterator(Collection<Collection<E>> lists) {
 		
 		this.iteratorsList = lists.iterator();
-
-		this.actualIterator = iteratorsList.next().iterator();
+		
+		try{
+			this.actualIterator = iteratorsList.next().iterator();
+		}
+		catch(NoSuchElementException e){
+			this.actualIterator = null;
+		}
 	}
 	
 	@Override
 	public boolean hasNext() {
-		return this.actualIterator.hasNext() || this.iteratorsList.hasNext();
+		try{
+			return this.actualIterator.hasNext() ||
+					this.iteratorsList.hasNext();
+		}
+		catch(NullPointerException e){
+			return false;
+		}
 	}
 
 	@Override

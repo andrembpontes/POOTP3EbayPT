@@ -17,8 +17,6 @@ public class EbayPT implements IEbayPT {
 
 	private Set<IUser> sortedUsers;
 	
-	private Set<IUser> usersBySales;
-	
 	private Map<EProductCategory, Set<IAuction>> auctionsByProductCategory;
 
 	private Map<Integer, Set<IAuction>> tabletAuctionsBySize; 
@@ -32,8 +30,6 @@ public class EbayPT implements IEbayPT {
 				Set<IAuction>>();
 		
 		this.tabletAuctionsBySize = new HashMap<Integer, Set<IAuction>>();
-		
-		this.usersBySales = new TreeSet<IUser>(new ComparatorUserBySales());
 		
 		this.sortedUsers = new TreeSet<IUser>();
 	}
@@ -71,6 +67,9 @@ public class EbayPT implements IEbayPT {
 	@Override
 	public Iterator<IAuction> getAuctions(EProductCategory category)
 			throws UserDeniedException {
+		
+		//TODO auctions not removed when closed
+		
 		this.userControl.executeAction(EAction.LIST_AUCTIONS);
 		
 		return this.auctionsByProductCategory.get(category).iterator();
@@ -139,7 +138,14 @@ public class EbayPT implements IEbayPT {
 	public Iterator<IUser> getUsersBySales() throws UserDeniedException {
 		this.userControl.executeAction(EAction.LIST_USERS);
 		
-		return this.usersBySales.iterator();
+		Set<IUser> usersBySales = new TreeSet<IUser>(new ComparatorUserBySales());
+		
+		for(IUser userI : this.users.values()){
+			if(userI.getUserType().equals(EUserType.USER))
+				usersBySales.add(userI);
+		}
+		
+		return usersBySales.iterator();
 	}
 
 	@Override
@@ -157,8 +163,6 @@ public class EbayPT implements IEbayPT {
 			
 			this.sortedUsers.add(newUser); //TODO verify if is necessary
 			
-			if(newUser.getUserType().equals(EUserType.USER))
-				this.usersBySales.add(newUser);
 		}
 		catch (IllegalArgumentException e) {
 			throw new InvalidUserTypeException();

@@ -90,9 +90,9 @@ public interface IUser extends Comparable<IUser>{
 	IProduct getProduct(String productCode);
 
 	/**
-	 * Return total number of auctions
+	 * Return total number of closed auctions
 	 * 
-	 * @return Total number of auctions
+	 * @return Total number of closed auctions
 	 */
-	int getAuctionsCount();
+	int getClosedAuctionsCount();
 }

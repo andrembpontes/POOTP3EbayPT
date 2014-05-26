@@ -171,7 +171,7 @@ public class Main {
 			IUser userI = users.next();
 			
 			System.out.println(userI.getUsername() + " " + userI.getName() + " "
-					+ userI.getEmail() + " " + userI.getAuctionsCount() + " "
+					+ userI.getEmail() + " " + userI.getClosedAuctionsCount() + " "
 					+ userI.getSales());
 		}
 		

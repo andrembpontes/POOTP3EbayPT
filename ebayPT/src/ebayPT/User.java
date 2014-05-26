@@ -112,8 +112,18 @@ public class User implements IUser{
 	}
 
 	@Override
-	public int getAuctionsCount() {
-		return this.auctionsByProductCode.values().size();
+	public int getClosedAuctionsCount() {
+		//TODO think on auctions split by available to simplify searchs and other things
+		
+		int count = 0;
+		
+		for(IAuction auctionI : this.auctionsByProductCode.values()){
+			if(!auctionI.isOpen()){
+				count++;
+			}
+		}
+		
+		return count;
 	}
 
 	@Override

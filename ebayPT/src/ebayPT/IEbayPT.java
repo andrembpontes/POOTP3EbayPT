@@ -176,14 +176,14 @@ public interface IEbayPT {
 	 * @param sellerUsername: auction seller
 	 * @param productCode: product code
 	 * @param amount: bid amount
-	 * @return true if bid matches plafond, false in any other case
+	 * @return Winner bid if applicable, null in other cases
 	 * @throws BiddingOwnAuctionException: Seller can't bid own auction
 	 * @throws BiddingClosedAuctionException: Trying to bid a closed auction 
 	 * @throws LowBidAmountException: Bid amount is lower than auction's base 
 	 * @throws UserDeniedException: Actual user cannot execute this task 
 	 * @throws InvalidAuctionException: Doesn't exist auction with givens data
 	 */
-	boolean bid(String sellerUsername, String productCode, int amount)
+	IBid bid(String sellerUsername, String productCode, int amount)
 			throws UserDeniedException, LowBidAmountException,
 			BiddingClosedAuctionException, BiddingOwnAuctionException,
 			InvalidAuctionException;

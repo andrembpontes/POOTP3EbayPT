@@ -67,7 +67,7 @@ public class Auction implements IAuction, Comparable<IAuction> {
 	}
 
 	@Override
-	public boolean bid(IUser user, int amount) throws LowBidAmountException,
+	public IBid bid(IUser user, int amount) throws LowBidAmountException,
 			BiddingClosedAuctionException, BiddingOwnAuctionException {
 		
 		if(!this.open)
@@ -81,7 +81,7 @@ public class Auction implements IAuction, Comparable<IAuction> {
 		
 		this.bids.add(new Bid(user, amount, this.bids.size()));
 		
-		return false;
+		return null;
 	}
 
 	@Override

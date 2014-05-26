@@ -249,7 +249,7 @@ public class EbayPT implements IEbayPT {
 	}
 
 	@Override
-	public boolean bid(String sellerUsername, String productCode, int amount)
+	public IBid bid(String sellerUsername, String productCode, int amount)
 			throws UserDeniedException, LowBidAmountException,
 			BiddingClosedAuctionException, BiddingOwnAuctionException,
 			InvalidAuctionException {
@@ -262,7 +262,7 @@ public class EbayPT implements IEbayPT {
 		}
 		catch (NoUserLoggedInException e) {
 			//At this point NoUserLoggedInException in not acceptable
-			return false;
+			return null;
 		}
 		catch (NullPointerException e){
 			throw new InvalidAuctionException();

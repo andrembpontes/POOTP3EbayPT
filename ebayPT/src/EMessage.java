@@ -51,7 +51,7 @@ public enum EMessage{
 		String toPrint = new String(this.message);
 		
 		for(String argI : args){
-			toPrint.replaceFirst(ARG_IDENTIFIER, argI); //TODO not working
+			toPrint = toPrint.replaceFirst(ARG_IDENTIFIER, argI);
 		}
 		
 		PRINT_STREAM.println(toPrint);

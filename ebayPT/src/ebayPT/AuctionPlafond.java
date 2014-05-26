@@ -30,7 +30,7 @@ public class AuctionPlafond extends Auction {
 	}
 	
 	@Override
-	public boolean bid(IUser bidder, int amount) throws LowBidAmountException,
+	public IBid bid(IUser bidder, int amount) throws LowBidAmountException,
 			BiddingClosedAuctionException, BiddingOwnAuctionException{
 		
 		super.bid(bidder, amount);
@@ -44,10 +44,10 @@ public class AuctionPlafond extends Auction {
 				
 			}
 			
-			return true;
+			return this.getWinnerBid();
 		}
 		
-		return false;
+		return null;
 	}
 
 }

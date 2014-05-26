@@ -245,12 +245,7 @@ public class Main {
 			throws UserDeniedException {
 		
 		try {
-			IBid winnerBid = ebayPT.closeAuction(scan.next());
-			
-			String[] args = { winnerBid.getBidder().getUsername(),
-					Integer.toString(winnerBid.getAmount()) };
-			
-			EMessage.WINNING_BID.print(args);
+			printWinningBid(ebayPT.closeAuction(scan.next()));
 		}
 		catch (NoBidsException e) {
 			EMessage.NO_BIDS.print();
@@ -258,6 +253,17 @@ public class Main {
 		catch (InvalidAuctionException e) {
 			EMessage.INVALID_AUCTION.print();
 		}
+	}
+	
+	private static void printWinningBid(String winner, int amount) {
+		String[] args = { winner, Integer.toString(amount) };
+		
+		EMessage.WINNING_BID.print(args);
+	}
+	
+	private static void printWinningBid(IBid winningBid) {
+		printWinningBid(winningBid.getBidder().getUsername(),
+				winningBid.getAmount());
 	}
 
 	private static void execCars(Scanner scan, IEbayPT ebayPT)
@@ -308,11 +314,16 @@ public class Main {
 			throws UserDeniedException {
 		
 		try {
-			Iterator <IBid> bids = ebayPT.getBiddings(scan.next(), scan.next());
+			String seller = scan.next();
+			String productCode = scan.next();
+			
+			Iterator <IBid> bids = ebayPT.getBiddings(seller, productCode);
 		
 			if(bids.hasNext()){
 				
 				EMessage.BIDDINGS_TITLE.print();
+				
+				System.out.println(seller + " " + productCode);
 				
 				while(bids.hasNext()){
 					IBid bidI = bids.next();
@@ -426,10 +437,12 @@ public class Main {
 			throws UserDeniedException {
 		
 		try {
-			ebayPT.bid(scan.next(), scan.next(), scan.nextInt());
-			
+			printWinningBid(
+					ebayPT.bid(scan.next(), scan.next(), scan.nextInt()));
+		}
+		catch (NullPointerException e){
+			//Auction not closed with bid
 			EMessage.BID.print();
-			
 		}
 		catch (LowBidAmountException e) {
 			EMessage.BID_LOWER_THAN_BASE.print();

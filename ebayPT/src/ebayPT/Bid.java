@@ -36,10 +36,10 @@ public class Bid implements IBid, Comparable<IBid>{
 
 	@Override
 	public int compareTo(IBid bid) {
-		int amountDiff = this.amount - bid.getAmount();
+		int amountDiff = bid.getAmount() - this.amount;
 		
 		if(amountDiff == 0)
-			return bid.getCount() - this.count;
+			return this.count - bid.getCount();
 		
 		return amountDiff;
 	}

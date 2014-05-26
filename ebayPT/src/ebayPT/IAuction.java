@@ -54,12 +54,12 @@ public interface IAuction extends Comparable<IAuction>{
 	 * 
 	 * @param user: Bidder user
 	 * @param amount: Bid amount
-	 * @return True if bid become closed by consequence of bid
+	 * @return Bid if actual bid won, null if not
 	 * @throws LowBidAmountException: Bid amount is lower than base amount
 	 * @throws BiddingClosedAuctionException: Bidding a closed auction
 	 * @throws BiddingOwnAuctionException: Bidder is auction seller
 	 */
-	boolean bid(IUser user, int amount) throws LowBidAmountException,
+	IBid bid(IUser user, int amount) throws LowBidAmountException,
 		BiddingClosedAuctionException, BiddingOwnAuctionException;
 	
 	/**

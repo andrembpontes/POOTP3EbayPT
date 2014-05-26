@@ -88,15 +88,11 @@ public class User implements IUser{
 	}
 
 	@Override
-	public void addAuction(IAuction auction) throws NotAuctionSellerException,
-			AuctionAlreadyExists {
+	public void addAuction(IAuction auction) throws NotAuctionSellerException {
 		
+		//TODO think in remove this
 		if(!auction.getSeller().equals(this))
 			throw new NotAuctionSellerException();
-		
-		if(this.auctionsByProductCode.containsKey(
-				auction.getProduct().getCode()))
-			throw new AuctionAlreadyExists();
 		
 		this.auctionsByProductCode.put(auction.getProduct().getCode(), auction);
 	}

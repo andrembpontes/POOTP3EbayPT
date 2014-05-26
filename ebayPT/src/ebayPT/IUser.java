@@ -67,11 +67,9 @@ public interface IUser extends Comparable<IUser>{
 	 * 
 	 * @param auction: auction to add
 	 * @throws NotAuctionSellerException: User is not auction seller
-	 * @throws AuctionAlreadyExists: Trying to add an auction that already
-	 * exists
 	 */
 	void addAuction(IAuction auction)
-			throws NotAuctionSellerException, AuctionAlreadyExists;
+			throws NotAuctionSellerException;
 	
 	/**
 	 * Look for and returns auction of product with givens productCode

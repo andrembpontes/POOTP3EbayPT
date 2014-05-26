@@ -34,15 +34,6 @@ public interface IDataBase {
 	IUser getUser(String username);
 	
 	/**
-	 * Look for auction with givens data and returns it
-	 * 
-	 * @param seller: Seller user of auction to look for
-	 * @param product: Product of auction to look for
-	 * @return Auction corresponding to givens seller and product
-	 */
-	IAuction getAuction(IUser seller, IProduct product);
-
-	/**
 	 * Look for product with givens data and returns it
 	 * 
 	 * @param owner: Product owner user

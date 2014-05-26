@@ -183,6 +183,7 @@ public class EbayPT implements IEbayPT {
 			EProductCategory category = product.getCategory();
 			
 			//TODO Auctions , lots of auctions, everywhere (verificar desenho) 
+			
 			//Add to auctions by product category
 			if(!this.auctionsByProductCategory.containsKey(category)){
 				Set<IAuction> newSet = new TreeSet<IAuction>();

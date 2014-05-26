@@ -25,15 +25,22 @@ public class Auction implements IAuction, Comparable<IAuction> {
 	 * @param seller: Seller user
 	 * @param product: Auction product
 	 * @param base: Minimum bid amount
+	 * @throws ProductAlreadyExistsException: Trying to create an auction to an
+	 * unavailable product 
 	 */
-	public Auction(IUser seller, IProduct product, int base){
+	public Auction(IUser seller, IProduct product, int base)
+			throws ProductAlreadyExistsException{
+		
+		if(!product.isAvaliable())
+			throw new ProductAlreadyExistsException();
+		
 		this.seller = seller;
 		this.product = product;
 		this.base = base;
 		
 		this.open = true;
 		
-		this.bids = new TreeSet<IBid>(); //TODO cant add duplicated entries
+		this.bids = new TreeSet<IBid>();
 	}
 	
 	@Override

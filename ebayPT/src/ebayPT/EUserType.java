@@ -14,6 +14,6 @@ public enum EUserType implements IUserType {
 		
 	@Override
 	public boolean hasAccessLevel(IUserType userType){
-		return this.equals(userType) || userType.equals(GUEST);
+		return userType == null || this.equals(userType);
 	}
 }

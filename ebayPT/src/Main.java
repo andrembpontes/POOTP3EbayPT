@@ -4,6 +4,7 @@ import ebayPT.AnotherUserAlreadyLoggedInException;
 import ebayPT.BiddingClosedAuctionException;
 import ebayPT.BiddingOwnAuctionException;
 import ebayPT.EProductCategory;
+import ebayPT.EUserType;
 import ebayPT.EbayPT;
 import ebayPT.IAuction;
 import ebayPT.IBid;
@@ -157,6 +158,9 @@ public class Main {
 	}
 
 	private static void UserDenied(UserDeniedException e) {
+		if(e.getLowestType().equals(EUserType.GUEST)){
+			EMessage.THERE_IS_A_USER_LOGGED_IN.print();
+		}
 		EMessage.USER_DENIED.print(e.getLowestType().toString().toLowerCase());
 	}
 

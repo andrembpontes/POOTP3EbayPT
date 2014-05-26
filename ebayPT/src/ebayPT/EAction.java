@@ -9,7 +9,7 @@ package ebayPT;
  */
 public enum EAction implements IAction{
 											//Permissions list:
-	LIST_AUCTIONS(EUserType.GUEST),			//List all auctions
+	LIST_AUCTIONS(null),			//List all auctions
 	ADD_USER(EUserType.GUEST),				//Add a new user
 	LIST_USERS(EUserType.ADMIN),			//List all users
 	ADD_PRODUCT(EUserType.USER),		//Create a new product
@@ -19,7 +19,8 @@ public enum EAction implements IAction{
 	LIST_PRODUCTS(EUserType.USER),	//List own products
 	LIST_BIDS(EUserType.USER);		//List auction bids
 		
-	private EUserType allowedUsers;		//Minimun user access level required
+	private EUserType allowedUsers;		//Users that can execute action 
+										//(null = no restrictions)
 	
 	private EAction(EUserType allowedUsers){
 		this.allowedUsers = allowedUsers;

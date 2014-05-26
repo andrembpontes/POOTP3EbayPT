@@ -9,6 +9,7 @@ public class EbayPT implements IEbayPT {
 	
 	public EbayPT() {
 		this.userControl = new UserControl();
+		this.db = new DataBase(userControl);
 	}
 	
 	@Override

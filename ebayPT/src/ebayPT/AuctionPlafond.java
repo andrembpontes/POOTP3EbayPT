@@ -20,9 +20,11 @@ public class AuctionPlafond extends Auction {
 	 * @param product: Auction product
 	 * @param base: Minimum bid amount
 	 * @param plafond: Auction's plafond
+	 * @throws ProductNotAvailableException : Trying to create an auction for an
+	 * un available product
 	 */
 	public AuctionPlafond(IUser seller, IProduct product, int base,
-			int plafond) {
+			int plafond) throws ProductNotAvailableException  {
 		
 		super(seller, product, base);
 		

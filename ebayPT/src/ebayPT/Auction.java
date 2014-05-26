@@ -25,14 +25,14 @@ public class Auction implements IAuction, Comparable<IAuction> {
 	 * @param seller: Seller user
 	 * @param product: Auction product
 	 * @param base: Minimum bid amount
-	 * @throws ProductAlreadyExistsException: Trying to create an auction to an
-	 * unavailable product 
+	 * @throws ProductNotAvailableException: Trying to create an auction to an
+	 * unavailable product  
 	 */
 	public Auction(IUser seller, IProduct product, int base)
-			throws ProductAlreadyExistsException{
+			throws ProductNotAvailableException{
 		
 		if(!product.isAvaliable())
-			throw new ProductAlreadyExistsException();
+			throw new ProductNotAvailableException();
 		
 		this.seller = seller;
 		this.product = product;

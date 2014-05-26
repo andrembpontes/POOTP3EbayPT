@@ -21,7 +21,8 @@ import ebayPT.NoBidsException;
 import ebayPT.NoUserLoggedInException;
 import ebayPT.NotSellerException;
 import ebayPT.ProductAlreadyExistsException;
-import ebayPT.ProductNotAvaliableException;
+import ebayPT.ProductNotAvailableException;
+import ebayPT.UserAlreadyExistException;
 import ebayPT.UserAlreadyLoggedInException;
 import ebayPT.UserDeniedException;
 
@@ -193,6 +194,9 @@ public class Main {
 		}
 		catch (InvalidUserTypeException e) {
 			throw new InvalidCommandException();
+		}
+		catch (UserAlreadyExistException e) {
+			EMessage.USER_ALREADY_EXIST.print();
 		}
 	}
 
@@ -406,7 +410,7 @@ public class Main {
 		catch (InvalidProductException e) {
 			EMessage.INVALID_PRODUCT.print();
 		}
-		catch (ProductNotAvaliableException e) {
+		catch (ProductNotAvailableException e) {
 			EMessage.PRODUCT_NOT_AVALIABLE.print();
 		}
 	}
@@ -424,7 +428,7 @@ public class Main {
 		catch (InvalidProductException e) {
 			EMessage.INVALID_PRODUCT.print();
 		}
-		catch (ProductNotAvaliableException e) {
+		catch (ProductNotAvailableException e) {
 			EMessage.PRODUCT_NOT_AVALIABLE.print();
 		}
 	}

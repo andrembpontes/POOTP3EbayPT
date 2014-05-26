@@ -29,7 +29,8 @@ public enum EMessage{
 	BIDDING_OWN_AUCTION("Cannot bid in auction."),
 	BID_LOWER_THAN_BASE("Bid not accepted."),
 	NEW_USER("New @arg registered."),
-	TABLETS_DIMENSION_TITLE("Tablets by dimension:");
+	TABLETS_DIMENSION_TITLE("Tablets by dimension:"),
+	USER_ALREADY_EXIST("User already exists.");
 	
 	private static final PrintStream PRINT_STREAM = System.out;
 	private static final String ARG_IDENTIFIER = "@arg";

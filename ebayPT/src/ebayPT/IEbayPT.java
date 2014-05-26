@@ -11,7 +11,7 @@ import java.util.Iterator;
 public interface IEbayPT {
 	
 	
-	//TODO com as enumerações é mesmo necessario especificalas aqui?
+	//TODO com as enumeracoes e mesmo necessario especificalas aqui?
 	
 	/**
 	 * Constant representing Tablet product category.
@@ -134,8 +134,11 @@ public interface IEbayPT {
 	 * @param userType: one of IEbayPT.REGISTERED or IEbayPT.ADMIN
 	 * @throws InvalidUserTypeException: Givens userType isn't a valid user type
 	 * @throws UserDeniedException: Actual user cannot execute this task 
+	 * @throws UserAlreadyExistException: Specified username already exist
 	 */
-	void addUser(String email, String name, String username, String userType) throws InvalidUserTypeException, UserDeniedException;
+	void addUser(String email, String name, String username, String userType)
+			throws InvalidUserTypeException, UserDeniedException,
+			UserAlreadyExistException;
 	
 	/**
 	 * Create a standard auction with givens data with actual logged user as
@@ -150,7 +153,7 @@ public interface IEbayPT {
 	 */
 	void createAuctionStandard(String productCode, int basePrice)
 			throws UserDeniedException, InvalidProductException,
-			ProductNotAvaliableException;
+			ProductNotAvailableException;
 	
 	/**
 	 * Create a plafond auction with givens data with actual logged user as
@@ -166,7 +169,7 @@ public interface IEbayPT {
 	 */
 	void createAuctionPlafond(String productCode, int basePrice, int plafond)
 			throws InvalidProductException, UserDeniedException,
-			ProductNotAvaliableException;
+			ProductNotAvailableException;
 	
 	/**
 	 * Bid on the given auction. This method returns true if the auction is

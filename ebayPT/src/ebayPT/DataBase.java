@@ -8,8 +8,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-import com.sun.org.apache.regexp.internal.recompile;
-
 
 public class DataBase implements IDataBase {
 
@@ -115,34 +113,6 @@ public class DataBase implements IDataBase {
 		}
 		
 		return new DoubleIterator<IAuction>(lessThanSizeAuctions);
-	}
-
-	@Override
-	public Iterator<IBid> getBiddings(IAuction auction) {
-		try{
-
-			IUser seller = this.users.get(sellerUsername);
-			IAuction auction = seller.getAuction(productCode);
-
-			IUser loggedUser;
-
-			try{
-				loggedUser = this.userControl.getLoggedUser();
-			}
-			catch(NoUserLoggedInException e){
-				//At this point this exception in not acceptable
-				loggedUser = null;
-			}
-
-			if(auction.isOpen()
-					&& !loggedUser.equals(seller))
-				throw new NotSellerException();
-
-			return auction.getBids();
-		}
-		catch(NullPointerException e){
-			throw new InvalidAuctionException();
-		}
 	}
 
 }

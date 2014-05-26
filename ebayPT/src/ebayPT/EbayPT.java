@@ -1,37 +1,14 @@
 package ebayPT;
 
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
-
 
 public class EbayPT implements IEbayPT {
 
 	private IUserControl userControl;
-	
-	private Map <String, IUser> users;
-
-	private Set<IUser> sortedUsers;
-	
-	private Map<EProductCategory, Set<IAuction>> auctionsByProductCategory;
-
-	private Map<Integer, Set<IAuction>> tabletAuctionsBySize; 
+	private IDataBase db;
 	
 	public EbayPT() {
 		this.userControl = new UserControl();
-		
-		this.users = new HashMap<String, IUser>();
-			
-		this.auctionsByProductCategory = new HashMap<EProductCategory,
-				Set<IAuction>>();
-		
-		this.tabletAuctionsBySize = new HashMap<Integer, Set<IAuction>>();
-		
-		this.sortedUsers = new TreeSet<IUser>();
 	}
 	
 	@Override
@@ -40,7 +17,7 @@ public class EbayPT implements IEbayPT {
 			UserAlreadyLoggedInException, InvalidUserException {
 		
 		try{
-			this.userControl.login(this.users.get(username));
+			this.userControl.login(this.db.getUser(username));
 		}
 		catch(NullPointerException e){
 			throw new InvalidUserException();
@@ -72,7 +49,7 @@ public class EbayPT implements IEbayPT {
 		
 		this.userControl.executeAction(EAction.LIST_AUCTIONS);
 		
-		return this.auctionsByProductCategory.get(category).iterator();
+		return this.db.getAuctions(category);
 	}
 
 	@Override
@@ -81,16 +58,7 @@ public class EbayPT implements IEbayPT {
 		
 		this.userControl.executeAction(EAction.LIST_AUCTIONS);
 		
-		Collection<Collection<IAuction>> lessThanSizeAuctions =
-				new LinkedList<Collection<IAuction>>();
-		
-		for(int sizeI : this.tabletAuctionsBySize.keySet()){
-			if(sizeI <= size)
-				lessThanSizeAuctions.add(
-						this.tabletAuctionsBySize.get(sizeI));
-		}
-		
-		return new DoubleIterator<IAuction>(lessThanSizeAuctions);
+		return this.db.getAuctionsTabletBySize(size);
 	}
 
 	@Override
@@ -103,7 +71,7 @@ public class EbayPT implements IEbayPT {
 		
 		try{
 			
-			IUser seller = this.users.get(sellerUsername);
+			IUser seller = this.db.getUser(sellerUsername);
 			IAuction auction = seller.getAuction(productCode);
 			
 			IUser loggedUser;
@@ -131,27 +99,20 @@ public class EbayPT implements IEbayPT {
 	public Iterator<IUser> getUsers() throws UserDeniedException {
 		this.userControl.executeAction(EAction.LIST_USERS);
 		
-		return this.sortedUsers.iterator();
+		return this.db.getUsers();
 	}
 
 	@Override
 	public Iterator<IUser> getUsersBySales() throws UserDeniedException {
 		this.userControl.executeAction(EAction.LIST_USERS);
 		
-		Set<IUser> usersBySales = new TreeSet<IUser>(new ComparatorUserBySales());
-		
-		for(IUser userI : this.users.values()){
-			if(userI.getUserType().equals(EUserType.USER))
-				usersBySales.add(userI);
-		}
-		
-		return usersBySales.iterator();
+		return this.db.getUsersBySales();
 	}
 
 	@Override
 	public void addUser(String email, String name, String username,
-			String userType)
-					throws InvalidUserTypeException, UserDeniedException{
+			String userType) throws InvalidUserTypeException,
+			UserDeniedException, UserAlreadyExistException{
 		
 		this.userControl.executeAction(EAction.ADD_USER);
 		
@@ -159,107 +120,52 @@ public class EbayPT implements IEbayPT {
 			IUser newUser = new User(EUserType.valueOf(userType), username, email,
 					name);
 			
-			this.users.put(username, newUser);
-			
-			this.sortedUsers.add(newUser); //TODO verify if is necessary
-			
+			this.db.addUser(newUser);
 		}
 		catch (IllegalArgumentException e) {
 			throw new InvalidUserTypeException();
-		}
-	}
-
-	//TODO comment this
-	private void addAuction(IAuction auction, IUser user, IProduct product)
-			throws InvalidProductException, UserDeniedException,
-			ProductNotAvaliableException{
-		
-		this.userControl.executeAction(EAction.CREATE_AUCTION);
-		
-		if(!product.isAvaliable())
-			throw new ProductNotAvaliableException();
-			
-		try {
-			EProductCategory category = product.getCategory();
-			
-			//TODO Auctions , lots of auctions, everywhere (verificar desenho) 
-			
-			//Add to auctions by product category
-			if(!this.auctionsByProductCategory.containsKey(category)){
-				Set<IAuction> newSet = new TreeSet<IAuction>();
-				newSet.add(auction);
-				this.auctionsByProductCategory.put(category, newSet);
-			}
-			else{
-				this.auctionsByProductCategory.get(category).add(auction);
-			}
-			
-			try {
-				user.addAuction(auction);
-			}
-			catch (NotAuctionSellerException e) {
-				//Do nothing
-			}
-			catch (AuctionAlreadyExists e) {
-				throw new ProductNotAvaliableException();
-			}
-			
-			//Add to tablet auctions by size
-			
-			if(category.equals(EProductCategory.TABLET)){
-				ITablet tablet = (ITablet) product;
-				
-				if(!this.tabletAuctionsBySize.containsKey(tablet.getSize())){
-					Set<IAuction> newSet = new TreeSet<IAuction>();
-					newSet.add(auction);
-					this.tabletAuctionsBySize.
-						put(tablet.getSize(), newSet);
-				}
-				else{
-					this.tabletAuctionsBySize.
-						get(tablet.getSize()).add(auction);
-				}
-			}
-		}
-		catch (NullPointerException e2) {
-			throw new InvalidProductException();
 		}
 	}
 	
 	@Override
 	public void createAuctionStandard(String productCode, int basePrice) 
 			throws UserDeniedException, InvalidProductException,
-			ProductNotAvaliableException {
+			ProductNotAvailableException {
+		
+		this.userControl.executeAction(EAction.CREATE_AUCTION);
 		
 		try {
 			IUser loggedUser = this.userControl.getLoggedUser();
 			IProduct product = loggedUser.getProduct(productCode);			
-			this.addAuction(new Auction(loggedUser, product, basePrice),
-					loggedUser, product);
+			this.db.addAuction(new Auction(loggedUser, product, basePrice));
 		}
 		catch (NoUserLoggedInException e) {
-			//If there's no user logged in throws UserDeniedException
-			
-			this.userControl.executeAction(EAction.CREATE_AUCTION);
+			//Not applicable at this point
+		}
+		catch (NotAuctionSellerException e) {
+			//Not applicable at this point
 		}
 	}
 
 	@Override
 	public void createAuctionPlafond(String productCode, int basePrice,
 			int plafond) throws InvalidProductException, UserDeniedException,
-			ProductNotAvaliableException {
+			ProductNotAvailableException {
+		
+		this.userControl.executeAction(EAction.CREATE_AUCTION);
 		
 		try {
 			IUser loggedUser = this.userControl.getLoggedUser();
 			IProduct product = loggedUser.getProduct(productCode);
 			
-			this.addAuction(new AuctionPlafond(loggedUser, product, basePrice,
-					plafond), loggedUser, product);
+			this.db.addAuction(new AuctionPlafond(loggedUser, product, basePrice,
+					plafond));
 		}
 		catch (NoUserLoggedInException e) {
-			//If there's no user logged in throws UserDeniedException
-			
-			this.userControl.executeAction(EAction.CREATE_AUCTION);
+			//Not applicable at this point
+		}
+		catch (NotAuctionSellerException e) {
+			//Not applicable at this point
 		}
 
 	}
@@ -273,7 +179,7 @@ public class EbayPT implements IEbayPT {
 		this.userControl.executeAction(EAction.BID);
 		
 		try {
-			return this.users.get(sellerUsername).getAuction(productCode).
+			return this.db.getUser(sellerUsername).getAuction(productCode).
 				bid(this.userControl.getLoggedUser(), amount);
 		}
 		catch (NoUserLoggedInException e) {
@@ -305,28 +211,19 @@ public class EbayPT implements IEbayPT {
 		}
 	}
 	
-	//TODO comment
-	private void createProduct(IProduct product)
-			throws UserDeniedException, ProductAlreadyExistsException {
-		
-		this.userControl.executeAction(EAction.ADD_PRODUCT);
-		
-		try {
-			this.userControl.getLoggedUser().addProduct(product);
-		}
-		catch (NoUserLoggedInException e) {
-			//At this point NoUserLoggedInException is not acceptable
-		}
-	}
-
 	@Override
 	public void createCar(String code, String description, String make,
 			String model, int year) throws UserDeniedException,
 			ProductAlreadyExistsException {
 		
-		ICar newCar = new Car(code, description, make, model, year);
+		this.userControl.executeAction(EAction.ADD_PRODUCT);
 		
-		this.createProduct(newCar);
+		try {
+			this.db.addProduct(new Car(code, description, make, model, year));
+		} 
+		catch (NoUserLoggedInException e) {
+			//Not applicable at this point
+		}
 		
 	}
 
@@ -335,9 +232,15 @@ public class EbayPT implements IEbayPT {
 			int size, int weight) throws UserDeniedException,
 			ProductAlreadyExistsException {
 		
-		ITablet newTablet = new Tablet(code, description, brand, size, weight);
+		this.userControl.executeAction(EAction.ADD_PRODUCT);
 		
-		this.createProduct(newTablet);
+		try {
+			this.db.addProduct(
+					new Tablet(code, description, brand, size, weight));
+		} 
+		catch (NoUserLoggedInException e) {
+			//Not applicable at this point
+		}
 	}
 
 }

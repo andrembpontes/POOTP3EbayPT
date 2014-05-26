@@ -5,25 +5,23 @@ import java.util.Iterator;
 public interface IDataBase {
 
 	/**
-	 * Add a new product to data base
-	 * 
-	 * @param product: Product to add
-	 */
-	void addProduct(IProduct product);
-	
-	/**
 	 * Add a new auction to database
 	 * 
 	 * @param auction: Auction to add
+	 * @throws NoUserLoggedInException: Need an logged user to add auction
+	 * @throws NotAuctionSellerException : Trying to add an auction of an user
+	 * in other user session
 	 */
-	void addAuction(IAuction auction);
+	void addAuction(IAuction auction)
+			throws NotAuctionSellerException, NoUserLoggedInException;
 	
 	/**
 	 * Add a new user to database
 	 * 
 	 * @param user: User to add
+	 * @throws UserAlreadyExistException: username already exist
 	 */
-	void addUser(IUser user);
+	void addUser(IUser user) throws UserAlreadyExistException;
 	
 	/**
 	 * Look for user with givens user name and return it
@@ -34,37 +32,19 @@ public interface IDataBase {
 	IUser getUser(String username);
 	
 	/**
-	 * Look for product with givens data and returns it
-	 * 
-	 * @param owner: Product owner user
-	 * @param productCode: Code of product to look for
-	 * @return Product according to givens data, null if not found
-	 */
-	IProduct getProduct(IUser owner, String productCode);
-	
-	//TODO verify sort settings
-	/**
-	 * Create and returns a new iterator for all users alphabetical sorted
+	 * Create and returns a new iterator for all users sorted first by type then
+	 * by username alphabetically
 	 * 
 	 * @return Iterator to all users
 	 */
 	Iterator<IUser> getUsers();
 	
-	//TODO verify sort settings
 	/**
 	 * Creates and returns a new iterator for all users sorted by sales amount
 	 * 
 	 * @return Iterator to all users sorted by amount of sales
 	 */
 	Iterator<IUser> getUsersBySales();
-	
-	/**
-	 * Create and returns a new iterator for all products of givens user
-	 * 
-	 * @param owner: User to get products' iterator'
-	 * @return Iterator for user's products'
-	 */
-	Iterator<IProduct> getProducts(IUser owner);
 	
 	/**
 	 * Create and returns a new iterator for all auctions of givens product category
@@ -81,13 +61,13 @@ public interface IDataBase {
 	 * @return Iterator for Tablets' auctions
 	 */
 	Iterator<IAuction> getAuctionsTabletBySize(int size);
-	
+
 	/**
-	 * Create and return a new Iterator for all bids of givens auction
-	 * 
-	 * @param auction: auction to get bids iterator
-	 * @returns Iterator for auction bids
+	 * @param product: Product to add
+	 * @throws ProductAlreadyExistsException: Product already exist in database
+	 * @throws NoUserLoggedInException: Need a logged user to add product to
 	 */
-	Iterator<IBid> getBiddings(IAuction auction);
+	void addProduct(IProduct product)
+			throws ProductAlreadyExistsException, NoUserLoggedInException;
 }
 

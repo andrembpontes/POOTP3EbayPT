@@ -113,7 +113,7 @@ public class Main {
 			}
 
 
-			System.out.print(seller + " " + tabletI.getCode() + " "
+			System.out.println(seller + " " + tabletI.getCode() + " "
 					+ tabletI.getBrand() + " " + tabletI.getSize() + " "
 					+ tabletI.getWeight() + " " + auctionI.getBaseAmount()
 					+ " " + highestBid);
@@ -121,7 +121,7 @@ public class Main {
 	}
 
 	private static void UserDenied(UserDeniedException e) {
-		EMessage.USER_DENIED.print(e.getLowestType().toString());
+		EMessage.USER_DENIED.print(e.getLowestType().toString().toLowerCase());
 	}
 
 	private static void execSales(Scanner scan, IEbayPT ebayPT)
@@ -146,11 +146,14 @@ public class Main {
 		
 		String userType = scan.next();
 		String username = scan.next();
+		scan.nextLine();
 		String name = scan.nextLine();
 		String email = scan.nextLine();		
 		
 		try {
 			ebayPT.addUser(email, name, username, userType);
+			
+			EMessage.NEW_USER.print(userType.toLowerCase());
 		}
 		catch (InvalidUserTypeException e) {
 			throw new InvalidCommandException();
@@ -225,12 +228,15 @@ public class Main {
 			IUser userI = users.next();
 		
 			System.out.println(userI.getUsername() + " " + userI.getName() + " "
-					+ userI.getEmail() + " " + userI.getUserType());
+					+ userI.getEmail() + " "
+					+ userI.getUserType().toString());
 		}
 	}
 
 	private static void execExit() {
 		EMessage.EXIT.print();
+		
+		System.out.println();
 		
 		System.exit(0);
 	}
@@ -347,6 +353,8 @@ public class Main {
 		
 		try {
 			ebayPT.createAuctionStandard(scan.next(), scan.nextInt());
+			
+			EMessage.AUCTION_ADDED.print();
 		}
 		catch (InvalidProductException e) {
 			EMessage.INVALID_PRODUCT.print();
@@ -362,6 +370,9 @@ public class Main {
 		try {
 			ebayPT.createAuctionPlafond(scan.next(), scan.nextInt(),
 					scan.nextInt());
+			
+			EMessage.AUCTION_ADDED.print();
+			
 		}
 		catch (InvalidProductException e) {
 			EMessage.INVALID_PRODUCT.print();
@@ -387,8 +398,8 @@ public class Main {
 			throws UserDeniedException {
 		
 		try {
-			ebayPT.createTablet(scan.next(), scan.next(), scan.next(),
-					scan.nextInt(), scan.nextInt());
+			ebayPT.createTablet(scan.nextLine().trim(), scan.nextLine(),
+					scan.next(), scan.nextInt(), scan.nextInt());
 			
 			EMessage.PRODUCT_ADDED.print();
 		}
@@ -401,8 +412,8 @@ public class Main {
 			throws UserDeniedException {
 		
 		try {
-			ebayPT.createCar(scan.next(), scan.next(), scan.next(), scan.next(),
-					scan.nextInt());
+			ebayPT.createCar(scan.nextLine().trim(), scan.nextLine(),
+					scan.next(), scan.next(), scan.nextInt());
 			
 			EMessage.PRODUCT_ADDED.print();
 		}

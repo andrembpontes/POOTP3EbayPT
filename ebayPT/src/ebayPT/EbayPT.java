@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeMap;
 import java.util.TreeSet;
 
 
@@ -14,6 +13,8 @@ public class EbayPT implements IEbayPT {
 	
 	private Map <String, IUser> users;
 
+	private Set<IUser> sortedUsers;
+	
 	private Set<IUser> usersBySales;
 	
 	private Map<EProductCategory, Set<IAuction>> auctionsByProductCategory;
@@ -22,7 +23,8 @@ public class EbayPT implements IEbayPT {
 	
 	public EbayPT() {
 		this.userControl = new UserControl();
-		this.users = new TreeMap<String, IUser>();
+		
+		this.users = new HashMap<String, IUser>();
 			
 		this.auctionsByProductCategory = new HashMap<EProductCategory,
 				Set<IAuction>>();
@@ -30,6 +32,8 @@ public class EbayPT implements IEbayPT {
 		this.tabletAuctionsBySize = new HashMap<Integer, Set<IAuction>>();
 		
 		this.usersBySales = new TreeSet<IUser>(new ComparatorUserBySales());
+		
+		this.sortedUsers = new TreeSet<IUser>();
 	}
 	
 	@Override
@@ -117,7 +121,7 @@ public class EbayPT implements IEbayPT {
 	public Iterator<IUser> getUsers() throws UserDeniedException {
 		this.userControl.executeAction(EAction.LIST_USERS);
 		
-		return this.users.values().iterator();
+		return this.sortedUsers.iterator();
 	}
 
 	@Override
@@ -140,6 +144,8 @@ public class EbayPT implements IEbayPT {
 			
 			this.users.put(username, newUser);
 			
+			this.sortedUsers.add(newUser); //TODO verify if is necessary
+			
 			if(newUser.getUserType().equals(EUserType.USER))
 				this.usersBySales.add(newUser);
 		}
@@ -149,7 +155,7 @@ public class EbayPT implements IEbayPT {
 	}
 
 	//TODO comment this
-	private void addAuction(IAuction auction, IProduct product)
+	private void addAuction(IAuction auction, IUser user, IProduct product)
 			throws InvalidProductException, UserDeniedException,
 			ProductNotAvaliableException{
 		
@@ -161,6 +167,7 @@ public class EbayPT implements IEbayPT {
 		try {
 			EProductCategory category = product.getCategory();
 			
+			//TODO Auctions , lots of auctions, everywhere (verificar desenho) 
 			//Add to auctions by product category
 			if(!this.auctionsByProductCategory.containsKey(category)){
 				Set<IAuction> newSet = new TreeSet<IAuction>();
@@ -169,6 +176,16 @@ public class EbayPT implements IEbayPT {
 			}
 			else{
 				this.auctionsByProductCategory.get(category).add(auction);
+			}
+			
+			try {
+				user.addAuction(auction);
+			}
+			catch (NotAuctionSellerException e) {
+				//Do nothing
+			}
+			catch (AuctionAlreadyExists e) {
+				throw new ProductNotAvaliableException();
 			}
 			
 			//Add to tablet auctions by size
@@ -201,7 +218,8 @@ public class EbayPT implements IEbayPT {
 		try {
 			IUser loggedUser = this.userControl.getLoggedUser();
 			IProduct product = loggedUser.getProduct(productCode);			
-			this.addAuction(new Auction(loggedUser, product, basePrice), product);
+			this.addAuction(new Auction(loggedUser, product, basePrice),
+					loggedUser, product);
 		}
 		catch (NoUserLoggedInException e) {
 			//If there's no user logged in throws UserDeniedException
@@ -220,7 +238,7 @@ public class EbayPT implements IEbayPT {
 			IProduct product = loggedUser.getProduct(productCode);
 			
 			this.addAuction(new AuctionPlafond(loggedUser, product, basePrice,
-					plafond), product);
+					plafond), loggedUser, product);
 		}
 		catch (NoUserLoggedInException e) {
 			//If there's no user logged in throws UserDeniedException

@@ -29,6 +29,7 @@ public class Auction implements IAuction, Comparable<IAuction> {
 	public Auction(IUser seller, IProduct product, int base){
 		this.seller = seller;
 		this.product = product;
+		this.base = base;
 		
 		this.open = true;
 		
@@ -101,7 +102,7 @@ public class Auction implements IAuction, Comparable<IAuction> {
 
 	@Override
 	public int compareTo(IAuction auction) {
-		int baseDiff = auction.getBaseAmount() - this.getBaseAmount();
+		int baseDiff = this.getBaseAmount() - auction.getBaseAmount();
 		
 		if(baseDiff == 0)
 			return this.getProduct().getCode().

@@ -24,9 +24,11 @@ public enum EMessage{
 	PRODUCT_NOT_AVALIABLE("Product not available."),
 	PRODUCT_ALREADY_EXIST("Product code already exists."),
 	PRODUCT_ADDED("New product added."),
+	AUCTION_ADDED("New auction added."),
 	BID("Bid accepted."),
 	BIDDING_OWN_AUCTION("Cannot bid in auction."),
-	BID_LOWER_THAN_BASE("Bid not accepted.");
+	BID_LOWER_THAN_BASE("Bid not accepted."),
+	NEW_USER("New @arg registered.");
 	
 	private static final PrintStream PRINT_STREAM = System.out;
 	private static final String ARG_IDENTIFIER = "@arg";
@@ -46,10 +48,10 @@ public enum EMessage{
 	}
 	
 	public void print(String[] args){
-		String toPrint = this.message;
+		String toPrint = new String(this.message);
 		
 		for(String argI : args){
-			toPrint.replaceFirst(ARG_IDENTIFIER, argI);
+			toPrint.replaceFirst(ARG_IDENTIFIER, argI); //TODO not working
 		}
 		
 		PRINT_STREAM.println(toPrint);

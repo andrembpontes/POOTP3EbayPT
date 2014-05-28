@@ -162,7 +162,10 @@ public class Main {
 		if(e.getLowestType().equals(EUserType.GUEST)){
 			EMessage.THERE_IS_A_USER_LOGGED_IN.print();
 		}
-		EMessage.USER_DENIED.print(e.getLowestType().toString().toLowerCase());
+		else{
+			EMessage.USER_DENIED.
+				print(e.getLowestType().toString().toLowerCase());
+		}
 	}
 
 	private static void execSales(Scanner scan, IEbayPT ebayPT)

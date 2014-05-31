@@ -58,7 +58,8 @@ public interface IEbayPT {
 	 * Gets an iterator to all products of the user currently logged in.
 	 * The products are sorted by alphabetical order.
 	 * 
-	 * @return iterator to all products of currently logged user
+	 * @return iterator to all products of currently logged user or null if the
+	 * user has no products in the database
 	 * @throws UserDeniedException: Actual user cannot execute this task: Actual user cannot execute this task
 	 */
 	Iterator<IProduct> getProducts() throws UserDeniedException;
@@ -70,7 +71,8 @@ public interface IEbayPT {
 	 * the case of ties.
 	 * 
 	 * @param category: one of IEbayPT.TABLET or IEBayPT.CAR
-	 * @return iterator to all auctions of a given category
+	 * @return iterator to all auctions of a given category or null if there are
+	 * no auctions of that category in the database
 	 * @throws UserDeniedException: Actual user cannot execute this task 
 	 */
 	Iterator<IAuction> getAuctions(EProductCategory category)
@@ -83,7 +85,8 @@ public interface IEbayPT {
 	 * the case of ties.
 	 * 
 	 * @param size: maximum size of tablet display to include in result
-	 * @return iterator to all auctions of Tablet products up to a maximum Tablet size
+	 * @return iterator to all auctions of Tablet products up to a maximum
+	 * Tablet size or null if there are no such auctions in the database
 	 * @throws UserDeniedException: Actual user cannot execute this task 
 	 */
 	Iterator<IAuction> getAuctionsTabletBySize(int size) throws UserDeniedException;

@@ -180,8 +180,16 @@ public class EbayPT implements IEbayPT {
 		this.userControl.executeAction(EAction.BID);
 		
 		try {
-			return this.db.getUser(sellerUsername).getAuction(productCode).
-				bid(this.userControl.getLoggedUser(), amount);
+			IAuction auction =
+					this.db.getUser(sellerUsername).getAuction(productCode);
+			
+			IBid winnerBid =
+					auction.bid(this.userControl.getLoggedUser(), amount);
+			
+			if(winnerBid != null)
+				this.db.reportClosedAuction(auction);
+			
+			return winnerBid;
 		}
 		catch (NoUserLoggedInException e) {
 			//At this point NoUserLoggedInException in not acceptable
@@ -200,15 +208,19 @@ public class EbayPT implements IEbayPT {
 		
 		this.userControl.executeAction(EAction.CLOSE_AUCTION);
 		
-		try {
-			return this.userControl.getLoggedUser().getAuction(productCode).close();
+		try {			
+			IAuction auction =
+					this.userControl.getLoggedUser().getAuction(productCode);
+			
+			IBid winnerBid = auction.close();
+		
+			this.db.reportClosedAuction(auction);
+			
+			return winnerBid;
 		}
 		catch (NoUserLoggedInException e) {
 			//At this point NoUserLoggedInException in not acceptable
 			return null;
-		}
-		catch (NullPointerException e){
-			throw new InvalidAuctionException();
 		}
 	}
 	

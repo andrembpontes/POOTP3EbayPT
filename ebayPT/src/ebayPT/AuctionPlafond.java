@@ -40,10 +40,10 @@ public class AuctionPlafond extends Auction {
 		if(amount > this.plafond){
 			try {
 				this.close();
+				
 			} catch (NoBidsException e) {
 				//Do nothing
-				//At this point close() will never throws NoBidsException
-				
+				//At this point this exceptions are not acceptable
 			}
 			
 			return this.getWinnerBid();

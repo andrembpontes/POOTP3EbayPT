@@ -53,7 +53,7 @@ public interface IUser extends Comparable<IUser>{
 	 * 
 	 * @return Total sales amount
 	 */
-	int getSales();
+	long getSales();
 
 	/**
 	 * Create and returns a new iterator for products sort alphabetical
@@ -93,4 +93,13 @@ public interface IUser extends Comparable<IUser>{
 	 * @return Total number of closed auctions
 	 */
 	int getClosedAuctionsCount();
+	
+	/**
+	 * Report that givens auctions has been closed
+	 * 
+	 * @param productCode: Auction's product code to close
+	 * @throws InvalidAuctionException: There is no auctions with givens product
+	 * code
+	 */
+	void reportClosedAuction(String productCode) throws InvalidAuctionException;
 }

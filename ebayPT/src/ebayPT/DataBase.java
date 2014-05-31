@@ -115,4 +115,18 @@ public class DataBase implements IDataBase {
 		return new DoubleIterator<IAuction>(lessThanSizeAuctions);
 	}
 
+	@Override
+	public void reportClosedAuction(IAuction auction) {		
+		IProduct auctionProduct = auction.getProduct();
+		
+		this.auctionsByProductCategory.removeElemt(
+				auctionProduct.getCategory(), auction);
+		
+		if(auctionProduct.getCategory().equals(EProductCategory.TABLET)){
+			ITablet tablet = (ITablet) auctionProduct;
+			
+			this.tabletAuctionsBySize.removeElemt(tablet.getSize(), auction);
+		}
+	}
+
 }

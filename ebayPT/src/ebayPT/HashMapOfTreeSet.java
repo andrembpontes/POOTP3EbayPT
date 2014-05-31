@@ -28,4 +28,14 @@ public class HashMapOfTreeSet<K, E> extends HashMap<K, Set<E>>
 			this.put(key, newSet);
 		}
 	}
+	
+	@Override
+	public E removeElemt(K key, E value){
+		this.get(key).remove(value);
+		
+		if(this.get(key).size() == 0)
+			this.remove(key);
+		
+		return value;
+	}
 }

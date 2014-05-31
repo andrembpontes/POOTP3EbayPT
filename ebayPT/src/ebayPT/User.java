@@ -14,16 +14,25 @@ public class User implements IUser{
 	
 	private Map<String, IAuction> auctionsByProductCode;
 	
+	private Map<String, IAuction> closedAuctions;
+	
+	private long closedAuctionSales;
+	
 	public User(IUserType type, String username, String email, String name){
 		this.type = type;
 		this.username = username;
 		this.email = email;
 		this.name = name;
 		
+		this.closedAuctionSales = 0;
+		
 		this.products = new TreeMap<String, IProduct>();
 		
 		//TODO for better implementation split auctions by states (closed/open)
 		this.auctionsByProductCode = new HashMap<String, IAuction>();
+		
+		this.closedAuctions = new HashMap<String, IAuction>();
+		
 	}
 	
 	@Override
@@ -67,8 +76,8 @@ public class User implements IUser{
 	}
 
 	@Override
-	public int getSales() {
-		int sales = 0;
+	public long getSales() {
+		long sales = this.closedAuctionSales;
 		
 		for(IAuction auctionI: this.auctionsByProductCode.values()){
 			try{
@@ -99,7 +108,12 @@ public class User implements IUser{
 
 	@Override
 	public IAuction getAuction(String productCode) {
-		return this.auctionsByProductCode.get(productCode);
+		IAuction auction = this.auctionsByProductCode.get(productCode);
+		
+		if(auction == null)
+			return this.closedAuctions.get(productCode);
+		
+		return auction;
 	}
 
 	@Override
@@ -109,17 +123,7 @@ public class User implements IUser{
 
 	@Override
 	public int getClosedAuctionsCount() {
-		//TODO think on auctions split by available to simplify searchs and other things
-		
-		int count = 0;
-		
-		for(IAuction auctionI : this.auctionsByProductCode.values()){
-			if(!auctionI.isOpen()){
-				count++;
-			}
-		}
-		
-		return count;
+		return this.closedAuctions.size();
 	}
 
 	@Override
@@ -133,4 +137,21 @@ public class User implements IUser{
 		return typeDiff;
 	}
 
+	@Override
+	public void reportClosedAuction(String productCode)
+			throws InvalidAuctionException {
+		
+		try{
+			IBid winnerBid =
+					this.auctionsByProductCode.get(productCode).getWinnerBid();
+			
+			this.closedAuctions.put(productCode,
+					this.auctionsByProductCode.remove(productCode));
+			
+			this.closedAuctionSales += winnerBid.getAmount();			
+		}
+		catch(NullPointerException e){
+			throw new InvalidAuctionException();
+		}
+	}
 }

@@ -69,5 +69,13 @@ public interface IDataBase {
 	 */
 	void addProduct(IProduct product)
 			throws ProductAlreadyExistsException, NoUserLoggedInException;
+	
+	/**
+	 * Remove auction for data base
+	 * 
+	 * @param auction: Auction to report that has been closed
+	 */
+	void reportClosedAuction(IAuction auction);
+	
 }
 

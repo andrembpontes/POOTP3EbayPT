@@ -70,6 +70,13 @@ public class Auction implements IAuction, Comparable<IAuction> {
 		
 		this.open = false;
 		
+		try {
+			this.getSeller().reportClosedAuction(this.getProduct().getCode());
+		}
+		catch (InvalidAuctionException e) {
+			//Not acceptable at this point
+		}
+		
 		return this.getHighestBid();
 	}
 

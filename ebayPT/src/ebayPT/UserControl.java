@@ -34,6 +34,9 @@ public class UserControl implements IUserControl {
 	public void login(IUser user) throws UserAlreadyLoggedInException,
 		AnotherUserAlreadyLoggedInException {
 
+		if(user == null)
+			throw new NullPointerException();
+		
 		if(this.loggedUser == GUEST_USER){
 			this.loggedUser = user;
 		}

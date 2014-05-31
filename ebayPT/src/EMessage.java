@@ -9,7 +9,7 @@ public enum EMessage{
 	WELLCOME("Welcome @arg."),
 	GOODBYE("Goodbye @arg."),
 	NO_USER_LOGGED("No user is logged in."),
-	USER_ALREADY_LOGGED("User already logged in."),
+	USER_ALREADY_LOGGED("User is already logged in."),
 	INVALID_USER("User does not exist."),
 	ANOTHER_USER_ALREADY_LOGGED("Another user is logged in."),
 	USERS_ALL_TITLE("All users:"),

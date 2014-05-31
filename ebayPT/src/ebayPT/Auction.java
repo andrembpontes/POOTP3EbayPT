@@ -36,6 +36,9 @@ public class Auction implements IAuction, Comparable<IAuction> {
 		
 		this.seller = seller;
 		this.product = product;
+		
+		product.setState(EProductState.AUCTION);
+		
 		this.base = base;
 		
 		this.open = true;
@@ -67,6 +70,8 @@ public class Auction implements IAuction, Comparable<IAuction> {
 	public IBid close() throws NoBidsException{
 		if(this.bids.size() == 0)
 			throw new NoBidsException();
+		
+		this.product.setState(EProductState.SOLD);
 		
 		this.open = false;
 		

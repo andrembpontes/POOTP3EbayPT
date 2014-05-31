@@ -146,6 +146,9 @@ public class EbayPT implements IEbayPT {
 		catch (NotAuctionSellerException e) {
 			//Not applicable at this point
 		}
+		catch (NullPointerException e){
+			throw new InvalidProductException();
+		}
 	}
 
 	@Override
@@ -167,6 +170,9 @@ public class EbayPT implements IEbayPT {
 		}
 		catch (NotAuctionSellerException e) {
 			//Not applicable at this point
+		}
+		catch (NullPointerException e){
+			throw new InvalidProductException();
 		}
 
 	}

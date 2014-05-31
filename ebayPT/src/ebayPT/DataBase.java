@@ -37,6 +37,7 @@ public class DataBase implements IDataBase {
 	@Override
 	public void addProduct(IProduct product)
 			throws ProductAlreadyExistsException, NoUserLoggedInException {
+		
 		this.userControl.getLoggedUser().addProduct(product);
 	}
 

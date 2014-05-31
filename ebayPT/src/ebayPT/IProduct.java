@@ -48,4 +48,11 @@ public interface IProduct extends Comparable<IProduct>{
 	 * @return True if product is available to create new auction, else False
 	 */
 	boolean isAvaliable();
+
+	/**
+	 * Set product state
+	 * 
+	 * @param state new Product state
+	 */
+	void setState(EProductState state);
 }

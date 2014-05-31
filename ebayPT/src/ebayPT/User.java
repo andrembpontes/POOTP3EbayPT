@@ -68,7 +68,7 @@ public class User implements IUser{
 	@Override
 	public void addProduct(IProduct product) throws ProductAlreadyExistsException {
 		
-		if(this.products.containsValue(product))
+		if(this.products.containsKey(product.getCode()))
 			throw new ProductAlreadyExistsException();
 		
 		this.products.put(product.getCode(), product);

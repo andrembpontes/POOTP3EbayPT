@@ -85,38 +85,41 @@ public class Main {
 
 	private static void execTabletsDimension(Scanner scan, IEbayPT ebayPT)
 			throws UserDeniedException {
-		
+
 		int size = scan.nextInt();
-		
+
+
+
 		Iterator<IAuction> tablets =
 				ebayPT.getAuctionsTabletBySize(size);
-		
+
 		if(tablets.hasNext()){
 
 			EMessage.TABLETS_DIMENSION_TITLE.print();
 
 			System.out.println(size);
-			
+
 			do{
 				IAuction auctionI = tablets.next();
 				ITablet tabletI	= (ITablet) auctionI.getProduct();
 
 				String seller = auctionI.getSeller().getUsername();
-				
+
 				int higestBid;
-				
+
 				try {
 					higestBid = auctionI.getHighestBid().getAmount();
 				}
 				catch (NoBidsException e) {
 					higestBid = 0;
 				}
-				
+
 				System.out.println(seller + " " + tabletI.getCode() + " "
 						+ tabletI.getBrand() + " " + tabletI.getSize() + " "
 						+ tabletI.getWeight() + " " + auctionI.getBaseAmount()
 						+ " " + higestBid);
-			}while(tablets.hasNext());
+			}
+			while(tablets.hasNext());
 		}
 		else{
 			EMessage.NOTHING_TO_LIST.print();
@@ -126,31 +129,36 @@ public class Main {
 	private static void execTabletsAll(Scanner scan, IEbayPT ebayPT)
 			throws UserDeniedException {
 
-		Iterator<IAuction> iterator =
-				ebayPT.getAuctions(EProductCategory.TABLET);
+		try {
+			Iterator<IAuction> iterator =
+					ebayPT.getAuctions(EProductCategory.TABLET);
 
-		EMessage.TABLETS_ALL_TITLE.print();
+			EMessage.TABLETS_ALL_TITLE.print();
 
-		while(iterator.hasNext()) {
-			IAuction auctionI = iterator.next();
-			ITablet tabletI = (ITablet) auctionI.getProduct();
+			while(iterator.hasNext()) {
+				IAuction auctionI = iterator.next();
+				ITablet tabletI = (ITablet) auctionI.getProduct();
 
-			String seller = auctionI.getSeller().getUsername();
+				String seller = auctionI.getSeller().getUsername();
 
-			int highestBid;
+				int highestBid;
 
-			try{
-				highestBid = auctionI.getHighestBid().getAmount();
+				try{
+					highestBid = auctionI.getHighestBid().getAmount();
+				}
+				catch(NoBidsException e){
+					highestBid = NO_BIDS_HIGHEST_BID_VALUE;
+				}
+
+
+				System.out.println(seller + " " + tabletI.getCode() + " "
+						+ tabletI.getBrand() + " " + tabletI.getSize() + " "
+						+ tabletI.getWeight() + " " + auctionI.getBaseAmount()
+						+ " " + highestBid);
 			}
-			catch(NoBidsException e){
-				highestBid = NO_BIDS_HIGHEST_BID_VALUE;
-			}
-
-
-			System.out.println(seller + " " + tabletI.getCode() + " "
-					+ tabletI.getBrand() + " " + tabletI.getSize() + " "
-					+ tabletI.getWeight() + " " + auctionI.getBaseAmount()
-					+ " " + highestBid);
+		}
+		catch (NullPointerException e) {
+			EMessage.NOTHING_TO_LIST.print();
 		}
 	}
 
@@ -321,9 +329,11 @@ public class Main {
 	private static void execCarsAll(Scanner scan, IEbayPT ebayPT)
 			throws UserDeniedException {
 		
-		Iterator <IAuction> auctions = ebayPT.getAuctions(EProductCategory.CAR);
-		
-		if(auctions.hasNext()){
+		try{
+			
+			Iterator <IAuction> auctions =
+					ebayPT.getAuctions(EProductCategory.CAR);
+			
 			EMessage.CARS_ALL_TITLE.print();
 
 			while(auctions.hasNext()){
@@ -348,7 +358,7 @@ public class Main {
 
 			}
 		}
-		else{
+		catch(NullPointerException e){
 			EMessage.NOTHING_TO_LIST.print();
 		}
 	}

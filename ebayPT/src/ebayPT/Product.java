@@ -42,5 +42,10 @@ public abstract class Product implements IProduct {
 	public boolean isAvaliable(){
 		return this.state.equals(IProduct.AVAILABLE_STATE);
 	}
+	
+	@Override
+	public void setState(EProductState state){
+		this.state = state;
+	}
 
 }

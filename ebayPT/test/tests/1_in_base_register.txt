@@ -1,0 +1,21 @@
+REGISTER USER olson
+Peggy Olson
+olson@gmail.com
+REGISTER ADMIN sterling
+Roger Sterling
+sterling@gmail.com
+REGISTER ADMIN draper
+Don Draper
+draper@gmail.com
+REGISTER USER rizzo
+Stan Rizzo
+rizzo@gmail.com
+LOGIN draper
+LIST ALL
+LOGOUT
+LOGIN olson
+LOGOUT
+LOGIN sterling
+LIST ALL
+LOGOUT
+EXIT

@@ -1,0 +1,26 @@
+LIST ALL
+REGISTER USER olson
+Peggy Olson
+olson@gmail.com
+LOGIN olson
+LIST ALL
+REGISTER ADMIN sterling
+Roger Sterling
+sterling@gmail.com
+LOGOUT
+REGISTER ADMIN sterling
+Roger Sterling
+sterling@gmail.com
+REGISTER USER sterling
+R. Sterling
+sterlin@fct.unl.pt
+REGISTER ADMIN olson
+P. Olson
+olson@fct.unl.pt
+LOGOUT
+LOGIN Francis
+LOGIN sterling
+LOGIN sterling
+LOGIN olson
+LOGOUT
+EXIT

@@ -1,0 +1,69 @@
+CARS ALL
+TABLETS ALL
+ADD TABLET samsung1
+tablet from the future
+Samsung 25 500
+AUCTION PLAFOND samsung1 200 250
+ADD CAR buick1
+car in good condition
+Buick Electra 1959
+AUCTION STANDARD buick1 2000
+REGISTER USER olson
+Peggy Olson
+olson@gmail.com
+REGISTER ADMIN sterling
+Roger Sterling
+sterling@gmail.com
+LOGIN sterling
+ADD TABLET samsung1
+tablet from the future
+Samsung 25 500
+AUCTION PLAFOND samsung1 200 250
+ADD CAR buick1
+car in good condition
+Buick Electra 1959
+AUCTION STANDARD buick1 2000
+LOGOUT
+REGISTER USER rizzo
+Stan Rizzo
+rizzo@gmail.com
+LOGIN olson
+CARS ALL
+TABLETS ALL
+AUCTION STANDARD buick1 2000
+AUCTION PLAFOND samsung1 200 250
+ADD TABLET samsung1
+tablet from the future
+Samsung 25 500
+ADD CAR buick1
+car in good condition
+Buick Electra 1959
+AUCTION STANDARD buick1 2000
+AUCTION PLAFOND samsung1 200 250
+LOGOUT
+LOGIN rizzo
+AUCTION STANDARD buick1 2000
+AUCTION PLAFOND samsung1 200 250
+ADD TABLET ipad2
+yet another tablet from the future
+IPad 20 300
+ADD TABLET ipad1
+another tablet from the future
+IPad 22 400
+ADD CAR dodge1
+another car in good condition
+Dodge Polara 1961
+AUCTION STANDARD dodge1 3500
+AUCTION STANDARD ipad1 210
+AUCTION STANDARD ipad2 220
+ADD BID olson samsung1 260
+ADD BID olson buick1 2300
+LOGOUT
+LOGIN olson
+CLOSE buick1
+AUCTION STANDARD buick1 2000
+AUCTION PLAFOND samsung1 200 250
+AUCTION STANDARD samsung1 200
+AUCTION PLAFOND buick1 2000 2500
+LOGOUT
+EXIT

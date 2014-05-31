@@ -1,0 +1,31 @@
+REGISTER USER olson
+Peggy Olson
+olson@gmail.com
+REGISTER USER rizzo
+Stan Rizzo
+rizzo@gmail.com
+LOGIN olson
+ADD TABLET samsung1
+tablet from the future
+Samsung 25 500
+ADD CAR buick1
+car in good condition
+Buick Electra 1959
+PRODUCTS
+LOGOUT
+LOGIN rizzo
+ADD TABLET samsung1
+tablet from the future
+Samsung 25 500
+ADD TABLET ipad2
+yet another tablet from the future
+IPad 20 300
+ADD TABLET ipad1
+another tablet from the future
+IPad 22 400
+ADD CAR dodge1
+another car in good condition
+Dodge Polara 1961
+PRODUCTS
+LOGOUT
+EXIT

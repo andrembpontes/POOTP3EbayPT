@@ -1,0 +1,56 @@
+REGISTER USER olson
+Peggy Olson
+olson@gmail.com
+REGISTER ADMIN sterling
+Roger Sterling
+sterling@gmail.com
+REGISTER ADMIN draper
+Don Draper
+draper@gmail.com
+REGISTER USER rizzo
+Stan Rizzo
+rizzo@gmail.com
+LOGIN draper
+LIST ALL
+LOGOUT
+LOGIN olson
+ADD TABLET samsung1
+tablet from the future
+Samsung 25 500
+ADD CAR buick1
+car in good condition
+Buick Electra 1959
+PRODUCTS
+AUCTION STANDARD buick1 2000
+AUCTION PLAFOND samsung1 200 250
+LOGOUT
+LOGIN rizzo
+ADD TABLET ipad1
+another tablet from the future
+IPad 22 400
+ADD TABLET ipad2
+yet another tablet from the future
+IPad 20 300
+ADD CAR dodge1
+another car in good condition
+Dodge Polara 1961
+AUCTION STANDARD dodge1 3500
+AUCTION STANDARD ipad1 210
+AUCTION STANDARD ipad2 220
+LOGOUT
+CARS ALL
+TABLETS ALL
+TABLETS DIMENSION 22
+LOGIN rizzo
+ADD BID olson samsung1 260
+BIDDINGS olson samsung1
+ADD BID olson buick1 2100
+ADD BID olson buick1 2200
+LOGOUT
+LOGIN olson
+BIDDINGS olson buick1
+CLOSE buick1
+LOGOUT
+LOGIN draper
+SALES
+EXIT

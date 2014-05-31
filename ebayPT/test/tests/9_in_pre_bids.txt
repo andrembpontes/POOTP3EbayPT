@@ -1,0 +1,44 @@
+ADD BID olson buick1 2300
+BIDDINGS olson buick1
+CLOSE buick1
+REGISTER ADMIN draper
+Don Draper
+draper@gmail.com
+LOGIN draper
+ADD BID olson buick1 2300
+BIDDINGS olson buick1
+CLOSE olson
+LOGOUT
+REGISTER USER olson
+Peggy Olson
+olson@gmail.com
+REGISTER USER rizzo
+Stan Rizzo
+rizzo@gmail.com
+LOGIN olson
+ADD BID olson buick1 2300
+BIDDINGS olson buick1
+ADD TABLET samsung1
+tablet from the future
+Samsung 25 500
+AUCTION PLAFOND samsung1 200 250
+ADD CAR buick1
+car in good condition
+Buick Electra 1959
+AUCTION STANDARD buick1 2000
+CLOSE buick1
+PRODUCTS
+AUCTION STANDARD buick1 2500
+PRODUCTS
+ADD BID olson buick1 2300
+BIDDINGS olson buick1
+BIDDINGS olson samsung1
+LOGOUT
+LOGIN rizzo
+BIDDINGS olson buick1
+ADD BID olson buick1 100
+ADD BID olson samsung1 300
+ADD BID olson samsung1 350
+CLOSE buick1
+LOGOUT
+EXIT

@@ -1,0 +1,72 @@
+REGISTER ADMIN sterling
+Roger Sterling
+sterling@gmail.com
+REGISTER ADMIN draper
+Don Draper
+draper@gmail.com
+TABLETS DIMENSION 20
+REGISTER USER campbell
+Pete Campbell
+campbell@gmail.com
+REGISTER USER olson
+Peggy Olson
+olson@gmail.com
+REGISTER USER rizzo
+Stan Rizzo
+rizzo@gmail.com
+LOGIN sterling
+SALES
+LOGOUT
+LOGIN olson
+SALES
+ADD TABLET samsung1
+tablet from the future
+Samsung 25 500
+ADD CAR buick1
+car in good condition
+Buick Electra 1959
+AUCTION STANDARD buick1 2000
+AUCTION PLAFOND samsung1 200 250
+LOGOUT
+LOGIN rizzo
+ADD TABLET ipad1
+another tablet from the future
+IPad 22 400
+ADD TABLET ipad2
+yet another tablet from the future
+IPad 20 300
+ADD CAR dodge1
+another car in good condition
+Dodge Polara 1961
+AUCTION PLAFOND dodge1 3500 3600
+AUCTION STANDARD ipad1 210
+AUCTION STANDARD ipad2 220
+ADD BID olson samsung1 200
+ADD BID olson buick1 2300
+LOGOUT
+TABLETS DIMENSION 10
+TABLETS DIMENSION 22
+TABLETS DIMENSION 50
+LOGIN sterling
+SALES
+LOGOUT
+LOGIN campbell
+ADD BID olson buick1 2200
+ADD BID olson samsung1 200
+ADD BID olson samsung1 230
+ADD BID rizzo dodge1 3590
+LOGOUT
+LOGIN olson
+CLOSE buick1
+LOGOUT
+LOGIN rizzo
+CLOSE dodge1
+LOGOUT
+LOGIN campbell
+ADD BID olson samsung1 260
+LOGOUT
+TABLETS DIMENSION 50
+LOGIN sterling
+SALES
+LOGOUT
+EXIT

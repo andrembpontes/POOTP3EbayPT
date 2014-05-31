@@ -1,0 +1,101 @@
+New user registered.
+
+New user registered.
+
+New user registered.
+
+Welcome olson.
+
+New product added.
+
+New product added.
+
+New auction added.
+
+New auction added.
+
+Goodbye olson.
+
+Welcome rizzo.
+
+New product added.
+
+New product added.
+
+New product added.
+
+New auction added.
+
+New auction added.
+
+New auction added.
+
+Bid accepted.
+
+Bid accepted.
+
+Goodbye rizzo.
+
+Welcome campbell.
+
+Bid accepted.
+
+Bid accepted.
+
+Bid accepted.
+
+Bid accepted.
+
+Goodbye campbell.
+
+Welcome olson.
+
+All bids:
+olson buick1
+rizzo 2300
+campbell 2200
+
+All bids:
+olson samsung1
+campbell 230
+rizzo 200
+campbell 200
+
+Winning bid: rizzo 2300
+
+Goodbye olson.
+
+Welcome rizzo.
+
+All bids:
+rizzo dodge1
+campbell 3590
+
+Winning bid: campbell 3590
+
+Goodbye rizzo.
+
+Welcome campbell.
+
+Winning bid: campbell 260
+
+All bids:
+olson samsung1
+campbell 260
+campbell 230
+rizzo 200
+campbell 200
+
+All bids:
+olson buick1
+rizzo 2300
+campbell 2200
+
+All bids:
+rizzo dodge1
+campbell 3590
+
+Goodbye campbell.
+
+Exiting...
+

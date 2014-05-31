@@ -1,0 +1,90 @@
+Nothing to list.
+
+Nothing to list.
+
+No user is logged in.
+
+No user is logged in.
+
+No user is logged in.
+
+No user is logged in.
+
+New user registered.
+
+New admin registered.
+
+Welcome sterling.
+
+No user is logged in.
+
+No user is logged in.
+
+No user is logged in.
+
+No user is logged in.
+
+Goodbye sterling.
+
+New user registered.
+
+Welcome olson.
+
+Nothing to list.
+
+Nothing to list.
+
+Product does not exist.
+
+Product does not exist.
+
+New product added.
+
+New product added.
+
+New auction added.
+
+New auction added.
+
+Goodbye olson.
+
+Welcome rizzo.
+
+Product does not exist.
+
+Product does not exist.
+
+New product added.
+
+New product added.
+
+New product added.
+
+New auction added.
+
+New auction added.
+
+New auction added.
+
+Winning bid: rizzo 260
+
+Bid accepted.
+
+Goodbye rizzo.
+
+Welcome olson.
+
+Winning bid: rizzo 2300
+
+Product not available.
+
+Product not available.
+
+Product not available.
+
+Product not available.
+
+Goodbye olson.
+
+Exiting...
+

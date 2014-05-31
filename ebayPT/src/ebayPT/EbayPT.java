@@ -228,6 +228,9 @@ public class EbayPT implements IEbayPT {
 			//At this point NoUserLoggedInException in not acceptable
 			return null;
 		}
+		catch (NullPointerException e){
+			throw new InvalidAuctionException();
+		}
 	}
 	
 	@Override

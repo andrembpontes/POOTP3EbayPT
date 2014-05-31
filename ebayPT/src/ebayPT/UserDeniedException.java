@@ -13,10 +13,18 @@ public class UserDeniedException extends Exception {
 	
 	private IUserType neededType;
 	
+	/**
+	 * Constructor
+	 * @param neededType the user type that is necessary to perform an action
+	 */
 	public UserDeniedException(IUserType neededType){
 		this.neededType = neededType;
 	}
 	
+	/**
+	 * Gets the user type necessary to perform an action
+	 * @return the user type necessary to perform an action
+	 */
 	public IUserType getNeededType(){
 		return this.neededType;
 	}

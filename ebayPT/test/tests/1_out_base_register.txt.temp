@@ -9,10 +9,10 @@ New user registered.
 Welcome draper.
 
 All users:
-rizzo Stan Rizzo rizzo@gmail.com USER
+draper Don Draper draper@gmail.com ADMIN
 sterling Roger Sterling sterling@gmail.com ADMIN
 olson Peggy Olson olson@gmail.com USER
-draper Don Draper draper@gmail.com ADMIN
+rizzo Stan Rizzo rizzo@gmail.com USER
 
 Goodbye draper.
 
@@ -23,10 +23,10 @@ Goodbye olson.
 Welcome sterling.
 
 All users:
-rizzo Stan Rizzo rizzo@gmail.com USER
+draper Don Draper draper@gmail.com ADMIN
 sterling Roger Sterling sterling@gmail.com ADMIN
 olson Peggy Olson olson@gmail.com USER
-draper Don Draper draper@gmail.com ADMIN
+rizzo Stan Rizzo rizzo@gmail.com USER
 
 Goodbye sterling.
 

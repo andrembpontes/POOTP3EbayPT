@@ -9,7 +9,7 @@ for jarF in *.jar; do
 	echo "[using diff -y <result> <expected>]"
 	echo "-------------------------------------------------------------"
 
-	for f in tests/*in*.txt; do 
+	for f in tests/*_in_*.txt; do 
 
 	echo "Processing $f file..";
 	java -jar "$jarF" < "$f" > "${f/"in"/"out"}.temp"

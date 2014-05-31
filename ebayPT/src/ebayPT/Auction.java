@@ -96,11 +96,11 @@ public class Auction implements IAuction, Comparable<IAuction> {
 		if(!this.open)
 			throw new BiddingClosedAuctionException();
 		
-		if(this.base > amount)
-			throw new LowBidAmountException();
-		
 		if(this.seller.equals(user))
 			throw new BiddingOwnAuctionException();
+		
+		if(this.base > amount)
+			throw new LowBidAmountException();
 		
 		this.bids.add(new Bid(user, amount, this.bids.size()));
 		

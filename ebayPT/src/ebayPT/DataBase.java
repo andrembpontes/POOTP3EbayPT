@@ -82,7 +82,7 @@ public class DataBase implements IDataBase {
 
 	@Override
 	public Iterator<IUser> getUsers() {
-		return this.users.values().iterator();
+		return this.sortedUsers.iterator();
 	}
 
 	@Override

@@ -2,6 +2,7 @@ package ebayPT;
 
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 import java.util.TreeSet;
 
 /**
@@ -68,11 +69,6 @@ public class Auction implements IAuction, Comparable<IAuction> {
 
 	@Override
 	public IBid close() throws NoBidsException{
-		if(this.bids.size() == 0)
-			throw new NoBidsException();
-		
-		this.product.setState(EProductState.SOLD);
-		
 		this.open = false;
 		
 		try {
@@ -80,6 +76,14 @@ public class Auction implements IAuction, Comparable<IAuction> {
 		}
 		catch (InvalidAuctionException e) {
 			//Not acceptable at this point
+		}
+		
+		if(this.bids.size() == 0){
+			this.product.setState(EProductState.SALE);
+			throw new NoBidsException();
+		}
+		else{
+			this.product.setState(EProductState.SOLD);
 		}
 		
 		return this.getHighestBid();
@@ -108,7 +112,12 @@ public class Auction implements IAuction, Comparable<IAuction> {
 		if(this.open)
 			return null;
 		
-		return this.bids.iterator().next();
+		try{
+			return this.bids.iterator().next();
+		}
+		catch(NoSuchElementException e){
+			return null;
+		}
 	}
 
 	@Override

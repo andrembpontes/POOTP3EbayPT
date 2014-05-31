@@ -141,17 +141,25 @@ public class User implements IUser{
 	public void reportClosedAuction(String productCode)
 			throws InvalidAuctionException {
 		
+		IBid winnerBid = null;
+		
 		try{
-			IBid winnerBid =
+			winnerBid =
 					this.auctionsByProductCode.get(productCode).getWinnerBid();
-			
-			this.closedAuctions.put(productCode,
-					this.auctionsByProductCode.remove(productCode));
+		}
+		catch(NullPointerException e){
+			throw new InvalidAuctionException();
+		}
+		
+		this.closedAuctions.put(productCode,
+		this.auctionsByProductCode.remove(productCode));
+				
+		try{
 			
 			this.closedAuctionSales += winnerBid.getAmount();			
 		}
 		catch(NullPointerException e){
-			throw new InvalidAuctionException();
+			//There is no winner bid //Do nothing
 		}
 	}
 }

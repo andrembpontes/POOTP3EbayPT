@@ -95,10 +95,9 @@ public class Main {
 
 			EMessage.TABLETS_DIMENSION_TITLE.print();
 
-			System.out.println(Integer.toString(size));
+			System.out.println(size);
 			
-			//TODO change things like this to do_while
-			while(tablets.hasNext()){
+			do{
 				IAuction auctionI = tablets.next();
 				ITablet tabletI	= (ITablet) auctionI.getProduct();
 
@@ -117,14 +116,11 @@ public class Main {
 						+ tabletI.getBrand() + " " + tabletI.getSize() + " "
 						+ tabletI.getWeight() + " " + auctionI.getBaseAmount()
 						+ " " + higestBid);
-			}
+			}while(tablets.hasNext());
 		}
 		else{
 			EMessage.NOTHING_TO_LIST.print();
 		}
-		
-		
-		//TODO implement
 	}
 
 	private static void execTabletsAll(Scanner scan, IEbayPT ebayPT)
@@ -159,12 +155,12 @@ public class Main {
 	}
 
 	private static void UserDenied(UserDeniedException e) {
-		if(e.getLowestType().equals(EUserType.GUEST)){
+		if(e.getNeededType().equals(EUserType.GUEST)){
 			EMessage.THERE_IS_A_USER_LOGGED_IN.print();
 		}
 		else{
 			EMessage.USER_DENIED.
-				print(e.getLowestType().toString().toLowerCase());
+				print(e.getNeededType().toString().toLowerCase());
 		}
 	}
 

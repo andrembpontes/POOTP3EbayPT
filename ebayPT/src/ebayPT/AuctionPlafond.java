@@ -1,5 +1,11 @@
 package ebayPT;
 
+import ebayPT.exceptions.BiddingClosedAuctionException;
+import ebayPT.exceptions.BiddingOwnAuctionException;
+import ebayPT.exceptions.LowBidAmountException;
+import ebayPT.exceptions.NoBidsException;
+import ebayPT.exceptions.ProductNotAvailableException;
+
 /**
  * This class represents a Plafond auction. A Plafond Auction is equals to a
  * Standard Auction but close automatically when receive a bid amount higher

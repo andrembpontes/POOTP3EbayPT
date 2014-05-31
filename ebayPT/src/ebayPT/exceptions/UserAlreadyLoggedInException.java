@@ -1,4 +1,4 @@
-package ebayPT;
+package ebayPT.exceptions;
 
 /**
  * Exception used to signal that there is a user already logged in the system.

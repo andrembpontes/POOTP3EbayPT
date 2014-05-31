@@ -1,4 +1,4 @@
-package ebayPT;
+package ebayPT.exceptions;
 
 public class BiddingClosedAuctionException extends Exception {
 

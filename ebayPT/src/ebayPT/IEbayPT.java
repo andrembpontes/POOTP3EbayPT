@@ -2,6 +2,23 @@ package ebayPT;
 
 import java.util.Iterator;
 
+import ebayPT.exceptions.AnotherUserAlreadyLoggedInException;
+import ebayPT.exceptions.BiddingClosedAuctionException;
+import ebayPT.exceptions.BiddingOwnAuctionException;
+import ebayPT.exceptions.InvalidAuctionException;
+import ebayPT.exceptions.InvalidProductException;
+import ebayPT.exceptions.InvalidUserException;
+import ebayPT.exceptions.InvalidUserTypeException;
+import ebayPT.exceptions.LowBidAmountException;
+import ebayPT.exceptions.NoBidsException;
+import ebayPT.exceptions.NoUserLoggedInException;
+import ebayPT.exceptions.NotSellerException;
+import ebayPT.exceptions.ProductAlreadyExistsException;
+import ebayPT.exceptions.ProductNotAvailableException;
+import ebayPT.exceptions.UserAlreadyExistsException;
+import ebayPT.exceptions.UserAlreadyLoggedInException;
+import ebayPT.exceptions.UserDeniedException;
+
 
 /**
  * Ebay@PT top application's class
@@ -137,11 +154,11 @@ public interface IEbayPT {
 	 * @param userType: one of IEbayPT.REGISTERED or IEbayPT.ADMIN
 	 * @throws InvalidUserTypeException: Givens userType isn't a valid user type
 	 * @throws UserDeniedException: Actual user cannot execute this task 
-	 * @throws UserAlreadyExistException: Specified username already exist
+	 * @throws UserAlreadyExistsException: Specified username already exist
 	 */
 	void addUser(String email, String name, String username, String userType)
 			throws InvalidUserTypeException, UserDeniedException,
-			UserAlreadyExistException;
+			UserAlreadyExistsException;
 	
 	/**
 	 * Create a standard auction with givens data with actual logged user as

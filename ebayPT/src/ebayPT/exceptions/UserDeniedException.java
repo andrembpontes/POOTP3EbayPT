@@ -1,4 +1,6 @@
-package ebayPT;
+package ebayPT.exceptions;
+
+import ebayPT.IUserType;
 
 /**
  * Exception used to signal that the logged user doesn't have permission

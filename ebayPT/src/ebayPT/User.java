@@ -5,6 +5,10 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
 
+import ebayPT.exceptions.InvalidAuctionException;
+import ebayPT.exceptions.NotAuctionSellerException;
+import ebayPT.exceptions.ProductAlreadyExistsException;
+
 public class User implements IUser{
 	private String username, email, name;
 	

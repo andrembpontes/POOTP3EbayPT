@@ -2,6 +2,11 @@ package ebayPT;
 
 import java.util.Iterator;
 
+import ebayPT.exceptions.NoUserLoggedInException;
+import ebayPT.exceptions.NotAuctionSellerException;
+import ebayPT.exceptions.ProductAlreadyExistsException;
+import ebayPT.exceptions.UserAlreadyExistsException;
+
 public interface IDataBase {
 
 	/**
@@ -19,9 +24,9 @@ public interface IDataBase {
 	 * Add a new user to database
 	 * 
 	 * @param user: User to add
-	 * @throws UserAlreadyExistException: username already exist
+	 * @throws UserAlreadyExistsException: username already exist
 	 */
-	void addUser(IUser user) throws UserAlreadyExistException;
+	void addUser(IUser user) throws UserAlreadyExistsException;
 	
 	/**
 	 * Look for user with givens user name and return it

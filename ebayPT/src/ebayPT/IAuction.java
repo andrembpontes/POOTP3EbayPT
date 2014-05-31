@@ -2,6 +2,11 @@ package ebayPT;
 
 import java.util.Iterator;
 
+import ebayPT.exceptions.BiddingClosedAuctionException;
+import ebayPT.exceptions.BiddingOwnAuctionException;
+import ebayPT.exceptions.LowBidAmountException;
+import ebayPT.exceptions.NoBidsException;
+
 /**
  * Aims to represent an auction storing seller user, respective auction product
  * and all current bids.

@@ -1,8 +1,5 @@
 import java.util.Scanner;
 
-import ebayPT.AnotherUserAlreadyLoggedInException;
-import ebayPT.BiddingClosedAuctionException;
-import ebayPT.BiddingOwnAuctionException;
 import ebayPT.EProductCategory;
 import ebayPT.EUserType;
 import ebayPT.EbayPT;
@@ -13,19 +10,7 @@ import ebayPT.IEbayPT;
 import ebayPT.IProduct;
 import ebayPT.ITablet;
 import ebayPT.IUser;
-import ebayPT.InvalidAuctionException;
-import ebayPT.InvalidProductException;
-import ebayPT.InvalidUserException;
-import ebayPT.InvalidUserTypeException;
-import ebayPT.LowBidAmountException;
-import ebayPT.NoBidsException;
-import ebayPT.NoUserLoggedInException;
-import ebayPT.NotSellerException;
-import ebayPT.ProductAlreadyExistsException;
-import ebayPT.ProductNotAvailableException;
-import ebayPT.UserAlreadyExistException;
-import ebayPT.UserAlreadyLoggedInException;
-import ebayPT.UserDeniedException;
+import ebayPT.exceptions.*;
 
 import java.util.Iterator;
 
@@ -206,7 +191,7 @@ public class Main {
 		catch (InvalidUserTypeException e) {
 			throw new InvalidCommandException();
 		}
-		catch (UserAlreadyExistException e) {
+		catch (UserAlreadyExistsException e) {
 			EMessage.USER_ALREADY_EXIST.print();
 		}
 	}

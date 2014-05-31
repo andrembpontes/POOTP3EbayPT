@@ -8,6 +8,11 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
+import ebayPT.exceptions.NoUserLoggedInException;
+import ebayPT.exceptions.NotAuctionSellerException;
+import ebayPT.exceptions.ProductAlreadyExistsException;
+import ebayPT.exceptions.UserAlreadyExistsException;
+
 
 public class DataBase implements IDataBase {
 
@@ -62,10 +67,10 @@ public class DataBase implements IDataBase {
 	}
 
 	@Override
-	public void addUser(IUser user) throws UserAlreadyExistException {
+	public void addUser(IUser user) throws UserAlreadyExistsException {
 		//Add to users
 		if(this.users.put(user.getUsername(), user) != null)
-			throw new UserAlreadyExistException();
+			throw new UserAlreadyExistsException();
 		
 		//Add to sortedUsers
 		this.sortedUsers.add(user);

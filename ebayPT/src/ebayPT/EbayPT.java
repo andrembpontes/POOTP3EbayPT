@@ -2,6 +2,24 @@ package ebayPT;
 
 import java.util.Iterator;
 
+import ebayPT.exceptions.AnotherUserAlreadyLoggedInException;
+import ebayPT.exceptions.BiddingClosedAuctionException;
+import ebayPT.exceptions.BiddingOwnAuctionException;
+import ebayPT.exceptions.InvalidAuctionException;
+import ebayPT.exceptions.InvalidProductException;
+import ebayPT.exceptions.InvalidUserException;
+import ebayPT.exceptions.InvalidUserTypeException;
+import ebayPT.exceptions.LowBidAmountException;
+import ebayPT.exceptions.NoBidsException;
+import ebayPT.exceptions.NoUserLoggedInException;
+import ebayPT.exceptions.NotAuctionSellerException;
+import ebayPT.exceptions.NotSellerException;
+import ebayPT.exceptions.ProductAlreadyExistsException;
+import ebayPT.exceptions.ProductNotAvailableException;
+import ebayPT.exceptions.UserAlreadyExistsException;
+import ebayPT.exceptions.UserAlreadyLoggedInException;
+import ebayPT.exceptions.UserDeniedException;
+
 public class EbayPT implements IEbayPT {
 
 	private IUserControl userControl;
@@ -113,7 +131,7 @@ public class EbayPT implements IEbayPT {
 	@Override
 	public void addUser(String email, String name, String username,
 			String userType) throws InvalidUserTypeException,
-			UserDeniedException, UserAlreadyExistException{
+			UserDeniedException, UserAlreadyExistsException{
 		
 		this.userControl.executeAction(EAction.ADD_USER);
 		

@@ -5,6 +5,13 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.TreeSet;
 
+import ebayPT.exceptions.BiddingClosedAuctionException;
+import ebayPT.exceptions.BiddingOwnAuctionException;
+import ebayPT.exceptions.InvalidAuctionException;
+import ebayPT.exceptions.LowBidAmountException;
+import ebayPT.exceptions.NoBidsException;
+import ebayPT.exceptions.ProductNotAvailableException;
+
 /**
  * Aims to represent an auction storing the seller, the product and all bids.
  * 

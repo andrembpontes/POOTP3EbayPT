@@ -1,5 +1,10 @@
 package ebayPT;
 
+import ebayPT.exceptions.AnotherUserAlreadyLoggedInException;
+import ebayPT.exceptions.NoUserLoggedInException;
+import ebayPT.exceptions.UserAlreadyLoggedInException;
+import ebayPT.exceptions.UserDeniedException;
+
 public interface IUserControl {
 	
 	/**

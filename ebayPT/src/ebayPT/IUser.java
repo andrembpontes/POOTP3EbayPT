@@ -2,6 +2,10 @@ package ebayPT;
 
 import java.util.Iterator;
 
+import ebayPT.exceptions.InvalidAuctionException;
+import ebayPT.exceptions.NotAuctionSellerException;
+import ebayPT.exceptions.ProductAlreadyExistsException;
+
 /**
  * An IUser represents a user in the ebayPT system.
  *

@@ -1,6 +1,6 @@
 package ebayPT.exceptions;
 
-public class NoBidsException extends Exception {
+public class NoBids extends Exception {
 
 	/**
 	 *

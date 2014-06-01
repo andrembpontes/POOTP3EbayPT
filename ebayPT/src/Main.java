@@ -47,7 +47,7 @@ public class Main {
 			catch(InvalidCommandException e){
 				invalidCommand(scan);
 			}
-			catch (UserDeniedException e) {
+			catch (UserDenied e) {
 				UserDenied(e);
 			}
 			
@@ -56,7 +56,7 @@ public class Main {
 	}
 
 	private static void execTablets(Scanner scan, IEbayPT ebayPT)
-			throws UserDeniedException {
+			throws UserDenied {
 		
 		switch (ECommand.Tablets.valueOf(scan.next())) {
 			case ALL: execTabletsAll(scan, ebayPT); break;
@@ -65,7 +65,7 @@ public class Main {
 	}
 
 	private static void execTabletsDimension(Scanner scan, IEbayPT ebayPT)
-			throws UserDeniedException {
+			throws UserDenied {
 
 		int size = scan.nextInt();
 
@@ -91,7 +91,7 @@ public class Main {
 				try {
 					higestBid = auctionI.getHighestBid().getAmount();
 				}
-				catch (NoBidsException e) {
+				catch (NoBids e) {
 					higestBid = 0;
 				}
 
@@ -108,7 +108,7 @@ public class Main {
 	}
 
 	private static void execTabletsAll(Scanner scan, IEbayPT ebayPT)
-			throws UserDeniedException {
+			throws UserDenied {
 
 		try {
 			Iterator<IAuction> iterator =
@@ -127,7 +127,7 @@ public class Main {
 				try{
 					highestBid = auctionI.getHighestBid().getAmount();
 				}
-				catch(NoBidsException e){
+				catch(NoBids e){
 					highestBid = NO_BIDS_HIGHEST_BID_VALUE;
 				}
 
@@ -143,7 +143,7 @@ public class Main {
 		}
 	}
 
-	private static void UserDenied(UserDeniedException e) {
+	private static void UserDenied(UserDenied e) {
 		if(e.getNeededType().equals(EUserType.GUEST)){
 			EMessage.THERE_IS_A_USER_LOGGED_IN.print();
 		}
@@ -154,7 +154,7 @@ public class Main {
 	}
 
 	private static void execSales(Scanner scan, IEbayPT ebayPT)
-			throws UserDeniedException {
+			throws UserDenied {
 		
 		Iterator<IUser> users = ebayPT.getUsersBySales();
 		
@@ -171,7 +171,7 @@ public class Main {
 	}
 
 	private static void execRegister(Scanner scan, IEbayPT ebayPT)
-			throws UserDeniedException, InvalidCommandException {
+			throws UserDenied, InvalidCommandException {
 		
 		String userType = scan.next();
 		String username = scan.next();
@@ -184,16 +184,16 @@ public class Main {
 			
 			EMessage.NEW_USER.print(userType.toLowerCase());
 		}
-		catch (InvalidUserTypeException e) {
+		catch (InvalidUserType e) {
 			throw new InvalidCommandException();
 		}
-		catch (UserAlreadyExistsException e) {
+		catch (UserAlreadyExists e) {
 			EMessage.USER_ALREADY_EXIST.print();
 		}
 	}
 
 	private static void execProducts(Scanner scan, IEbayPT ebayPT)
-			throws UserDeniedException {
+			throws UserDenied {
 
 		Iterator<IProduct> products = ebayPT.getProducts();
 
@@ -217,7 +217,7 @@ public class Main {
 		try {
 			EMessage.GOODBYE.print(ebayPT.logout().getUsername());
 		}
-		catch (NoUserLoggedInException e) {
+		catch (NoUserLoggedIn e) {
 			EMessage.NO_USER_LOGGED.print();
 		}
 	}
@@ -229,19 +229,19 @@ public class Main {
 			
 			EMessage.WELLCOME.print(username);
 		}
-		catch (AnotherUserAlreadyLoggedInException e) {
+		catch (AnotherUserAlreadyLoggedIn e) {
 			EMessage.ANOTHER_USER_ALREADY_LOGGED.print();
 		}
-		catch(UserAlreadyLoggedInException e){
+		catch(UserAlreadyLoggedIn e){
 			EMessage.USER_ALREADY_LOGGED.print();
 		}
-		catch (InvalidUserException e) {
+		catch (InvalidUser e) {
 			EMessage.INVALID_USER.print();
 		}
 	}
 
 	private static void execList(Scanner scan, IEbayPT ebayPT)
-			throws InvalidCommandException, UserDeniedException {
+			throws InvalidCommandException, UserDenied {
 		
 		switch (ECommand.List.valueOf(scan.next())) {
 			case ALL: execListAll(scan, ebayPT); break;
@@ -250,7 +250,7 @@ public class Main {
 	}
 
 	private static void execListAll(Scanner scan, IEbayPT ebayPT)
-			throws UserDeniedException {
+			throws UserDenied {
 		
 		Iterator<IUser> users = ebayPT.getUsers();
 		
@@ -274,15 +274,15 @@ public class Main {
 	}
 
 	private static void execClose(Scanner scan, IEbayPT ebayPT)
-			throws UserDeniedException {
+			throws UserDenied {
 		
 		try {
 			printWinningBid(ebayPT.closeAuction(scan.next()));
 		}
-		catch (NoBidsException e) {
+		catch (NoBids e) {
 			EMessage.NO_BIDS.print();
 		}
-		catch (InvalidAuctionException e) {
+		catch (InvalidAuction e) {
 			EMessage.INVALID_AUCTION.print();
 		}
 	}
@@ -299,7 +299,7 @@ public class Main {
 	}
 
 	private static void execCars(Scanner scan, IEbayPT ebayPT)
-			throws InvalidCommandException, UserDeniedException {
+			throws InvalidCommandException, UserDenied {
 		
 		switch(ECommand.Cars.valueOf(scan.next())){
 			case ALL: execCarsAll(scan, ebayPT); break;
@@ -308,7 +308,7 @@ public class Main {
 	}
 
 	private static void execCarsAll(Scanner scan, IEbayPT ebayPT)
-			throws UserDeniedException {
+			throws UserDenied {
 		
 		try{
 			
@@ -328,7 +328,7 @@ public class Main {
 				try{
 					highestBid = auctionI.getHighestBid().getAmount();
 				}
-				catch (NoBidsException e){
+				catch (NoBids e){
 					highestBid = NO_BIDS_HIGHEST_BID_VALUE;
 				}
 
@@ -345,7 +345,7 @@ public class Main {
 	}
 
 	private static void execBiddinds(Scanner scan, IEbayPT ebayPT)
-			throws UserDeniedException {
+			throws UserDenied {
 		
 		try {
 			String seller = scan.next();
@@ -372,10 +372,10 @@ public class Main {
 				EMessage.NOTHING_TO_LIST.print();
 			}
 		}
-		catch (InvalidAuctionException e){
+		catch (InvalidAuction e){
 			EMessage.INVALID_AUCTION.print();
 		}
-		catch (NotSellerException e) {
+		catch (NotSeller e) {
 			EMessage.NOT_SELLER.print();
 		}
 		
@@ -383,7 +383,7 @@ public class Main {
 	}
 
 	private static void execAuction(Scanner scan, IEbayPT ebayPT)
-			throws InvalidCommandException, UserDeniedException {
+			throws InvalidCommandException, UserDenied {
 		
 		switch (ECommand.Auction.valueOf(scan.next())) {
 			case STANDARD: execAuctionStandard(scan, ebayPT); break;
@@ -394,23 +394,23 @@ public class Main {
 	}
 
 	private static void execAuctionStandard(Scanner scan, IEbayPT ebayPT)
-			throws UserDeniedException {
+			throws UserDenied {
 		
 		try {
 			ebayPT.createAuctionStandard(scan.next(), scan.nextInt());
 			
 			EMessage.AUCTION_ADDED.print();
 		}
-		catch (InvalidProductException e) {
+		catch (InvalidProduct e) {
 			EMessage.INVALID_PRODUCT.print();
 		}
-		catch (ProductNotAvailableException e) {
+		catch (ProductNotAvailable e) {
 			EMessage.PRODUCT_NOT_AVALIABLE.print();
 		}
 	}
 
 	private static void execAuctionPlafond(Scanner scan, IEbayPT ebayPT)
-			throws UserDeniedException {
+			throws UserDenied {
 		
 		try {
 			ebayPT.createAuctionPlafond(scan.next(), scan.nextInt(),
@@ -419,16 +419,16 @@ public class Main {
 			EMessage.AUCTION_ADDED.print();
 			
 		}
-		catch (InvalidProductException e) {
+		catch (InvalidProduct e) {
 			EMessage.INVALID_PRODUCT.print();
 		}
-		catch (ProductNotAvailableException e) {
+		catch (ProductNotAvailable e) {
 			EMessage.PRODUCT_NOT_AVALIABLE.print();
 		}
 	}
 
 	private static void execAdd(Scanner scan, IEbayPT ebayPT)
-			throws InvalidCommandException, UserDeniedException {
+			throws InvalidCommandException, UserDenied {
 		
 		switch(ECommand.Add.valueOf(scan.next())){
 			case BID: execAddBid(scan, ebayPT);	break;
@@ -440,7 +440,7 @@ public class Main {
 	}
 
 	private static void execAddTablet(Scanner scan, IEbayPT ebayPT)
-			throws UserDeniedException {
+			throws UserDenied {
 		
 		try {
 			ebayPT.createTablet(scan.nextLine().trim(), scan.nextLine(),
@@ -448,13 +448,13 @@ public class Main {
 			
 			EMessage.PRODUCT_ADDED.print();
 		}
-		catch (ProductAlreadyExistsException e) {
+		catch (ProductAlreadyExists e) {
 			EMessage.PRODUCT_ALREADY_EXIST.print();
 		}
 	}
 
 	private static void execAddCar(Scanner scan, IEbayPT ebayPT)
-			throws UserDeniedException {
+			throws UserDenied {
 		
 		try {
 			ebayPT.createCar(scan.nextLine().trim(), scan.nextLine(),
@@ -462,13 +462,13 @@ public class Main {
 			
 			EMessage.PRODUCT_ADDED.print();
 		}
-		catch (ProductAlreadyExistsException e) {
+		catch (ProductAlreadyExists e) {
 			EMessage.PRODUCT_ALREADY_EXIST.print();
 		}
 	}
 
 	private static void execAddBid(Scanner scan, IEbayPT ebayPT)
-			throws UserDeniedException {
+			throws UserDenied {
 		
 		try {
 			printWinningBid(
@@ -478,16 +478,16 @@ public class Main {
 			//Auction not closed with bid
 			EMessage.BID.print();
 		}
-		catch (LowBidAmountException e) {
+		catch (LowBidAmount e) {
 			EMessage.BID_LOWER_THAN_BASE.print();
 		}
-		catch (BiddingClosedAuctionException e) {
+		catch (BiddingClosedAuction e) {
 			EMessage.INVALID_AUCTION.print();
 		}
-		catch (BiddingOwnAuctionException e) {
+		catch (BiddingOwnAuction e) {
 			EMessage.BIDDING_OWN_AUCTION.print();
 		}
-		catch (InvalidAuctionException e) {
+		catch (InvalidAuction e) {
 			EMessage.INVALID_AUCTION.print();
 		}
 		

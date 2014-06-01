@@ -1,9 +1,9 @@
 package ebayPT;
 
-import ebayPT.exceptions.AnotherUserAlreadyLoggedInException;
-import ebayPT.exceptions.NoUserLoggedInException;
-import ebayPT.exceptions.UserAlreadyLoggedInException;
-import ebayPT.exceptions.UserDeniedException;
+import ebayPT.exceptions.AnotherUserAlreadyLoggedIn;
+import ebayPT.exceptions.NoUserLoggedIn;
+import ebayPT.exceptions.UserAlreadyLoggedIn;
+import ebayPT.exceptions.UserDenied;
 
 public class UserControl implements IUserControl {
 
@@ -36,8 +36,8 @@ public class UserControl implements IUserControl {
 		}
 	}
 
-	public void login(IUser user) throws UserAlreadyLoggedInException,
-		AnotherUserAlreadyLoggedInException {
+	public void login(IUser user) throws UserAlreadyLoggedIn,
+		AnotherUserAlreadyLoggedIn {
 
 		if(user == null)
 			throw new NullPointerException();
@@ -47,16 +47,16 @@ public class UserControl implements IUserControl {
 		}
 		else{
 			if(this.loggedUser.equals(user))
-				throw new UserAlreadyLoggedInException();
+				throw new UserAlreadyLoggedIn();
 		
 			if(this.loggedUser != GUEST_USER)
-				throw new AnotherUserAlreadyLoggedInException();
+				throw new AnotherUserAlreadyLoggedIn();
 		}
 	}
 
-	public IUser logout() throws NoUserLoggedInException {
+	public IUser logout() throws NoUserLoggedIn {
 		if(this.loggedUser == GUEST_USER) {
-			throw new NoUserLoggedInException();
+			throw new NoUserLoggedIn();
 		} else {
 			IUser userLoggedout = this.loggedUser;
 			this.loggedUser = GUEST_USER;
@@ -66,17 +66,17 @@ public class UserControl implements IUserControl {
 	}
 	
 	@Override
-	public IUser getLoggedUser() throws NoUserLoggedInException {
+	public IUser getLoggedUser() throws NoUserLoggedIn {
 		if(this.loggedUser == GUEST_USER)
-			throw new NoUserLoggedInException();
+			throw new NoUserLoggedIn();
 		
 		return this.loggedUser;
 	}
 
 	@Override
-	public void executeAction(IAction action) throws UserDeniedException {
+	public void executeAction(IAction action) throws UserDenied {
 		if(!this.isAllowed(action))
-			throw new UserDeniedException(action.getAllowedUserType());
+			throw new UserDenied(action.getAllowedUserType());
 	}
 	
 

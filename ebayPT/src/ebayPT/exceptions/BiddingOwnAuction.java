@@ -1,7 +1,10 @@
 package ebayPT.exceptions;
 
-public class NoUserLoggedInException extends Exception {
+public class BiddingOwnAuction extends Exception {
 
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 
 }

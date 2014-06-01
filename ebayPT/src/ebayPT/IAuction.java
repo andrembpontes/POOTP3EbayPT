@@ -2,10 +2,10 @@ package ebayPT;
 
 import java.util.Iterator;
 
-import ebayPT.exceptions.BiddingClosedAuctionException;
-import ebayPT.exceptions.BiddingOwnAuctionException;
-import ebayPT.exceptions.LowBidAmountException;
-import ebayPT.exceptions.NoBidsException;
+import ebayPT.exceptions.BiddingClosedAuction;
+import ebayPT.exceptions.BiddingOwnAuction;
+import ebayPT.exceptions.LowBidAmount;
+import ebayPT.exceptions.NoBids;
 
 /**
  * An IAuction type object represents an auction and manages the bids that were
@@ -52,9 +52,9 @@ public interface IAuction extends Comparable<IAuction>{
 	 * auctioned product returns to its Sale state and a NoBidsException is thrown.
 	 * 
 	 * @return Winner bid
-	 * @throws NoBidsException When the auction has no bids
+	 * @throws NoBids When the auction has no bids
 	 */
-	IBid close() throws NoBidsException;
+	IBid close() throws NoBids;
 	
 	/**
 	 * Bid on auction
@@ -62,12 +62,12 @@ public interface IAuction extends Comparable<IAuction>{
 	 * @param user Bidding user
 	 * @param amount Bid amount
 	 * @return Bid if actual bid won, null otherwise
-	 * @throws LowBidAmountException Bid amount is lower than base amount
-	 * @throws BiddingClosedAuctionException This auction is closed
-	 * @throws BiddingOwnAuctionException <code>user</code> is this auction's seller
+	 * @throws LowBidAmount Bid amount is lower than base amount
+	 * @throws BiddingClosedAuction This auction is closed
+	 * @throws BiddingOwnAuction <code>user</code> is this auction's seller
 	 */
-	IBid bid(IUser user, int amount) throws LowBidAmountException,
-		BiddingClosedAuctionException, BiddingOwnAuctionException;
+	IBid bid(IUser user, int amount) throws LowBidAmount,
+		BiddingClosedAuction, BiddingOwnAuction;
 	
 	/**
 	 * Returns winner bid or null if auction is open
@@ -81,9 +81,9 @@ public interface IAuction extends Comparable<IAuction>{
 	 * the first of those to be made is considered highest.
 	 * 
 	 * @return highest bid
-	 * @throws NoBidsException No bids were made on this auction
+	 * @throws NoBids No bids were made on this auction
 	 */
-	IBid getHighestBid() throws NoBidsException;
+	IBid getHighestBid() throws NoBids;
 	
 	/**
 	 * Return base bid amount

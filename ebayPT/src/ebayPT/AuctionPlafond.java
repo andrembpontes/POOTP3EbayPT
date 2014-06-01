@@ -1,10 +1,10 @@
 package ebayPT;
 
-import ebayPT.exceptions.BiddingClosedAuctionException;
-import ebayPT.exceptions.BiddingOwnAuctionException;
-import ebayPT.exceptions.LowBidAmountException;
-import ebayPT.exceptions.NoBidsException;
-import ebayPT.exceptions.ProductNotAvailableException;
+import ebayPT.exceptions.BiddingClosedAuction;
+import ebayPT.exceptions.BiddingOwnAuction;
+import ebayPT.exceptions.LowBidAmount;
+import ebayPT.exceptions.NoBids;
+import ebayPT.exceptions.ProductNotAvailable;
 
 /**
  * Implementation of IAuction for a Plafond Auction. A Plafond Auction is
@@ -25,11 +25,11 @@ public class AuctionPlafond extends Auction {
 	 * @param product Auction product
 	 * @param base Minimum bid amount
 	 * @param plafond Auction's plafond
-	 * @throws ProductNotAvailableException Trying to create an auction for an
+	 * @throws ProductNotAvailable Trying to create an auction for an
 	 * unavailable product
 	 */
 	public AuctionPlafond(IUser seller, IProduct product, int base,
-			int plafond) throws ProductNotAvailableException  {
+			int plafond) throws ProductNotAvailable  {
 		
 		super(seller, product, base);
 		
@@ -37,8 +37,8 @@ public class AuctionPlafond extends Auction {
 	}
 	
 	@Override
-	public IBid bid(IUser bidder, int amount) throws LowBidAmountException,
-			BiddingClosedAuctionException, BiddingOwnAuctionException{
+	public IBid bid(IUser bidder, int amount) throws LowBidAmount,
+			BiddingClosedAuction, BiddingOwnAuction{
 		
 		super.bid(bidder, amount);
 		
@@ -46,7 +46,7 @@ public class AuctionPlafond extends Auction {
 			try {
 				this.close();
 				
-			} catch (NoBidsException e) {
+			} catch (NoBids e) {
 				//Do nothing
 				//At this point this exceptions are not acceptable
 			}

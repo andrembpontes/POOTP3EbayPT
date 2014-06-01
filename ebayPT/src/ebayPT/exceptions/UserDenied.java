@@ -9,7 +9,7 @@ import ebayPT.IUserType;
  * @author n42540: Rodrigo Simoes; n42845: Andre Pontes
  */
 
-public class UserDeniedException extends Exception {
+public class UserDenied extends Exception {
 	
 	private static final long	serialVersionUID	= 1L;
 	
@@ -19,7 +19,7 @@ public class UserDeniedException extends Exception {
 	 * Constructor
 	 * @param neededType the user type that is necessary to perform an action
 	 */
-	public UserDeniedException(IUserType neededType){
+	public UserDenied(IUserType neededType){
 		this.neededType = neededType;
 	}
 	

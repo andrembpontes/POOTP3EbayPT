@@ -1,6 +1,6 @@
 package ebayPT.exceptions;
 
-public class BiddingOwnAuctionException extends Exception {
+public class LowBidAmount extends Exception {
 
 	/**
 	 * 

@@ -5,9 +5,9 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
 
-import ebayPT.exceptions.InvalidAuctionException;
-import ebayPT.exceptions.NotAuctionSellerException;
-import ebayPT.exceptions.ProductAlreadyExistsException;
+import ebayPT.exceptions.InvalidAuction;
+import ebayPT.exceptions.NotAuctionSeller;
+import ebayPT.exceptions.ProductAlreadyExists;
 
 public class User implements IUser{
 	private String username, email, name;
@@ -70,10 +70,10 @@ public class User implements IUser{
 	}
 
 	@Override
-	public void addProduct(IProduct product) throws ProductAlreadyExistsException {
+	public void addProduct(IProduct product) throws ProductAlreadyExists {
 		
 		if(this.products.containsKey(product.getCode()))
-			throw new ProductAlreadyExistsException();
+			throw new ProductAlreadyExists();
 		
 		this.products.put(product.getCode(), product);
 		
@@ -101,11 +101,11 @@ public class User implements IUser{
 	}
 
 	@Override
-	public void addAuction(IAuction auction) throws NotAuctionSellerException {
+	public void addAuction(IAuction auction) throws NotAuctionSeller {
 		
 		//TODO think in remove this
 		if(!auction.getSeller().equals(this))
-			throw new NotAuctionSellerException();
+			throw new NotAuctionSeller();
 		
 		this.auctionsByProductCode.put(auction.getProduct().getCode(), auction);
 	}
@@ -143,7 +143,7 @@ public class User implements IUser{
 
 	@Override
 	public void reportClosedAuction(String productCode)
-			throws InvalidAuctionException {
+			throws InvalidAuction {
 		
 		IBid winnerBid = null;
 		
@@ -152,7 +152,7 @@ public class User implements IUser{
 					this.auctionsByProductCode.get(productCode).getWinnerBid();
 		}
 		catch(NullPointerException e){
-			throw new InvalidAuctionException();
+			throw new InvalidAuction();
 		}
 		
 		this.closedAuctions.put(productCode,

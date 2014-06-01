@@ -1,6 +1,6 @@
 package ebayPT.exceptions;
 
-public class ProductNotAvailableException extends Exception {
+public class ProductNotAvailable extends Exception {
 
 	/**
 	 * 

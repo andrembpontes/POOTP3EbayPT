@@ -1,7 +1,7 @@
 package ebayPT.exceptions;
 
 
-public class InvalidAuctionException extends Exception {
+public class InvalidUser extends Exception {
 
 	/**
 	 * 

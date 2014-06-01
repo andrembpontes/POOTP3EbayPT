@@ -1,6 +1,6 @@
 package ebayPT.exceptions;
 
-public class BiddingClosedAuctionException extends Exception {
+public class BiddingClosedAuction extends Exception {
 
 	/**
 	 * 

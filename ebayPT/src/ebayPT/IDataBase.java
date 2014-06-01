@@ -2,10 +2,10 @@ package ebayPT;
 
 import java.util.Iterator;
 
-import ebayPT.exceptions.NoUserLoggedInException;
-import ebayPT.exceptions.NotAuctionSellerException;
-import ebayPT.exceptions.ProductAlreadyExistsException;
-import ebayPT.exceptions.UserAlreadyExistsException;
+import ebayPT.exceptions.NoUserLoggedIn;
+import ebayPT.exceptions.NotAuctionSeller;
+import ebayPT.exceptions.ProductAlreadyExists;
+import ebayPT.exceptions.UserAlreadyExists;
 
 public interface IDataBase {
 
@@ -13,20 +13,20 @@ public interface IDataBase {
 	 * Add a new auction to database
 	 * 
 	 * @param auction: Auction to add
-	 * @throws NoUserLoggedInException: Need an logged user to add auction
-	 * @throws NotAuctionSellerException : Trying to add an auction of an user
+	 * @throws NoUserLoggedIn: Need an logged user to add auction
+	 * @throws NotAuctionSeller : Trying to add an auction of an user
 	 * in other user session
 	 */
 	void addAuction(IAuction auction)
-			throws NotAuctionSellerException, NoUserLoggedInException;
+			throws NotAuctionSeller, NoUserLoggedIn;
 	
 	/**
 	 * Add a new user to database
 	 * 
 	 * @param user: User to add
-	 * @throws UserAlreadyExistsException: username already exist
+	 * @throws UserAlreadyExists: username already exist
 	 */
-	void addUser(IUser user) throws UserAlreadyExistsException;
+	void addUser(IUser user) throws UserAlreadyExists;
 	
 	/**
 	 * Look for user with givens user name and return it
@@ -69,11 +69,11 @@ public interface IDataBase {
 
 	/**
 	 * @param product: Product to add
-	 * @throws ProductAlreadyExistsException: Product already exist in database
-	 * @throws NoUserLoggedInException: Need a logged user to add product to
+	 * @throws ProductAlreadyExists: Product already exist in database
+	 * @throws NoUserLoggedIn: Need a logged user to add product to
 	 */
 	void addProduct(IProduct product)
-			throws ProductAlreadyExistsException, NoUserLoggedInException;
+			throws ProductAlreadyExists, NoUserLoggedIn;
 	
 	/**
 	 * Remove auction for data base

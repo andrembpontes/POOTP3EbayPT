@@ -6,7 +6,7 @@ package ebayPT.exceptions;
  * @author n42540: Rodrigo Simoes; n42845: Andre Pontes
  */
 
-public class UserAlreadyLoggedInException extends Exception {
+public class UserAlreadyLoggedIn extends Exception {
 	
 	private static final long serialVersionUID = 1L;
 

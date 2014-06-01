@@ -5,12 +5,12 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.TreeSet;
 
-import ebayPT.exceptions.BiddingClosedAuctionException;
-import ebayPT.exceptions.BiddingOwnAuctionException;
-import ebayPT.exceptions.InvalidAuctionException;
-import ebayPT.exceptions.LowBidAmountException;
-import ebayPT.exceptions.NoBidsException;
-import ebayPT.exceptions.ProductNotAvailableException;
+import ebayPT.exceptions.BiddingClosedAuction;
+import ebayPT.exceptions.BiddingOwnAuction;
+import ebayPT.exceptions.InvalidAuction;
+import ebayPT.exceptions.LowBidAmount;
+import ebayPT.exceptions.NoBids;
+import ebayPT.exceptions.ProductNotAvailable;
 
 /**
  * Implementation of IAuction for a Standard Auction.
@@ -32,14 +32,14 @@ public class Auction implements IAuction, Comparable<IAuction> {
 	 * @param seller Seller user
 	 * @param product Auction product
 	 * @param base Minimum bid amount
-	 * @throws ProductNotAvailableException Trying to create an auction to an
+	 * @throws ProductNotAvailable Trying to create an auction to an
 	 * unavailable product
 	 */
 	public Auction(IUser seller, IProduct product, int base)
-			throws ProductNotAvailableException{
+			throws ProductNotAvailable{
 		
 		if(!product.isAvaliable())
-			throw new ProductNotAvailableException();
+			throw new ProductNotAvailable();
 		
 		this.seller = seller;
 		this.product = product;
@@ -74,13 +74,13 @@ public class Auction implements IAuction, Comparable<IAuction> {
 	}
 
 	@Override
-	public IBid close() throws NoBidsException{
+	public IBid close() throws NoBids{
 		this.open = false;
 		
 		try {
 			this.getSeller().reportClosedAuction(this.getProduct().getCode());
 		}
-		catch (InvalidAuctionException e) {
+		catch (InvalidAuction e) {
 			//Not acceptable at this point
 		}
 		
@@ -91,17 +91,17 @@ public class Auction implements IAuction, Comparable<IAuction> {
 	}
 
 	@Override
-	public IBid bid(IUser user, int amount) throws LowBidAmountException,
-			BiddingClosedAuctionException, BiddingOwnAuctionException {
+	public IBid bid(IUser user, int amount) throws LowBidAmount,
+			BiddingClosedAuction, BiddingOwnAuction {
 		
 		if(!this.open)
-			throw new BiddingClosedAuctionException();
+			throw new BiddingClosedAuction();
 		
 		if(this.seller.equals(user))
-			throw new BiddingOwnAuctionException();
+			throw new BiddingOwnAuction();
 		
 		if(this.base > amount)
-			throw new LowBidAmountException();
+			throw new LowBidAmount();
 		
 		this.bids.add(new Bid(user, amount, this.bids.size()));
 		
@@ -122,9 +122,9 @@ public class Auction implements IAuction, Comparable<IAuction> {
 	}
 
 	@Override
-	public IBid getHighestBid() throws NoBidsException {
+	public IBid getHighestBid() throws NoBids {
 		if(this.bids.size() == 0)
-			throw new NoBidsException();
+			throw new NoBids();
 		
 		return this.bids.iterator().next();
 	}

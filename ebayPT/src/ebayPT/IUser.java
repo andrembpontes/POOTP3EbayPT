@@ -2,9 +2,9 @@ package ebayPT;
 
 import java.util.Iterator;
 
-import ebayPT.exceptions.InvalidAuctionException;
-import ebayPT.exceptions.NotAuctionSellerException;
-import ebayPT.exceptions.ProductAlreadyExistsException;
+import ebayPT.exceptions.InvalidAuction;
+import ebayPT.exceptions.NotAuctionSeller;
+import ebayPT.exceptions.ProductAlreadyExists;
 
 /**
  * An IUser represents a user in the ebayPT system.
@@ -48,9 +48,9 @@ public interface IUser extends Comparable<IUser>{
 	 * 
 	 * @param product: Product to add
 	 * @throws NotProductOwnerException: Trying to add a product of other user
-	 * @throws ProductAlreadyExistsException: Trying to add a product that already exists
+	 * @throws ProductAlreadyExists: Trying to add a product that already exists
 	 */
-	void addProduct(IProduct product) throws ProductAlreadyExistsException;
+	void addProduct(IProduct product) throws ProductAlreadyExists;
 	
 	/**
 	 * Sum all sales and return total of sales amount
@@ -70,10 +70,10 @@ public interface IUser extends Comparable<IUser>{
 	 * Add an auction to user
 	 * 
 	 * @param auction: auction to add
-	 * @throws NotAuctionSellerException: User is not auction seller
+	 * @throws NotAuctionSeller: User is not auction seller
 	 */
 	void addAuction(IAuction auction)
-			throws NotAuctionSellerException;
+			throws NotAuctionSeller;
 	
 	/**
 	 * Look for and returns auction of product with givens productCode
@@ -102,8 +102,8 @@ public interface IUser extends Comparable<IUser>{
 	 * Report that givens auctions has been closed
 	 * 
 	 * @param productCode: Auction's product code to close
-	 * @throws InvalidAuctionException: There is no auctions with givens product
+	 * @throws InvalidAuction: There is no auctions with givens product
 	 * code
 	 */
-	void reportClosedAuction(String productCode) throws InvalidAuctionException;
+	void reportClosedAuction(String productCode) throws InvalidAuction;
 }

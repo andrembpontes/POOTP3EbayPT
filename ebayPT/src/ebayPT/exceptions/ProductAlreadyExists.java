@@ -1,7 +1,7 @@
 package ebayPT.exceptions;
 
 
-public class InvalidProductException extends Exception {
+public class ProductAlreadyExists extends Exception {
 
 	/**
 	 * 

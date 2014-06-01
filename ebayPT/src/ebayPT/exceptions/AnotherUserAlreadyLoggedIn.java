@@ -1,7 +1,7 @@
 package ebayPT.exceptions;
 
 
-public class AnotherUserAlreadyLoggedInException extends Exception {
+public class AnotherUserAlreadyLoggedIn extends Exception {
 
 	/**
 	 * 

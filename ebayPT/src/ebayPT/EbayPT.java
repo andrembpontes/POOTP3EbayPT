@@ -25,37 +25,37 @@ public class EbayPT implements IEbayPT {
 	
 	@Override
 	public void login(String username)
-			throws AnotherUserAlreadyLoggedInException,
-			UserAlreadyLoggedInException, InvalidUserException {
+			throws AnotherUserAlreadyLoggedIn,
+			UserAlreadyLoggedIn, InvalidUser {
 		
 		try{
 			this.userControl.login(this.db.getUser(username));
 		}
 		catch(NullPointerException e){
-			throw new InvalidUserException();
+			throw new InvalidUser();
 		}
 	}
 
 	@Override
-	public IUser logout() throws NoUserLoggedInException {
+	public IUser logout() throws NoUserLoggedIn {
 		return this.userControl.logout();
 	}
 
 	@Override
-	public Iterator<IProduct> getProducts() throws UserDeniedException {
+	public Iterator<IProduct> getProducts() throws UserDenied {
 		this.userControl.executeAction(EAction.LIST_PRODUCTS);
 		
 		try {
 			return this.userControl.getLoggedUser().getProducts();
 		}
-		catch (NoUserLoggedInException e) {
+		catch (NoUserLoggedIn e) {
 			return null; //At this point this exception is not acceptable
 		}
 	}
 
 	@Override
 	public Iterator<IAuction> getAuctions(EProductCategory category)
-			throws UserDeniedException {
+			throws UserDenied {
 		
 		this.userControl.executeAction(EAction.LIST_AUCTIONS);
 		
@@ -64,7 +64,7 @@ public class EbayPT implements IEbayPT {
 
 	@Override
 	public Iterator<IAuction> getAuctionsTabletBySize(int size)
-			throws UserDeniedException {
+			throws UserDenied {
 		
 		this.userControl.executeAction(EAction.LIST_AUCTIONS);
 		
@@ -73,8 +73,8 @@ public class EbayPT implements IEbayPT {
 
 	@Override
 	public Iterator<IBid> getBiddings(String sellerUsername, String productCode)
-			throws UserDeniedException, InvalidAuctionException,
-			NotSellerException{
+			throws UserDenied, InvalidAuction,
+			NotSeller{
 		
 		this.userControl.executeAction(EAction.LIST_BIDS);
 		
@@ -88,31 +88,31 @@ public class EbayPT implements IEbayPT {
 			try{
 				loggedUser = this.userControl.getLoggedUser();
 			}
-			catch(NoUserLoggedInException e){
+			catch(NoUserLoggedIn e){
 				//At this point this exception in not acceptable
 				loggedUser = null;
 			}
 			
 			if(auction.isOpen()
 					&& !loggedUser.equals(seller))
-				throw new NotSellerException();
+				throw new NotSeller();
 			
 			return auction.getBids();
 		}
 		catch(NullPointerException e){
-			throw new InvalidAuctionException();
+			throw new InvalidAuction();
 		}
 	}
 
 	@Override
-	public Iterator<IUser> getUsers() throws UserDeniedException {
+	public Iterator<IUser> getUsers() throws UserDenied {
 		this.userControl.executeAction(EAction.LIST_USERS);
 		
 		return this.db.getUsers();
 	}
 
 	@Override
-	public Iterator<IUser> getUsersBySales() throws UserDeniedException {
+	public Iterator<IUser> getUsersBySales() throws UserDenied {
 		this.userControl.executeAction(EAction.LIST_USERS);
 		
 		return this.db.getUsersBySales();
@@ -120,8 +120,8 @@ public class EbayPT implements IEbayPT {
 
 	@Override
 	public void addUser(String email, String name, String username,
-			String userType) throws InvalidUserTypeException,
-			UserDeniedException, UserAlreadyExistsException{
+			String userType) throws InvalidUserType,
+			UserDenied, UserAlreadyExists{
 		
 		this.userControl.executeAction(EAction.ADD_USER);
 		
@@ -132,14 +132,14 @@ public class EbayPT implements IEbayPT {
 			this.db.addUser(newUser);
 		}
 		catch (IllegalArgumentException e) {
-			throw new InvalidUserTypeException();
+			throw new InvalidUserType();
 		}
 	}
 	
 	@Override
 	public void createAuctionStandard(String productCode, int basePrice) 
-			throws UserDeniedException, InvalidProductException,
-			ProductNotAvailableException {
+			throws UserDenied, InvalidProduct,
+			ProductNotAvailable {
 		
 		this.userControl.executeAction(EAction.CREATE_AUCTION);
 		
@@ -148,21 +148,21 @@ public class EbayPT implements IEbayPT {
 			IProduct product = loggedUser.getProduct(productCode);			
 			this.db.addAuction(new Auction(loggedUser, product, basePrice));
 		}
-		catch (NoUserLoggedInException e) {
+		catch (NoUserLoggedIn e) {
 			//Not applicable at this point
 		}
-		catch (NotAuctionSellerException e) {
+		catch (NotAuctionSeller e) {
 			//Not applicable at this point
 		}
 		catch (NullPointerException e){
-			throw new InvalidProductException();
+			throw new InvalidProduct();
 		}
 	}
 
 	@Override
 	public void createAuctionPlafond(String productCode, int basePrice,
-			int plafond) throws InvalidProductException, UserDeniedException,
-			ProductNotAvailableException {
+			int plafond) throws InvalidProduct, UserDenied,
+			ProductNotAvailable {
 		
 		this.userControl.executeAction(EAction.CREATE_AUCTION);
 		
@@ -173,23 +173,23 @@ public class EbayPT implements IEbayPT {
 			this.db.addAuction(new AuctionPlafond(loggedUser, product, basePrice,
 					plafond));
 		}
-		catch (NoUserLoggedInException e) {
+		catch (NoUserLoggedIn e) {
 			//Not applicable at this point
 		}
-		catch (NotAuctionSellerException e) {
+		catch (NotAuctionSeller e) {
 			//Not applicable at this point
 		}
 		catch (NullPointerException e){
-			throw new InvalidProductException();
+			throw new InvalidProduct();
 		}
 
 	}
 
 	@Override
 	public IBid bid(String sellerUsername, String productCode, int amount)
-			throws UserDeniedException, LowBidAmountException,
-			BiddingClosedAuctionException, BiddingOwnAuctionException,
-			InvalidAuctionException {
+			throws UserDenied, LowBidAmount,
+			BiddingClosedAuction, BiddingOwnAuction,
+			InvalidAuction {
 		
 		this.userControl.executeAction(EAction.BID);
 		
@@ -205,20 +205,20 @@ public class EbayPT implements IEbayPT {
 			
 			return winnerBid;
 		}
-		catch (NoUserLoggedInException e) {
+		catch (NoUserLoggedIn e) {
 			//At this point NoUserLoggedInException in not acceptable
 			return null;
 		}
 		catch (NullPointerException e){
-			throw new InvalidAuctionException();
+			throw new InvalidAuction();
 		}
 		
 	}
 
 	@Override
 	public IBid closeAuction(String productCode)
-			throws NoBidsException, UserDeniedException,
-			InvalidAuctionException {
+			throws NoBids, UserDenied,
+			InvalidAuction {
 		
 		this.userControl.executeAction(EAction.CLOSE_AUCTION);
 		
@@ -232,26 +232,26 @@ public class EbayPT implements IEbayPT {
 			
 			return winnerBid;
 		}
-		catch (NoUserLoggedInException e) {
+		catch (NoUserLoggedIn e) {
 			//At this point NoUserLoggedInException in not acceptable
 			return null;
 		}
 		catch (NullPointerException e){
-			throw new InvalidAuctionException();
+			throw new InvalidAuction();
 		}
 	}
 	
 	@Override
 	public void createCar(String code, String description, String make,
-			String model, int year) throws UserDeniedException,
-			ProductAlreadyExistsException {
+			String model, int year) throws UserDenied,
+			ProductAlreadyExists {
 		
 		this.userControl.executeAction(EAction.ADD_PRODUCT);
 		
 		try {
 			this.db.addProduct(new Car(code, description, make, model, year));
 		} 
-		catch (NoUserLoggedInException e) {
+		catch (NoUserLoggedIn e) {
 			//Not applicable at this point
 		}
 		
@@ -259,8 +259,8 @@ public class EbayPT implements IEbayPT {
 
 	@Override
 	public void createTablet(String code, String description, String brand,
-			int size, int weight) throws UserDeniedException,
-			ProductAlreadyExistsException {
+			int size, int weight) throws UserDenied,
+			ProductAlreadyExists {
 		
 		this.userControl.executeAction(EAction.ADD_PRODUCT);
 		
@@ -268,7 +268,7 @@ public class EbayPT implements IEbayPT {
 			this.db.addProduct(
 					new Tablet(code, description, brand, size, weight));
 		} 
-		catch (NoUserLoggedInException e) {
+		catch (NoUserLoggedIn e) {
 			//Not applicable at this point
 		}
 	}

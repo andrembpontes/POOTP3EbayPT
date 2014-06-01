@@ -3,7 +3,7 @@ package ebayPT;
 /**
  * Supertype for all types of products that can be auctioned in ebayPT.
  *
- * @author n42540: Rodrigo Simões; n42845: André Pontes
+ * @author n42540: Rodrigo Simoes; n42845: Andre Pontes
  */
 
 public interface IProduct extends Comparable<IProduct>{
@@ -42,10 +42,10 @@ public interface IProduct extends Comparable<IProduct>{
 	EProductState getState();
 
 	/**
-	 * Verify if product is available to create a new auction with.
-	 * Return True if yes
+	 * Verify if it is possible to create a new auction with this product
 	 * 
-	 * @return True if product is available to create new auction, else False
+	 * @return True if it is possible to create a new auction with this product,
+	 * false otherwise
 	 */
 	boolean isAvaliable();
 

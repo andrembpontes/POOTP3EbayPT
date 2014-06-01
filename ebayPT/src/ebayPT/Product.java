@@ -1,5 +1,12 @@
 package ebayPT;
 
+/**
+ * Abstract implementation of IProduct. For each concrete type of product
+ * that can be auctioned in Ebay@PT there is a corresponding subclass of Product.
+ * 
+ * @author n42540: Rodrigo Simoes; n42845: Andre Pontes
+ */
+
 public abstract class Product implements IProduct {
 	private EProductCategory category;
 	private String code, description;

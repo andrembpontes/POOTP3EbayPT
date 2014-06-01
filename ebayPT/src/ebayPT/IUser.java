@@ -9,7 +9,7 @@ import ebayPT.exceptions.ProductAlreadyExists;
 /**
  * An IUser represents a user in the ebayPT system.
  *
- * @author n42540: Rodrigo Simões; n42845: André Pontes
+ * @author n42540: Rodrigo Simoes; n42845: Andre Pontes
  */
 public interface IUser extends Comparable<IUser>{
 	/**

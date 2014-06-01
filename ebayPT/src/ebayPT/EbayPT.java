@@ -2,29 +2,22 @@ package ebayPT;
 
 import java.util.Iterator;
 
-import ebayPT.exceptions.AnotherUserAlreadyLoggedInException;
-import ebayPT.exceptions.BiddingClosedAuctionException;
-import ebayPT.exceptions.BiddingOwnAuctionException;
-import ebayPT.exceptions.InvalidAuctionException;
-import ebayPT.exceptions.InvalidProductException;
-import ebayPT.exceptions.InvalidUserException;
-import ebayPT.exceptions.InvalidUserTypeException;
-import ebayPT.exceptions.LowBidAmountException;
-import ebayPT.exceptions.NoBidsException;
-import ebayPT.exceptions.NoUserLoggedInException;
-import ebayPT.exceptions.NotAuctionSellerException;
-import ebayPT.exceptions.NotSellerException;
-import ebayPT.exceptions.ProductAlreadyExistsException;
-import ebayPT.exceptions.ProductNotAvailableException;
-import ebayPT.exceptions.UserAlreadyExistsException;
-import ebayPT.exceptions.UserAlreadyLoggedInException;
-import ebayPT.exceptions.UserDeniedException;
+import ebayPT.exceptions.*;
+
+/**
+ * Implementation of IEbayPT
+ *
+ * @author n42540: Rodrigo Simoes; n42845: Andre Pontes
+ */
 
 public class EbayPT implements IEbayPT {
 
 	private IUserControl userControl;
 	private IDataBase db;
 	
+	/**
+	 * Constructor
+	 */
 	public EbayPT() {
 		this.userControl = new UserControl();
 		this.db = new DataBase(userControl);
@@ -64,8 +57,6 @@ public class EbayPT implements IEbayPT {
 	public Iterator<IAuction> getAuctions(EProductCategory category)
 			throws UserDeniedException {
 		
-		//TODO auctions not removed when closed
-		
 		this.userControl.executeAction(EAction.LIST_AUCTIONS);
 		
 		return this.db.getAuctions(category);
@@ -85,7 +76,6 @@ public class EbayPT implements IEbayPT {
 			throws UserDeniedException, InvalidAuctionException,
 			NotSellerException{
 		
-		//TODO Verify user access level needed
 		this.userControl.executeAction(EAction.LIST_BIDS);
 		
 		try{

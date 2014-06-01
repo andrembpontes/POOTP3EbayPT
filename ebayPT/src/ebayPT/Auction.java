@@ -13,7 +13,7 @@ import ebayPT.exceptions.NoBidsException;
 import ebayPT.exceptions.ProductNotAvailableException;
 
 /**
- * Aims to represent an auction storing the seller, the product and all bids.
+ * Implementation of IAuction for a Standard Auction.
  * 
  * @author n42540: Rodrigo Simoes; n42845: Andre Pontes
  * 
@@ -21,20 +21,19 @@ import ebayPT.exceptions.ProductNotAvailableException;
 public class Auction implements IAuction, Comparable<IAuction> {
 
 	private IUser seller;		//Seller user
-	private IProduct product;	//Product's auction
-	private Collection<IBid> bids;	//Bids list
-	private boolean open;		//True if is open, False is is closed
-	private int base;			//Minimum bid amount
+	private IProduct product;	//Auctioned product
+	private Collection<IBid> bids;	//List of bids
+	private boolean open;		//Whether the auction is open
+	private int base;			//Minimum starting bid amount
 	
 	/**
-	 * Creates and open a standard auction for givens seller, product and base
-	 * amount.
+	 * Creates and opens a standard auction.
 	 * 
-	 * @param seller: Seller user
-	 * @param product: Auction product
-	 * @param base: Minimum bid amount
-	 * @throws ProductNotAvailableException: Trying to create an auction to an
-	 * unavailable product  
+	 * @param seller Seller user
+	 * @param product Auction product
+	 * @param base Minimum bid amount
+	 * @throws ProductNotAvailableException Trying to create an auction to an
+	 * unavailable product
 	 */
 	public Auction(IUser seller, IProduct product, int base)
 			throws ProductNotAvailableException{
@@ -85,13 +84,8 @@ public class Auction implements IAuction, Comparable<IAuction> {
 			//Not acceptable at this point
 		}
 		
-		if(this.bids.size() == 0){
-			this.product.setState(EProductState.SALE);
-			throw new NoBidsException();
-		}
-		else{
-			this.product.setState(EProductState.SOLD);
-		}
+		this.product.setState(this.bids.size() == 0 ?
+				EProductState.SALE : EProductState.SOLD);
 		
 		return this.getHighestBid();
 	}

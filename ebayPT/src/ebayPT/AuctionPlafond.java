@@ -7,9 +7,9 @@ import ebayPT.exceptions.NoBidsException;
 import ebayPT.exceptions.ProductNotAvailableException;
 
 /**
- * This class represents a Plafond auction. A Plafond Auction is equals to a
- * Standard Auction but close automatically when receive a bid amount higher
- * than specified plafond
+ * Implementation of IAuction for a Plafond Auction. A Plafond Auction is
+ * different than a Standard Auction in that it is closed automatically when a
+ * bid is made that is equal to or greater than the specified plafond amount.
  * 
  * @author n42540: Rodrigo Simoes; n42845: Andre Pontes
  *
@@ -19,15 +19,14 @@ public class AuctionPlafond extends Auction {
 	private int plafond;	//Auction plafond
 	
 	/**
-	 * Creates and open a plafond auction for givens seller, product and base
-	 * amount with givens plafond.
+	 * Creates and opens a plafond auction.
 	 * 
-	 * @param seller: Seller user
-	 * @param product: Auction product
-	 * @param base: Minimum bid amount
-	 * @param plafond: Auction's plafond
-	 * @throws ProductNotAvailableException : Trying to create an auction for an
-	 * un available product
+	 * @param seller Seller user
+	 * @param product Auction product
+	 * @param base Minimum bid amount
+	 * @param plafond Auction's plafond
+	 * @throws ProductNotAvailableException Trying to create an auction for an
+	 * unavailable product
 	 */
 	public AuctionPlafond(IUser seller, IProduct product, int base,
 			int plafond) throws ProductNotAvailableException  {

@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.Iterator;
 
 import ebayPT.EProductCategory;
 import ebayPT.EUserType;
@@ -11,8 +12,6 @@ import ebayPT.IProduct;
 import ebayPT.ITablet;
 import ebayPT.IUser;
 import ebayPT.exceptions.*;
-
-import java.util.Iterator;
 
 public class Main {
 
@@ -41,9 +40,6 @@ public class Main {
 					case TABLETS: execTablets(scan, ebayPT); break;
 					default: throw new InvalidCommandException();
 				}
-				
-				//TODO delete scan.nextLine(); //Go to next line
-				
 			}
 			catch(IllegalArgumentException e){
 				invalidCommand(scan);
@@ -498,8 +494,6 @@ public class Main {
 	}
 
 	private static void invalidCommand(Scanner scan) {
-		//TODO remove
-		
-		System.out.println("Damn peace... command is wrong ( again... -.-'' )");
+		EMessage.INVALID_COMMAND.print();
 	}
 }

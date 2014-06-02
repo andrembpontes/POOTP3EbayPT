@@ -7,7 +7,9 @@ import ebayPT.exceptions.NotAuctionSeller;
 import ebayPT.exceptions.ProductAlreadyExists;
 
 /**
- * An IUser represents a user in the ebayPT system.
+ * An IUser represents a user in the Ebay@PT system, being identified by a
+ * unique username, a real name, an email, and a user type. In addition to
+ * that, an IUser also manages the user's auctions and products.
  *
  * @author n42540: Rodrigo Simoes; n42845: Andre Pontes
  */
@@ -53,57 +55,56 @@ public interface IUser extends Comparable<IUser>{
 	void addProduct(IProduct product) throws ProductAlreadyExists;
 	
 	/**
-	 * Sum all sales and return total of sales amount
+	 * Get total amount received by this user in sales
 	 * 
 	 * @return Total sales amount
 	 */
-	long getSales();
+	int getSales();
 
 	/**
-	 * Create and returns a new iterator for products sort alphabetical
+	 * Get iterator to this user's products (sorted alphabetically)
 	 * 
-	 * @return Iterator to products sort alphabetical
+	 * @return Iterator to products sorted alphabetically
 	 */
 	Iterator<IProduct> getProducts();
 
 	/**
-	 * Add an auction to user
+	 * Add an auction to this user
 	 * 
 	 * @param auction: auction to add
-	 * @throws NotAuctionSeller: User is not auction seller
+	 * @throws NotAuctionSeller: <code>auction</code> was created by different user
 	 */
 	void addAuction(IAuction auction)
 			throws NotAuctionSeller;
 	
 	/**
-	 * Look for and returns auction of product with givens productCode
+	 * Get auction of product with the given product code
 	 * 
-	 * @param productCode: Code of auction product
-	 * @return Auction, null if not found
+	 * @param productCode: Code of auctioned product
+	 * @return Auction of product with the given code, null if code not found
 	 */
 	IAuction getAuction(String productCode);
 	
 	/**
-	 * Look for and returns product with givens code
+	 * Get product identified with <code>productCode</code>
 	 * 
 	 * @param productCode: Code of product
-	 * @return Product, null if not found
+	 * @return Product identified with given code, null if not found
 	 */
 	IProduct getProduct(String productCode);
 
 	/**
-	 * Return total number of closed auctions
+	 * Return total number of auctions closed by this user
 	 * 
-	 * @return Total number of closed auctions
+	 * @return Total number of auctions closed by this user
 	 */
 	int getClosedAuctionsCount();
 	
 	/**
-	 * Report that givens auctions has been closed
+	 * Report that given auctions has been closed
 	 * 
-	 * @param productCode: Auction's product code to close
-	 * @throws InvalidAuction: There is no auctions with givens product
-	 * code
+	 * @param productCode: Code of product whose auction to close
+	 * @throws InvalidAuction: No auction of product identified with <code>productCode</code>
 	 */
 	void reportClosedAuction(String productCode) throws InvalidAuction;
 }

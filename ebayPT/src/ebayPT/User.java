@@ -9,18 +9,25 @@ import ebayPT.exceptions.InvalidAuction;
 import ebayPT.exceptions.NotAuctionSeller;
 import ebayPT.exceptions.ProductAlreadyExists;
 
+/**
+ * Implementation of IUser
+ * 
+ * @author n42540: Rodrigo Simoes; n42845: Andre Pontes
+ */
+
 public class User implements IUser{
 	private String username, email, name;
 	
 	private IUserType type;
 	
-	private Map<String, IProduct> products;
+	private Map<String, IProduct> products; // products indexed by product code
 	
-	private Map<String, IAuction> auctionsByProductCode;
+	private Map<String, IAuction> auctionsByProductCode; // open auctions indexed
+														// by product code
 	
-	private Map<String, IAuction> closedAuctions;
+	private Map<String, IAuction> closedAuctions; // closed auctions indexed by product code
 	
-	private long closedAuctionSales;
+	private int closedAuctionSales;	// total amount earned in auctions
 	
 	public User(IUserType type, String username, String email, String name){
 		this.type = type;
@@ -32,7 +39,6 @@ public class User implements IUser{
 		
 		this.products = new TreeMap<String, IProduct>();
 		
-		//TODO for better implementation split auctions by states (closed/open)
 		this.auctionsByProductCode = new HashMap<String, IAuction>();
 		
 		this.closedAuctions = new HashMap<String, IAuction>();
@@ -80,8 +86,8 @@ public class User implements IUser{
 	}
 
 	@Override
-	public long getSales() {
-		long sales = this.closedAuctionSales;
+	public int getSales() {
+		int sales = this.closedAuctionSales;
 		
 		for(IAuction auctionI: this.auctionsByProductCode.values()){
 			try{
@@ -156,10 +162,9 @@ public class User implements IUser{
 		}
 		
 		this.closedAuctions.put(productCode,
-		this.auctionsByProductCode.remove(productCode));
+				this.auctionsByProductCode.remove(productCode));
 				
 		try{
-			
 			this.closedAuctionSales += winnerBid.getAmount();			
 		}
 		catch(NullPointerException e){

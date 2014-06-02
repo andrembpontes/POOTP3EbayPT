@@ -1,4 +1,8 @@
-
+/**
+ * Possible user commands.
+ * 
+ * @author n42540: Rodrigo Simoes; n42845: Andre Pontes
+ */
 public enum ECommand {
 	CARS,
 	TABLETS,

@@ -1,5 +1,10 @@
 import java.io.PrintStream;
 
+/**
+ * Messages shown to the user.
+ * 
+ * @author n42540: Rodrigo Simoes; n42845: Andre Pontes
+ */
 public enum EMessage{
 	TABLETS_ALL_TITLE("All tablets:"),
 	SALES_TITLE("Sales by users:"),
@@ -43,14 +48,25 @@ public enum EMessage{
 		this.message = message;
 	}
 	
+	/**
+	 * Print the message
+	 */
 	public void print() {
 		PRINT_STREAM.println(this.message);
 	}
 	
+	/**
+	 * Print the message
+	 * @param arg string to replace @@arg with
+	 */
 	public void print(String arg){
 		PRINT_STREAM.println(this.message.replaceFirst(ARG_IDENTIFIER, arg));
 	}
 	
+	/**
+	 * Print the message
+	 * @param args strings to replace more than one @@arg placeholder with
+	 */
 	public void print(String[] args){
 		String toPrint = new String(this.message);
 		

@@ -13,7 +13,11 @@ import ebayPT.exceptions.NotAuctionSeller;
 import ebayPT.exceptions.ProductAlreadyExists;
 import ebayPT.exceptions.UserAlreadyExists;
 
-
+/**
+ * Implementation of IDataBase
+ * 
+ * @author n42540: Rodrigo Simoes; n42845: Andre Pontes
+ */
 public class DataBase implements IDataBase {
 
 	private IUserControl userControl;
@@ -26,6 +30,12 @@ public class DataBase implements IDataBase {
 
 	private MapOfSets<Integer, IAuction> tabletAuctionsBySize; 
 	
+	/**
+	 * Constructor: initialize database and use <code>userControl</code> as
+	 * this database's UserControl
+	 * 
+	 * @param userControl: IUserControl to be used by the database
+	 */
 	public DataBase(IUserControl userControl) {
 		this.userControl = userControl;
 		

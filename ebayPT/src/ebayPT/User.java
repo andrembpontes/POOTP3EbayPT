@@ -108,8 +108,6 @@ public class User implements IUser{
 
 	@Override
 	public void addAuction(IAuction auction) throws NotAuctionSeller {
-		
-		//TODO think in remove this
 		if(!auction.getSeller().equals(this))
 			throw new NotAuctionSeller();
 		

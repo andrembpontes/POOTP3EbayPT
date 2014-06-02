@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import ebayPT.exceptions.InvalidAuction;
+import ebayPT.exceptions.NoBids;
 import ebayPT.exceptions.NotAuctionSeller;
 import ebayPT.exceptions.ProductAlreadyExists;
 
@@ -146,27 +147,27 @@ public class User implements IUser{
 	}
 
 	@Override
-	public void reportClosedAuction(String productCode)
-			throws InvalidAuction {
-		
+	public IBid closeAuction(String productCode) throws InvalidAuction, NoBids {
 		IBid winnerBid = null;
+		IAuction auction = this.auctionsByProductCode.get(productCode);
 		
-		try{
-			winnerBid =
-					this.auctionsByProductCode.get(productCode).getWinnerBid();
-		}
-		catch(NullPointerException e){
+		try {
+			winnerBid = auction.close();
+			this.closedAuctionSales += winnerBid.getAmount();
+			putInClosedAuctions(productCode);
+		} catch(NullPointerException e) {
 			throw new InvalidAuction();
+		} catch(NoBids e) {
+			putInClosedAuctions(productCode);
+			throw e;
 		}
 		
+		return winnerBid;
+
+	}
+	
+	private void putInClosedAuctions(String productCode) {
 		this.closedAuctions.put(productCode,
 				this.auctionsByProductCode.remove(productCode));
-				
-		try{
-			this.closedAuctionSales += winnerBid.getAmount();			
-		}
-		catch(NullPointerException e){
-			//There is no winner bid //Do nothing
-		}
 	}
 }

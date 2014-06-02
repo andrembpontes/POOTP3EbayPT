@@ -2,6 +2,7 @@ package ebayPT;
 
 import ebayPT.exceptions.BiddingClosedAuction;
 import ebayPT.exceptions.BiddingOwnAuction;
+import ebayPT.exceptions.InvalidAuction;
 import ebayPT.exceptions.LowBidAmount;
 import ebayPT.exceptions.NoBids;
 import ebayPT.exceptions.ProductNotAvailable;
@@ -9,7 +10,7 @@ import ebayPT.exceptions.ProductNotAvailable;
 /**
  * Implementation of IAuction for a Plafond Auction. A Plafond Auction is
  * different than a Standard Auction in that it is closed automatically when a
- * bid is made that is equal to or greater than the specified plafond amount.
+ * bid is made that surpasses the specified plafond amount.
  * 
  * @author n42540: Rodrigo Simoes; n42845: Andre Pontes
  *
@@ -44,11 +45,10 @@ public class AuctionPlafond extends Auction {
 		
 		if(amount > this.plafond){
 			try {
-				this.close();
+				this.getSeller().closeAuction(this.getProduct().getCode());
 				
-			} catch (NoBids e) {
-				//Do nothing
-				//At this point this exceptions are not acceptable
+			} catch (NoBids|InvalidAuction e) {
+				//Unreachable code
 			}
 			
 			return this.getWinnerBid();

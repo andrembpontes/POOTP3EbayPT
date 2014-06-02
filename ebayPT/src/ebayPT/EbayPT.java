@@ -222,11 +222,11 @@ public class EbayPT implements IEbayPT {
 		
 		this.userControl.executeAction(EAction.CLOSE_AUCTION);
 		
-		try {			// TODO simplify class relations
+		try {
 			IAuction auction =
 					this.userControl.getLoggedUser().getAuction(productCode);
 			
-			IBid winnerBid = auction.close();
+			IBid winnerBid = auction.getSeller().closeAuction(productCode);
 		
 			this.db.reportClosedAuction(auction);
 			

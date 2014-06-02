@@ -7,7 +7,6 @@ import java.util.TreeSet;
 
 import ebayPT.exceptions.BiddingClosedAuction;
 import ebayPT.exceptions.BiddingOwnAuction;
-import ebayPT.exceptions.InvalidAuction;
 import ebayPT.exceptions.LowBidAmount;
 import ebayPT.exceptions.NoBids;
 import ebayPT.exceptions.ProductNotAvailable;
@@ -76,13 +75,6 @@ public class Auction implements IAuction, Comparable<IAuction> {
 	@Override
 	public IBid close() throws NoBids{
 		this.open = false;
-		
-		try {
-			this.getSeller().reportClosedAuction(this.getProduct().getCode());
-		}
-		catch (InvalidAuction e) {
-			//Not acceptable at this point
-		}
 		
 		this.product.setState(this.bids.size() == 0 ?
 				EProductState.SALE : EProductState.SOLD);

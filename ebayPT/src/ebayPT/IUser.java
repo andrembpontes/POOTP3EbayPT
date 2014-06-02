@@ -3,6 +3,7 @@ package ebayPT;
 import java.util.Iterator;
 
 import ebayPT.exceptions.InvalidAuction;
+import ebayPT.exceptions.NoBids;
 import ebayPT.exceptions.NotAuctionSeller;
 import ebayPT.exceptions.ProductAlreadyExists;
 
@@ -101,10 +102,14 @@ public interface IUser extends Comparable<IUser>{
 	int getClosedAuctionsCount();
 	
 	/**
-	 * Report that given auctions has been closed
-	 * 
+	 * Close auction of product identified with <code>productCode</code> and
+	 * return the winner bid or throw NoBids if there is no winner bid.
+	 *
 	 * @param productCode: Code of product whose auction to close
-	 * @throws InvalidAuction: No auction of product identified with <code>productCode</code>
+	 * @return Winner bid
+	 * @throws InvalidAuction: No auction of product identified with
+	 * <code>productCode</code> or said auction is already closed
+	 * @throws NoBids: Auction has no bids
 	 */
-	void reportClosedAuction(String productCode) throws InvalidAuction;
+	IBid closeAuction(String productCode) throws InvalidAuction, NoBids;
 }

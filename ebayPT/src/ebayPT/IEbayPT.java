@@ -27,29 +27,6 @@ import ebayPT.exceptions.UserDenied;
  */
 public interface IEbayPT {
 	
-	
-	//TODO com as enumeracoes e mesmo necessario especificalas aqui?
-	
-	/**
-	 * Constant representing Tablet product category.
-	 */
-	static final String TABLET = EProductCategory.TABLET.toString();
-	
-	/**
-	 * Constant representing Car product category.
-	 */
-	static final String CAR = EProductCategory.CAR.toString();
-	
-	/**
-	 * Constant representing regular user type.
-	 */
-	static final String REGISTERED = EUserType.USER.toString();
-	
-	/**
-	 * Constant representing admin user type.
-	 */
-	static final String ADMIN = EUserType.ADMIN.toString();
-	
 	/**
 	 * Logs in user represented by <code>username</code>
 	 * 

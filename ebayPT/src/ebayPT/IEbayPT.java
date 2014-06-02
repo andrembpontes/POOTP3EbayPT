@@ -32,8 +32,8 @@ public interface IEbayPT {
 	 * 
 	 * @param username: username of user to login
 	 * already logged in
-	 * @throws InvalidUser: Givens username doesn't exists 
-	 * @throws UserAlreadyLoggedIn: Givens user is already logged in
+	 * @throws InvalidUser: There is no user with given username
+	 * @throws UserAlreadyLoggedIn: Given user is already logged in
 	 * @throws AnotherUserAlreadyLoggedIn: Another user is already
 	 * logged in
 	 */
@@ -54,7 +54,7 @@ public interface IEbayPT {
 	 * 
 	 * @return iterator to all products of currently logged user or null if the
 	 * user has no products in the database
-	 * @throws UserDenied: Actual user cannot execute this task: Actual user cannot execute this task
+	 * @throws UserDenied: Actual user cannot execute this task
 	 */
 	Iterator<IProduct> getProducts() throws UserDenied;
 	
@@ -93,10 +93,10 @@ public interface IEbayPT {
 	 * @param sellerUsername: username of the seller of the product being auctioned
 	 * @param productCode: product code of the product being auctioned
 	 * @return iterator to all bids on a given auction
-	 * @throws UserDenied: Actual user cannot execute this task 
-	 * @throws NotSeller: Auction is open and logged user isn't seller 
-	 * @throws InvalidAuction: Doesn't exists auction corresponding to
-	 * givens data
+	 * @throws UserDenied: Actual user cannot execute this task
+	 * @throws NotSeller: Auction is open and logged user isn't seller
+	 * @throws InvalidAuction: There is no auction in the database identified
+	 * with <code>sellerUsername</code> and <code>productCode</code>
 	 */
 	Iterator<IBid> getBiddings(String sellerUsername, String productCode)
 			throws UserDenied, InvalidAuction,
@@ -138,31 +138,33 @@ public interface IEbayPT {
 			UserAlreadyExists;
 	
 	/**
-	 * Create a standard auction with givens data with actual logged user as
-	 * auction's seller
+	 * Create a standard auction with given data with actual logged user as
+	 * the auction's seller
 	 * 
 	 * @param productCode: code of the product to auction
 	 * @param basePrice: base price of the auction
-	 * @throws InvalidProduct: Actual user doesn't has givens product 
+	 * @throws InvalidProduct: Actual user doesn't have a product whose code is
+	 * equal to <code>productCode</code>
 	 * @throws UserDenied: Actual user cannot execute this task
-	 * @throws ProductNotAvaliableException: Product is already sold or in a
-	 * running auction 
+	 * @throws ProductNotAvaliableException: Product is already sold or is
+	 * currently being auctioned
 	 */
 	void createAuctionStandard(String productCode, int basePrice)
 			throws UserDenied, InvalidProduct,
 			ProductNotAvailable;
 	
 	/**
-	 * Create a plafond auction with givens data with actual logged user as
-	 * auction's seller
+	 * Create a plafond auction with given data with actual logged user as
+	 * the auction's seller
 	 *  
 	 * @param productCode: code of the product to auction
 	 * @param basePrice: base price of the auction
 	 * @param plafond: plafond value
 	 * @throws UserDenied: Actual user cannot execute this task 
-	 * @throws InvalidProduct: Actual user doesn't has givens product
-	 * @throws ProductNotAvaliableException: Product is already sold or in a
-	 * running auction 
+	 * @throws InvalidProduct: Actual user doesn't have a product whose code is
+	 * equal to <code>productCode</code>
+	 * @throws ProductNotAvaliableException: Product is already sold or is
+	 * currently being auctioned
 	 */
 	void createAuctionPlafond(String productCode, int basePrice, int plafond)
 			throws InvalidProduct, UserDenied,
@@ -176,12 +178,14 @@ public interface IEbayPT {
 	 * @param sellerUsername: auction seller
 	 * @param productCode: product code
 	 * @param amount: bid amount
-	 * @return Winner bid if applicable, null in other cases
-	 * @throws BiddingOwnAuction: Seller can't bid own auction
-	 * @throws BiddingClosedAuction: Trying to bid a closed auction 
-	 * @throws LowBidAmount: Bid amount is lower than auction's base 
-	 * @throws UserDenied: Actual user cannot execute this task 
-	 * @throws InvalidAuction: Doesn't exist auction with givens data
+	 * @return Winner bid if the auction closes after this bid is made, null otherwise
+	 * @throws BiddingOwnAuction: Seller trying to bid on own auction
+	 * @throws BiddingClosedAuction: Trying to bid on a closed auction
+	 * @throws LowBidAmount: Bid amount is lower than the auction's base amount 
+	 * @throws UserDenied: Actual user cannot execute this task
+	 * @throws InvalidAuction: There is no auction with seller whose user name is
+	 * equal to <code>sellerUsername</code> and whose product's code is equal to
+	 * <code>productCode</code>
 	 */
 	IBid bid(String sellerUsername, String productCode, int amount)
 			throws UserDenied, LowBidAmount,
@@ -190,13 +194,15 @@ public interface IEbayPT {
 	
 	/**
 	 * Closes the auction of the current logged user identified by
-	 * <code>productCode</code> and returns the winning bid.
+	 * <code>productCode</code> and returns the winning bid. If there are no
+	 * bids on the auction then a <code>NoBids</code> exception is thrown.
 	 * 
 	 * @param productCode: code of the product whose auction is to be closed
 	 * @return winning bid
-	 * @throws NoBids: Trying to close an auction without bids 
-	 * @throws UserDenied: Actual user cannot execute this task 
-	 * @throws InvalidAuction: Givens auction doesn't exists
+	 * @throws NoBids: Closing an auction with no bids
+	 * @throws UserDenied: Actual user cannot execute this task
+	 * @throws InvalidAuction: There is no auction in the database for product
+	 * identified with <code>productCode</code>
 	 */
 	IBid closeAuction(String productCode)
 			throws NoBids, UserDenied,
@@ -211,8 +217,8 @@ public interface IEbayPT {
 	 * @param make: make of the car
 	 * @param model: model of the car
 	 * @param year: year of the car
-	 * @throws ProductAlreadyExists: Already exists another product with same
-	 * code for actual logged user 
+	 * @throws ProductAlreadyExists: Actual user already has a product whose
+	 * product code is equal to <code>code</code>
 	 * @throws UserDenied: Actual user cannot execute this task 
 	 */
 	void createCar(String code, String description, String make,
@@ -228,8 +234,8 @@ public interface IEbayPT {
 	 * @param brand: brand of the tablet
 	 * @param size: size of the tablet
 	 * @param weight: weight of the tablet
-	 * @throws ProductAlreadyExists: Already exists another produc with same
-	 * code for actual logged user 
+	 * @throws ProductAlreadyExists: Actual user already has a product whose
+	 * product code is equal to <code>code</code>
 	 * @throws UserDenied: Actual user cannot execute this task 
 	 */
 	void createTablet(String code, String description, String brand,

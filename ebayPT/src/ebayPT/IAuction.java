@@ -49,7 +49,7 @@ public interface IAuction extends Comparable<IAuction>{
 	
 	/**
 	 * Close current auction and return winner bid. If there are no bids, the
-	 * auctioned product returns to its Sale state and a NoBidsException is thrown.
+	 * auctioned product returns to its Sale state and a NoBids exception is thrown.
 	 * 
 	 * @return Winner bid
 	 * @throws NoBids When the auction has no bids

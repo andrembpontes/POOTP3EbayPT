@@ -128,8 +128,8 @@ public interface IEbayPT {
 	 * @param email: email of user
 	 * @param name: real name of user
 	 * @param username: unique name used to identify user in the database
-	 * @param userType: one of IEbayPT.REGISTERED or IEbayPT.ADMIN
-	 * @throws InvalidUserType: Givens userType isn't a valid user type
+	 * @param userType: either EUserType.USER.toString() or EUserType.ADMIN.toString()
+	 * @throws InvalidUserType: Given userType isn't a valid user type
 	 * @throws UserDenied: Actual user cannot execute this task 
 	 * @throws UserAlreadyExists: Specified username already exist
 	 */

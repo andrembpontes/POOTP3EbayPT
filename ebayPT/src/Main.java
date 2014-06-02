@@ -375,7 +375,7 @@ public class Main {
 		catch (InvalidAuction e){
 			EMessage.INVALID_AUCTION.print();
 		}
-		catch (NotSeller e) {
+		catch (NotAuctionSeller e) {
 			EMessage.NOT_SELLER.print();
 		}
 		

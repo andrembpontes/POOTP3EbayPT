@@ -74,7 +74,7 @@ public class EbayPT implements IEbayPT {
 	@Override
 	public Iterator<IBid> getBiddings(String sellerUsername, String productCode)
 			throws UserDenied, InvalidAuction,
-			NotSeller{
+			NotAuctionSeller{
 		
 		this.userControl.executeAction(EAction.LIST_BIDS);
 		
@@ -95,7 +95,7 @@ public class EbayPT implements IEbayPT {
 			
 			if(auction.isOpen()
 					&& !loggedUser.equals(seller))
-				throw new NotSeller();
+				throw new NotAuctionSeller();
 			
 			return auction.getBids();
 		}
@@ -222,7 +222,7 @@ public class EbayPT implements IEbayPT {
 		
 		this.userControl.executeAction(EAction.CLOSE_AUCTION);
 		
-		try {			
+		try {			// TODO simplify class relations
 			IAuction auction =
 					this.userControl.getLoggedUser().getAuction(productCode);
 			

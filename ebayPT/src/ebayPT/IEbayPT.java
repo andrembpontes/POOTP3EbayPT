@@ -12,7 +12,7 @@ import ebayPT.exceptions.InvalidUserType;
 import ebayPT.exceptions.LowBidAmount;
 import ebayPT.exceptions.NoBids;
 import ebayPT.exceptions.NoUserLoggedIn;
-import ebayPT.exceptions.NotSeller;
+import ebayPT.exceptions.NotAuctionSeller;
 import ebayPT.exceptions.ProductAlreadyExists;
 import ebayPT.exceptions.ProductNotAvailable;
 import ebayPT.exceptions.UserAlreadyExists;
@@ -100,7 +100,7 @@ public interface IEbayPT {
 	 */
 	Iterator<IBid> getBiddings(String sellerUsername, String productCode)
 			throws UserDenied, InvalidAuction,
-			NotSeller;
+			NotAuctionSeller;
 	
 	/**
 	 * Gets an iterator to all the users in the database. Administrator accounts

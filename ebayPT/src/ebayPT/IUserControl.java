@@ -5,6 +5,12 @@ import ebayPT.exceptions.NoUserLoggedIn;
 import ebayPT.exceptions.UserAlreadyLoggedIn;
 import ebayPT.exceptions.UserDenied;
 
+/**
+ * An IUserControl object is used to keep track of the currently logged user
+ * as well as to check if the user has permissions to perform a certain action.
+ * 
+ * @author n42540: Rodrigo Simoes; n42845: Andre Pontes
+ */
 public interface IUserControl {
 	
 	/**

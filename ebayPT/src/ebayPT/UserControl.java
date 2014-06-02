@@ -5,6 +5,11 @@ import ebayPT.exceptions.NoUserLoggedIn;
 import ebayPT.exceptions.UserAlreadyLoggedIn;
 import ebayPT.exceptions.UserDenied;
 
+/**
+ * Implementation of IUserControl
+ * 
+ * @author n42540: Rodrigo Simoes; n42845: Andre Pontes
+ */
 public class UserControl implements IUserControl {
 
 	public static final IUserType GUEST_USER_TYPE = EUserType.GUEST;
@@ -12,10 +17,18 @@ public class UserControl implements IUserControl {
 	
 	private IUser loggedUser;
 	
+	/**
+	 * Same as UserControl(UserControl.GUEST_USER)
+	 */
 	public UserControl() {
 		this.loggedUser = GUEST_USER;
 	}
 	
+	/**
+	 * Creates a new UserControl
+	 * 
+	 * @param initialUser initial user logged in
+	 */
 	public UserControl(IUser initialUser) {
 		this.loggedUser = initialUser;
 	}

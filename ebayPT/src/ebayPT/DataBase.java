@@ -103,7 +103,6 @@ public class DataBase implements IDataBase {
 
 	@Override
 	public Iterator<IUser> getUsersBySales() {
-		//TODO improve
 		Set<IUser> usersBySales = new TreeSet<IUser>(new ComparatorUserBySales());
 		
 		for(IUser userI : this.users.values()){

@@ -7,6 +7,12 @@ import ebayPT.exceptions.NotAuctionSeller;
 import ebayPT.exceptions.ProductAlreadyExists;
 import ebayPT.exceptions.UserAlreadyExists;
 
+/**
+ * Database used to store users as well as structures that enable faster
+ * lookup operations.
+ * 
+ * @author n42540: Rodrigo Simoes; n42845: Andre Pontes
+ */
 public interface IDataBase {
 
 	/**
@@ -24,20 +30,21 @@ public interface IDataBase {
 	 * Add a new user to database
 	 * 
 	 * @param user: User to add
-	 * @throws UserAlreadyExists: username already exist
+	 * @throws UserAlreadyExists: user with the same username is already in the
+	 * database
 	 */
 	void addUser(IUser user) throws UserAlreadyExists;
 	
 	/**
-	 * Look for user with givens user name and return it
+	 * Get user with given user name
 	 * 
-	 * @param username: Username of user to look for
-	 * @return User with givens username, null if there's no user'
+	 * @param username: User name of user to look for
+	 * @return User with givens user name, null if there's no such user
 	 */
 	IUser getUser(String username);
 	
 	/**
-	 * Create and returns a new iterator for all users sorted first by type then
+	 * Create and return a new iterator for all users sorted first by type then
 	 * by username alphabetically
 	 * 
 	 * @return Iterator to all users
@@ -68,6 +75,8 @@ public interface IDataBase {
 	Iterator<IAuction> getAuctionsTabletBySize(int size);
 
 	/**
+	 * Add product to database
+	 * 
 	 * @param product: Product to add
 	 * @throws ProductAlreadyExists: Product already exist in database
 	 * @throws NoUserLoggedIn: Need a logged user to add product to
@@ -76,7 +85,7 @@ public interface IDataBase {
 			throws ProductAlreadyExists, NoUserLoggedIn;
 	
 	/**
-	 * Remove auction for data base
+	 * Report to the database that <code>auction</code> was closed.
 	 * 
 	 * @param auction: Auction to report that has been closed
 	 */

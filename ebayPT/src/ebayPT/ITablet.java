@@ -1,5 +1,10 @@
 package ebayPT;
 
+/**
+ * Tablet product
+ * 
+ * @author n42540: Rodrigo Simoes; n42845: Andre Pontes
+ */
 public interface ITablet extends IProduct {
 	
 	/**

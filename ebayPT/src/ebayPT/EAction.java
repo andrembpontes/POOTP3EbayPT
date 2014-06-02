@@ -8,20 +8,64 @@ package ebayPT;
  *
  */
 public enum EAction implements IAction{
-											//Permissions list:
-	LIST_AUCTIONS(null),			//List all auctions
-	ADD_USER(EUserType.GUEST),				//Add a new user
-	LIST_USERS(EUserType.ADMIN),			//List all users
-	ADD_PRODUCT(EUserType.USER),		//Create a new product
-	CREATE_AUCTION(EUserType.USER),	//Open a new auction
-	BID(EUserType.USER),				//Bid on an open auction
-	CLOSE_AUCTION(EUserType.USER),	//Close auctions
-	LIST_PRODUCTS(EUserType.USER),	//List own products
-	LIST_BIDS(EUserType.USER);		//List auction bids
-		
-	private EUserType allowedUsers;		//Users that can execute action 
-										//(null = no restrictions)
 	
+	/**
+	 * List all auctions
+	 */
+	LIST_AUCTIONS(null),
+	
+	/**
+	 * Add a new user
+	 */
+	ADD_USER(EUserType.GUEST),
+	
+	/**
+	 * List all users
+	 */
+	LIST_USERS(EUserType.ADMIN),
+	
+	/**
+	 * Create a new product
+	 */
+	ADD_PRODUCT(EUserType.USER),
+	
+	/**
+	 * Open a new auction
+	 */
+	CREATE_AUCTION(EUserType.USER),
+	
+	/**
+	 * Bid on an open auction
+	 */
+	BID(EUserType.USER),
+	
+	/**
+	 * Close auctions
+	 */
+	CLOSE_AUCTION(EUserType.USER),
+	
+	/**
+	 * List own products
+	 */
+	LIST_PRODUCTS(EUserType.USER),
+	
+	/**
+	 * List auction bids
+	 */
+	LIST_BIDS(EUserType.USER);
+		
+	/**
+	 * Users that can execute action
+	 * (null = no restrictions)
+	 */
+	private EUserType allowedUsers;
+	
+	/**
+	 * Create a action condition with givens restrictions
+	 * 
+	 * @param allowedUsers: Type of users allowed to do this action,
+	 * null if all allowed
+	 */
 	private EAction(EUserType allowedUsers){
 		this.allowedUsers = allowedUsers;
 	}

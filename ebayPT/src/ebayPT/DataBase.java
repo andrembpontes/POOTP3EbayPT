@@ -20,14 +20,29 @@ import ebayPT.exceptions.UserAlreadyExists;
  */
 public class DataBase implements IDataBase {
 
+	/**
+	 * User control module
+	 */
 	private IUserControl userControl;
 	
+	/**
+	 * Users map by username
+	 */
 	private Map <String, IUser> users;
 
+	/**
+	 * Users sorted by User Type then by username
+	 */
 	private Set<IUser> sortedUsers;
 	
+	/**
+	 * Auctions maps by product category
+	 */
 	private MapOfSets<EProductCategory, IAuction> auctionsByProductCategory;
 
+	/**
+	 * Tablets maps by size
+	 */
 	private MapOfSets<Integer, IAuction> tabletAuctionsBySize; 
 	
 	/**

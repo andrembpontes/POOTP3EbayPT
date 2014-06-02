@@ -12,9 +12,19 @@ import ebayPT.exceptions.UserDenied;
  */
 public class UserControl implements IUserControl {
 
+	/**
+	 * Used when GUEST_USER == null
+	 */
 	public static final IUserType GUEST_USER_TYPE = EUserType.GUEST;
+	
+	/**
+	 * User used by default or when no user
+	 */
 	public static final IUser GUEST_USER = null;
 	
+	/**
+	 * Actual logged user
+	 */
 	private IUser loggedUser;
 	
 	/**
@@ -33,6 +43,7 @@ public class UserControl implements IUserControl {
 		this.loggedUser = initialUser;
 	}
 	
+	@Override
 	public boolean isAllowed(IAction action) {
 		IUserType allowedType = action.getAllowedUserType();
 		
@@ -49,6 +60,7 @@ public class UserControl implements IUserControl {
 		}
 	}
 
+	@Override
 	public void login(IUser user) throws UserAlreadyLoggedIn,
 		AnotherUserAlreadyLoggedIn {
 
@@ -67,6 +79,7 @@ public class UserControl implements IUserControl {
 		}
 	}
 
+	@Override
 	public IUser logout() throws NoUserLoggedIn {
 		if(this.loggedUser == GUEST_USER) {
 			throw new NoUserLoggedIn();

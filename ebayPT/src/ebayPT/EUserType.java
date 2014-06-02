@@ -7,10 +7,20 @@ package ebayPT;
  *
  */
 public enum EUserType implements IUserType {
-					//User types enumeration
-	GUEST,		//Guest	User
-	USER,		//Registered
-	ADMIN;		//Administrator
+	/**
+	 * Guest User
+	 */
+	GUEST,
+	
+	/**
+	 * Registered
+	 */
+	USER,
+	
+	/**
+	 * Administrator
+	 */
+	ADMIN;
 		
 	@Override
 	public boolean hasAccessLevel(IUserType userType){

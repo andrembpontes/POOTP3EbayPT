@@ -8,10 +8,20 @@ package ebayPT;
  */
 public class Car extends Product implements ICar {
 
-	private String 	make,	//Car make
-					model; 	//Car model
+	/**
+	 * Car make
+	 */
+	private String 	make;
 	
-	private int year;		//Car year
+	/**
+	 * Car model
+	 */
+	private String  model;
+	
+	/**
+	 * Car year
+	 */
+	private int year;
 	
 	/**
 	 * Creates a new Car product with givens data

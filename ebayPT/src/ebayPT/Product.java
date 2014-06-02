@@ -8,10 +8,34 @@ package ebayPT;
  */
 
 public abstract class Product implements IProduct {
+	
+	/**
+	 * Category
+	 */
 	private EProductCategory category;
-	private String code, description;
+	
+	/**
+	 * Code
+	 */
+	private String code;
+	
+	/**
+	 * Description
+	 */
+	private String description;
+	
+	/**
+	 * Actual state
+	 */
 	private EProductState state;
 
+	/**
+	 * Creates new product with state IProduct.START_STATE and givens data
+	 * 
+	 * @param category: Category
+	 * @param code: Code
+	 * @param description: Description
+	 */
 	Product (EProductCategory category, String code, String description){
 		this.category = category;
 		this.code = code;

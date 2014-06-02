@@ -19,11 +19,30 @@ import ebayPT.exceptions.ProductNotAvailable;
  */
 public class Auction implements IAuction, Comparable<IAuction> {
 
-	private IUser seller;		//Seller user
-	private IProduct product;	//Auctioned product
-	private Collection<IBid> bids;	//List of bids
-	private boolean open;		//Whether the auction is open
-	private int base;			//Minimum starting bid amount
+	/**
+	 * Seller user
+	 */
+	private IUser seller;
+
+	/**
+	 * Auctioned product
+	 */
+	private IProduct product;
+
+	/**
+	 * List of bids
+	 */
+	private Collection<IBid> bids;
+	
+	/**
+	 * Whether the auction is open
+	 */
+	private boolean open;
+	
+	/**
+	 * Minimum starting bid amount
+	 */
+	private int base;
 	
 	/**
 	 * Creates and opens a standard auction.

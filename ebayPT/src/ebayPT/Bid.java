@@ -8,8 +8,20 @@ package ebayPT;
  */
 public class Bid implements IBid, Comparable<IBid>{
 
+	/**
+	 * Bidder user
+	 */
 	private IUser bidder;
-	private int amount, count;
+	
+	/**
+	 * Bid amount
+	 */
+	private int amount;
+	
+	/**
+	 * Chronological position
+	 */
+	private int count;
 	
 	/**
 	 * Creates new bid

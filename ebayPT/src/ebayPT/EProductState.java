@@ -7,8 +7,18 @@ package ebayPT;
  *
  */
 public enum EProductState {
-				//Product states enumeration:
-	SALE,		//Sale
-	AUCTION,	//Auction
-	SOLD;		//Sold
+	/**
+	 * Product available for selling
+	 */
+	SALE,
+	
+	/**
+	 * Auction running for this product
+	 */
+	AUCTION,
+	
+	/**
+	 * Product has been sold
+	 */
+	SOLD;
 }

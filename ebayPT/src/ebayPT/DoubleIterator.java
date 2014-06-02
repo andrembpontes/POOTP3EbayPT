@@ -11,7 +11,14 @@ import java.util.NoSuchElementException;
  */
 public class DoubleIterator<E> implements Iterator<E> {
 
+	/**
+	 * List of iterators
+	 */
 	private Iterator<Collection<E>> iteratorsList;
+	
+	/**
+	 * Actual iterator in iteration
+	 */
 	private Iterator<E> actualIterator;
 	
 	/**

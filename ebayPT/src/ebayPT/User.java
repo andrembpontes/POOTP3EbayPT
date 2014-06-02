@@ -17,18 +17,46 @@ import ebayPT.exceptions.ProductAlreadyExists;
  */
 
 public class User implements IUser{
-	private String username, email, name;
 	
+	/**
+	 * Username 
+	 */
+	private String username;
+	
+	/**
+	 * Email
+	 */
+	private String email;
+	
+	/**
+	 * Name
+	 */
+	private String name;
+	
+	/**
+	 * Type
+	 */
 	private IUserType type;
 	
-	private Map<String, IProduct> products; // products indexed by product code
+	/**
+	 * products indexed by product code
+	 */
+	private Map<String, IProduct> products;
 	
-	private Map<String, IAuction> auctionsByProductCode; // open auctions indexed
-														// by product code
+	/**
+	 * open auctions indexed by product code
+	 */
+	private Map<String, IAuction> auctionsByProductCode;
 	
-	private Map<String, IAuction> closedAuctions; // closed auctions indexed by product code
+	/**
+	 * Closed auctions indexed by product code
+	 */
+	private Map<String, IAuction> closedAuctions;
 	
-	private int closedAuctionSales;	// total amount earned in auctions
+	/**
+	 * Total amount earned in auctions
+	 */
+	private int closedAuctionSales;
 	
 	public User(IUserType type, String username, String email, String name){
 		this.type = type;

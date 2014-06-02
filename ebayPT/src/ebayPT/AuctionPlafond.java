@@ -17,7 +17,10 @@ import ebayPT.exceptions.ProductNotAvailable;
  */
 public class AuctionPlafond extends Auction {
 
-	private int plafond;	//Auction plafond
+	/**
+	 * Auction plafond
+	 */
+	private int plafond;
 	
 	/**
 	 * Creates and opens a plafond auction.

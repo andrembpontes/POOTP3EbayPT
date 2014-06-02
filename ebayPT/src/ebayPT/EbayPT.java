@@ -12,11 +12,18 @@ import ebayPT.exceptions.*;
 
 public class EbayPT implements IEbayPT {
 
+	/**
+	 * User control module
+	 */
 	private IUserControl userControl;
+	
+	/**
+	 * Data base object
+	 */
 	private IDataBase db;
 	
 	/**
-	 * Constructor
+	 * Constructor ebayPT initialize all needed variables
 	 */
 	public EbayPT() {
 		this.userControl = new UserControl();

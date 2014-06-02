@@ -7,7 +7,14 @@ package ebayPT;
  *
  */
 public enum EProductCategory {
-			//Categories list
-	TABLET,	//Tablet
-	CAR;	//Car
+	
+	/**
+	 * Tablet
+	 */
+	TABLET,
+	
+	/**
+	 * Car
+	 */
+	CAR;
 }

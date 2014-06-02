@@ -8,9 +8,20 @@ package ebayPT;
  */
 public class Tablet extends Product implements ITablet {
 
-	private String brand;		//Brand
-	private int size,			//Size
-				weight;			//Weight
+	/**
+	 * Brand
+	 */
+	private String brand;
+	
+	/**
+	 * Size
+	 */
+	private int size;
+	
+	/**
+	 * Weight
+	 */
+	private int weight;
 	
 	/**
 	 * Creates a new Tablet product with givens data

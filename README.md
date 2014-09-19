@@ -1,9 +1,8 @@
-POOTP3EbayPT
+Ebay@pt
 ============
 
-Projecto de POO Trabalho prático 3 - Ebay@pt
+Projecto prático final realizado no âmbito da cadeira de Programação Orientada pelos Objectos.
 
-
-CODE HINTS
-==========
-1]  Simplify tasks on Main - implement toString() on IProduct, IAuction etc...
+Realizado por:
+@andrembpontes: André Pontes
+@rodjbs:        Rodrigo Simões
